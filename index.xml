@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Home on arun._space</title>
-    <link>https://arunprakaash.github.io/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content in Home on arun._space</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Nov 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://arunprakaash.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Jun 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Defensive Distillation</title>
-      <link>https://arunprakaash.github.io/posts/defensive_distillation/</link>
-      <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/posts/defensive_distillation/</guid>
+      <link>http://localhost:1313/blogs/defensive_distillation/</link>
+      <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blogs/defensive_distillation/</guid>
       <description>An exploration of defensive distillation techniques to protect neural networks against adversarial attacks</description>
     </item>
     <item>
       <title>About</title>
-      <link>https://arunprakaash.github.io/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/about/</guid>
+      <guid>http://localhost:1313/about/</guid>
       <description>I studied Artificial Intelligence and Machine Learning from 2019 to 2024 at the Coimbatore Institute of Technology, and started working as a AI Engineer soon after.&#xA;Experience RocketFrog.ai&#xA;06/24 - present | India&#xA;AI researcher/Engineer&#xA;Hiaido&#xA;04/24 - 06/24 | India&#xA;AI Engineer&#xA;Sayvai&#xA;06/23 - 05/24 | India&#xA;AI Researcher/Engineer&#xA;Bosch Global Software Technologies&#xA;07/22 - 12/22 | India&#xA;AI/ML Intern&#xA;Education Coimbatore Institute of Technology&#xA;2019 - 2024</description>
     </item>
   </channel>

@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://arunprakaash.github.io/posts/defensive_distillation/</loc>
-    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/blogs/</loc>
+    <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/</loc>
-    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/blogs/defensive_distillation/</loc>
+    <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/machine-learning/</loc>
-    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/neural-networks/</loc>
-    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/tags/machine-learning/</loc>
+    <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/posts/</loc>
-    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/tags/neural-networks/</loc>
+    <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/security/</loc>
-    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/tags/security/</loc>
+    <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/</loc>
-    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/about/</loc>
+    <loc>http://localhost:1313/about/</loc>
   </url>
 </urlset>
