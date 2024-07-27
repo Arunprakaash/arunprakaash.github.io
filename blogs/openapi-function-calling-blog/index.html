@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width"><meta name="description" content="Discover how to combine OpenAPI specifications with AI function calling to create intelligent API interactions. This guide covers manual and Langchain implementations, practical use cases, and key considerations for developers and AI enthusiasts." />
+
+<title>
+    
+    OpenAPI to Function Calling: A Comprehensive Guide | arun._space
+    
+</title>
+
+<link rel="canonical" href="http://localhost:1313/blogs/openapi-function-calling-blog/" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.a6824bbee0d90d5af09fed9b70395ce7076b615e315037455d903314e96ef91b.css" media="all">
+
+
+
+
+  </head>
+
+  
+
+  
+  
+  
+
+  <body class="auto">
+
+    <div class="content">
+      <header>
+        
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">arun._space</h1>
+
+    <div class="flex">
+        
+
+        
+        
+        <p class="small ">
+            <a href="/">
+                /home
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/blogs">
+                /blogs
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/about">
+                /about
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+      </header>
+
+      <main class="main">
+        
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/blogs/">Blogs</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/blogs/openapi-function-calling-blog/">OpenAPI to Function Calling: A Comprehensive Guide</a>
+</div>
+
+
+<div  class="autonumber" >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">OpenAPI to Function Calling: A Comprehensive Guide</h1>
+    
+    <p class="single-summary">Learn how to convert OpenAPI specs to AI-usable functions for smarter API interactions.</p>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2024-07-27T00:00:00&#43;00:00">July 27, 2024</time>
+      
+
+      
+      &nbsp; · &nbsp;
+      8 min read
+      
+    </p>
+
+  </div>
+
+  
+
+  
+
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#understanding-openapi-specifications">Understanding OpenAPI Specifications</a></li>
+    <li><a href="#function-calling-in-language-models">Function Calling in Language Models</a>
+      <ul>
+        <li><a href="#what-function-calling-is">What Function Calling Is</a></li>
+        <li><a href="#what-function-calling-isnt">What Function Calling Isn&rsquo;t</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#example">Example</a></li>
+        <li><a href="#why-its-useful">Why It&rsquo;s Useful</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-magic-converting-openapi-to-functions">The Magic: Converting OpenAPI to Functions</a></li>
+    <li><a href="#core-idea">Core Idea</a>
+      <ul>
+        <li><a href="#basic-implementation">Basic Implementation</a></li>
+        <li><a href="#implementation-using-langchain">Implementation using Langchain</a></li>
+      </ul>
+    </li>
+    <li><a href="#practical-use-cases">Practical Use Cases</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+  </aside>
+  
+
+  
+
+  <div class="single-content">
+    <h1 id="openapi-to-function-calling-a-comprehensive-guide">OpenAPI to Function Calling: A Comprehensive Guide</h1>
+<p>Imagine a world where machines can talk to each other seamlessly, sharing data and insights like old friends swapping stories. Sounds like science fiction, right? Well, we&rsquo;re about to make it a reality!</p>
+<p>In this blog post, we&rsquo;re going to take you on a thrilling adventure that combines two revolutionary concepts: OpenAPI specifications and function calling in language models. Buckle up, because we&rsquo;re about to show you how these two game-changers can come together to create systems that are not only intelligent but also flexible and adaptable.</p>
+<p>So, what are you waiting for? Let&rsquo;s dive into the world of APIs, AI, and the future of intelligent systems!</p>
+<h2 id="understanding-openapi-specifications">Understanding OpenAPI Specifications</h2>
+<p>OpenAPI (formerly known as Swagger) is a standard way to describe RESTful APIs. It&rsquo;s like a blueprint for an API, telling developers what the API can do, what data it expects, and what it will return.</p>
+<p>Key components of an OpenAPI spec include:</p>
+<ul>
+<li>Paths: The different endpoints of your API</li>
+<li>Methods: What actions can be performed (GET, POST, etc.)</li>
+<li>Parameters: What data the API expects</li>
+<li>Responses: What the API will return</li>
+</ul>
+<p>Here&rsquo;s a simple example of an OpenAPI specification:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>openapi: 3.0.0
+</span></span><span style="display:flex;"><span>info:
+</span></span><span style="display:flex;"><span>  title: Sample API
+</span></span><span style="display:flex;"><span>  version: 1.0.0
+</span></span><span style="display:flex;"><span>paths:
+</span></span><span style="display:flex;"><span>  /users:
+</span></span><span style="display:flex;"><span>    get:
+</span></span><span style="display:flex;"><span>      summary: Get all users
+</span></span><span style="display:flex;"><span>      responses:
+</span></span><span style="display:flex;"><span>        &#39;200&#39;:
+</span></span><span style="display:flex;"><span>          description: Successful response
+</span></span><span style="display:flex;"><span>    post:
+</span></span><span style="display:flex;"><span>      summary: Create a user
+</span></span><span style="display:flex;"><span>      requestBody:
+</span></span><span style="display:flex;"><span>        required: <span style="font-weight:bold;text-decoration:underline">true</span>
+</span></span><span style="display:flex;"><span>        content:
+</span></span><span style="display:flex;"><span>          application/json:
+</span></span><span style="display:flex;"><span>            schema:
+</span></span><span style="display:flex;"><span>              type: object
+</span></span><span style="display:flex;"><span>              properties:
+</span></span><span style="display:flex;"><span>                name:
+</span></span><span style="display:flex;"><span>                  type: string
+</span></span><span style="display:flex;"><span>                email:
+</span></span><span style="display:flex;"><span>                  type: string
+</span></span><span style="display:flex;"><span>      responses:
+</span></span><span style="display:flex;"><span>        &#39;201&#39;:
+</span></span><span style="display:flex;"><span>          description: User created
+</span></span></code></pre></div><h2 id="function-calling-in-language-models">Function Calling in Language Models</h2>
+<p>Function calling is a feature in advanced language models like GPT-4. However, it&rsquo;s important to understand what this feature actually does and what it doesn&rsquo;t do.</p>
+<h3 id="what-function-calling-is">What Function Calling Is</h3>
+<p>Function calling in language models is essentially a way to generate structured outputs. When we say the model can &ldquo;call functions,&rdquo; what we really mean is:</p>
+<ol>
+<li>The model is given information about one or more functions, including their names, parameters, and descriptions.</li>
+<li>When prompted, the model can generate an output that specifies:
+<ul>
+<li>Which function should be called</li>
+<li>What arguments should be passed to that function</li>
+</ul>
+</li>
+</ol>
+<p>This output is formatted in a specific, structured way that makes it easy for a program to parse and use.</p>
+<h3 id="what-function-calling-isnt">What Function Calling Isn&rsquo;t</h3>
+<p>It&rsquo;s crucial to understand that the language model does not actually execute any functions. The model merely suggests a function call and its arguments. The actual execution of the function must be done by the application using the model&rsquo;s output.</p>
+<h3 id="how-it-works">How It Works</h3>
+<p>Here&rsquo;s a step-by-step breakdown of how function calling works:</p>
+<ol>
+<li>
+<p><strong>Function Definition</strong>: You define one or more functions that the model can &ldquo;call&rdquo;. These definitions include the function name, parameters, and a description of what the function does.</p>
+</li>
+<li>
+<p><strong>Model Input</strong>: When you send a prompt to the model, you also send these function definitions.</p>
+</li>
+<li>
+<p><strong>Model Output</strong>: The model analyzes the prompt and the function definitions. If it determines that calling a function would be appropriate, it generates an output specifying which function to call and with what arguments.</p>
+</li>
+<li>
+<p><strong>Parsing the Output</strong>: Your application receives this structured output and parses it to determine which function the model suggested and what arguments it proposed.</p>
+</li>
+<li>
+<p><strong>Actual Execution</strong>: If appropriate, your application then actually calls the real function with the suggested arguments.</p>
+</li>
+</ol>
+<h3 id="example">Example</h3>
+<p>Let&rsquo;s say we define a function like this:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#666;font-style:italic">&#34;name&#34;</span>: <span style="color:#666;font-style:italic">&#34;get_weather&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#666;font-style:italic">&#34;description&#34;</span>: <span style="color:#666;font-style:italic">&#34;Get the current weather in a given location&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#666;font-style:italic">&#34;parameters&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#666;font-style:italic">&#34;type&#34;</span>: <span style="color:#666;font-style:italic">&#34;object&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#666;font-style:italic">&#34;properties&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#666;font-style:italic">&#34;location&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#666;font-style:italic">&#34;type&#34;</span>: <span style="color:#666;font-style:italic">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#666;font-style:italic">&#34;description&#34;</span>: <span style="color:#666;font-style:italic">&#34;The city and state, e.g. San Francisco, CA&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      <span style="color:#666;font-style:italic">&#34;unit&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#666;font-style:italic">&#34;type&#34;</span>: <span style="color:#666;font-style:italic">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#666;font-style:italic">&#34;enum&#34;</span>: [<span style="color:#666;font-style:italic">&#34;celsius&#34;</span>, <span style="color:#666;font-style:italic">&#34;fahrenheit&#34;</span>]
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#666;font-style:italic">&#34;required&#34;</span>: [<span style="color:#666;font-style:italic">&#34;location&#34;</span>]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>If we then ask the model &ldquo;What&rsquo;s the weather like in New York?&rdquo;, it might generate an output like this:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  &#34;function&#34;: <span style="color:#666;font-style:italic">&#34;get_weather&#34;</span>,
+</span></span><span style="display:flex;"><span>  &#34;arguments&#34;: {
+</span></span><span style="display:flex;"><span>    &#34;location&#34;: <span style="color:#666;font-style:italic">&#34;New York, NY&#34;</span>,
+</span></span><span style="display:flex;"><span>    &#34;unit&#34;: <span style="color:#666;font-style:italic">&#34;fahrenheit&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This output doesn&rsquo;t actually get the weather - it just suggests calling a function that would get the weather. Your application would then need to have an actual <code>get_weather</code> function that it calls with these arguments to retrieve the real weather data.</p>
+<h3 id="why-its-useful">Why It&rsquo;s Useful</h3>
+<p>Despite not actually executing functions, this feature is extremely powerful because it allows the model to:</p>
+<ol>
+<li>Understand and respond to user intents in a structured way</li>
+<li>Interface with external systems and APIs through your application</li>
+<li>Provide consistent, parseable outputs for complex queries</li>
+</ol>
+<p>By combining this with OpenAPI specifications, we can create systems where AI models can effectively &ldquo;use&rdquo; APIs based on their documentation, opening up a world of possibilities for AI-driven automation and interaction.</p>
+<h2 id="the-magic-converting-openapi-to-functions">The Magic: Converting OpenAPI to Functions</h2>
+<p>Now, here&rsquo;s where it gets exciting. We can take an OpenAPI specification and convert it into a format that a language model can understand for function calling. This means the AI can effectively &ldquo;use&rdquo; the API!</p>
+<h2 id="core-idea">Core Idea</h2>
+<h3 id="basic-implementation">Basic Implementation</h3>
+<p>Let&rsquo;s break down the logic:</p>
+<ol>
+<li><strong>Create an OpenAPIToFunctionConverter class</strong>:
+This class takes an OpenAPI spec and converts it to a list of functions the AI can understand.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">class</span> <span style="color:#666;font-weight:bold;font-style:italic">OpenAPIToFunctionConverter</span>:
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold;text-decoration:underline">def</span> __init__(<span style="font-weight:bold;font-style:italic">self</span>, spec: Dict[<span style="font-weight:bold;font-style:italic">str</span>, Any]):
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;font-style:italic">self</span>.spec = spec
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold;text-decoration:underline">def</span> <span style="color:#666;font-weight:bold;font-style:italic">convert_to_functions</span>(<span style="font-weight:bold;font-style:italic">self</span>) -&gt; List[Dict[<span style="font-weight:bold;font-style:italic">str</span>, Any]]:
+</span></span><span style="display:flex;"><span>        functions = []
+</span></span><span style="display:flex;"><span>        paths = <span style="font-weight:bold;font-style:italic">self</span>.spec.get(<span style="color:#666;font-style:italic">&#39;paths&#39;</span>, {})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">for</span> path, methods <span style="font-weight:bold">in</span> paths.items():
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold;text-decoration:underline">for</span> method, details <span style="font-weight:bold">in</span> methods.items():
+</span></span><span style="display:flex;"><span>                function = <span style="font-weight:bold;font-style:italic">self</span>._create_function(path, method, details)
+</span></span><span style="display:flex;"><span>                functions.append(function)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">return</span> functions
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold;text-decoration:underline">def</span> <span style="color:#666;font-weight:bold;font-style:italic">_create_function</span>(<span style="font-weight:bold;font-style:italic">self</span>, path: <span style="font-weight:bold;font-style:italic">str</span>, method: <span style="font-weight:bold;font-style:italic">str</span>, details: Dict[<span style="font-weight:bold;font-style:italic">str</span>, Any]) -&gt; Dict[<span style="font-weight:bold;font-style:italic">str</span>, Any]:
+</span></span><span style="display:flex;"><span>        function = {
+</span></span><span style="display:flex;"><span>            <span style="color:#666;font-style:italic">&#34;name&#34;</span>: details.get(<span style="color:#666;font-style:italic">&#39;operationId&#39;</span>) <span style="font-weight:bold">or</span> <span style="color:#666;font-style:italic">f</span><span style="color:#666;font-style:italic">&#34;</span><span style="color:#666;font-style:italic">{</span>method<span style="color:#666;font-style:italic">}</span><span style="color:#666;font-style:italic">_</span><span style="color:#666;font-style:italic">{</span><span style="font-weight:bold;font-style:italic">self</span>._path_to_name(path)<span style="color:#666;font-style:italic">}</span><span style="color:#666;font-style:italic">&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#666;font-style:italic">&#34;description&#34;</span>: details.get(<span style="color:#666;font-style:italic">&#39;summary&#39;</span>, details.get(<span style="color:#666;font-style:italic">&#39;description&#39;</span>, <span style="color:#666;font-style:italic">&#39;No description provided&#39;</span>)),
+</span></span><span style="display:flex;"><span>            <span style="color:#666;font-style:italic">&#34;parameters&#34;</span>: {
+</span></span><span style="display:flex;"><span>                <span style="color:#666;font-style:italic">&#34;type&#34;</span>: <span style="color:#666;font-style:italic">&#34;object&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#666;font-style:italic">&#34;properties&#34;</span>: {},
+</span></span><span style="display:flex;"><span>                <span style="color:#666;font-style:italic">&#34;required&#34;</span>: []
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#888;font-style:italic"># Handle path parameters</span>
+</span></span><span style="display:flex;"><span>        path_params = [p <span style="font-weight:bold;text-decoration:underline">for</span> p <span style="font-weight:bold">in</span> details.get(<span style="color:#666;font-style:italic">&#39;parameters&#39;</span>, []) <span style="font-weight:bold;text-decoration:underline">if</span> p[<span style="color:#666;font-style:italic">&#39;in&#39;</span>] == <span style="color:#666;font-style:italic">&#39;path&#39;</span>]
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">for</span> param <span style="font-weight:bold">in</span> path_params:
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold;font-style:italic">self</span>._add_parameter(function, param)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#888;font-style:italic"># Handle query parameters</span>
+</span></span><span style="display:flex;"><span>        query_params = [p <span style="font-weight:bold;text-decoration:underline">for</span> p <span style="font-weight:bold">in</span> details.get(<span style="color:#666;font-style:italic">&#39;parameters&#39;</span>, []) <span style="font-weight:bold;text-decoration:underline">if</span> p[<span style="color:#666;font-style:italic">&#39;in&#39;</span>] == <span style="color:#666;font-style:italic">&#39;query&#39;</span>]
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">for</span> param <span style="font-weight:bold">in</span> query_params:
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold;font-style:italic">self</span>._add_parameter(function, param)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#888;font-style:italic"># Handle request body</span>
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">if</span> <span style="color:#666;font-style:italic">&#39;requestBody&#39;</span> <span style="font-weight:bold">in</span> details:
+</span></span><span style="display:flex;"><span>            content = details[<span style="color:#666;font-style:italic">&#39;requestBody&#39;</span>].get(<span style="color:#666;font-style:italic">&#39;content&#39;</span>, {})
+</span></span><span style="display:flex;"><span>            schema = <span style="font-weight:bold;font-style:italic">next</span>(<span style="font-weight:bold;font-style:italic">iter</span>(content.values())).get(<span style="color:#666;font-style:italic">&#39;schema&#39;</span>, {}) <span style="font-weight:bold;text-decoration:underline">if</span> content <span style="font-weight:bold;text-decoration:underline">else</span> {}
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold;text-decoration:underline">if</span> schema.get(<span style="color:#666;font-style:italic">&#39;type&#39;</span>) == <span style="color:#666;font-style:italic">&#39;object&#39;</span>:
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold;text-decoration:underline">for</span> prop_name, prop_details <span style="font-weight:bold">in</span> schema.get(<span style="color:#666;font-style:italic">&#39;properties&#39;</span>, {}).items():
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold;font-style:italic">self</span>._add_parameter(function, {
+</span></span><span style="display:flex;"><span>                        <span style="color:#666;font-style:italic">&#39;name&#39;</span>: prop_name,
+</span></span><span style="display:flex;"><span>                        <span style="color:#666;font-style:italic">&#39;schema&#39;</span>: prop_details,
+</span></span><span style="display:flex;"><span>                        <span style="color:#666;font-style:italic">&#39;required&#39;</span>: prop_name <span style="font-weight:bold">in</span> schema.get(<span style="color:#666;font-style:italic">&#39;required&#39;</span>, [])
+</span></span><span style="display:flex;"><span>                    })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">return</span> function
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold;text-decoration:underline">def</span> <span style="color:#666;font-weight:bold;font-style:italic">_handle_schema</span>(<span style="font-weight:bold;font-style:italic">self</span>, schema: Dict[<span style="font-weight:bold;font-style:italic">str</span>, Any]) -&gt; Dict[<span style="font-weight:bold;font-style:italic">str</span>, Any]:
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">if</span> <span style="color:#666;font-style:italic">&#39;allOf&#39;</span> <span style="font-weight:bold">in</span> schema:
+</span></span><span style="display:flex;"><span>            <span style="color:#888;font-style:italic"># Combine all subschemas</span>
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold;text-decoration:underline">return</span> <span style="font-weight:bold;font-style:italic">self</span>._combine_schemas(schema[<span style="color:#666;font-style:italic">&#39;allOf&#39;</span>])
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">elif</span> <span style="color:#666;font-style:italic">&#39;anyOf&#39;</span> <span style="font-weight:bold">in</span> schema <span style="font-weight:bold">or</span> <span style="color:#666;font-style:italic">&#39;oneOf&#39;</span> <span style="font-weight:bold">in</span> schema:
+</span></span><span style="display:flex;"><span>            <span style="color:#888;font-style:italic"># Use the first schema as an example</span>
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold;text-decoration:underline">return</span> <span style="font-weight:bold;font-style:italic">self</span>._handle_schema(schema.get(<span style="color:#666;font-style:italic">&#39;anyOf&#39;</span>, schema.get(<span style="color:#666;font-style:italic">&#39;oneOf&#39;</span>))[0])
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold;text-decoration:underline">return</span> schema
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold;text-decoration:underline">def</span> <span style="color:#666;font-weight:bold;font-style:italic">_combine_schemas</span>(<span style="font-weight:bold;font-style:italic">self</span>, schemas: List[Dict[<span style="font-weight:bold;font-style:italic">str</span>, Any]]) -&gt; Dict[<span style="font-weight:bold;font-style:italic">str</span>, Any]:
+</span></span><span style="display:flex;"><span>        combined = {}
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">for</span> schema <span style="font-weight:bold">in</span> schemas:
+</span></span><span style="display:flex;"><span>            combined.update(<span style="font-weight:bold;font-style:italic">self</span>._handle_schema(schema))
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">return</span> combined
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold;text-decoration:underline">def</span> <span style="color:#666;font-weight:bold;font-style:italic">_add_parameter</span>(<span style="font-weight:bold;font-style:italic">self</span>, function: Dict[<span style="font-weight:bold;font-style:italic">str</span>, Any], param: Dict[<span style="font-weight:bold;font-style:italic">str</span>, Any]):
+</span></span><span style="display:flex;"><span>        param_schema = <span style="font-weight:bold;font-style:italic">self</span>._handle_schema(param.get(<span style="color:#666;font-style:italic">&#39;schema&#39;</span>, {}))
+</span></span><span style="display:flex;"><span>        function[<span style="color:#666;font-style:italic">&#34;parameters&#34;</span>][<span style="color:#666;font-style:italic">&#34;properties&#34;</span>][param[<span style="color:#666;font-style:italic">&#39;name&#39;</span>]] = {
+</span></span><span style="display:flex;"><span>            <span style="color:#666;font-style:italic">&#34;type&#34;</span>: param_schema.get(<span style="color:#666;font-style:italic">&#39;type&#39;</span>, <span style="color:#666;font-style:italic">&#39;string&#39;</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#666;font-style:italic">&#34;description&#34;</span>: param.get(<span style="color:#666;font-style:italic">&#39;description&#39;</span>, <span style="color:#666;font-style:italic">&#39;No description provided&#39;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">if</span> param_schema.get(<span style="color:#666;font-style:italic">&#39;enum&#39;</span>):
+</span></span><span style="display:flex;"><span>            function[<span style="color:#666;font-style:italic">&#34;parameters&#34;</span>][<span style="color:#666;font-style:italic">&#34;properties&#34;</span>][param[<span style="color:#666;font-style:italic">&#39;name&#39;</span>]][<span style="color:#666;font-style:italic">&#34;enum&#34;</span>] = param_schema[<span style="color:#666;font-style:italic">&#39;enum&#39;</span>]
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">if</span> param.get(<span style="color:#666;font-style:italic">&#39;required&#39;</span>, <span style="font-weight:bold;text-decoration:underline">False</span>):
+</span></span><span style="display:flex;"><span>            function[<span style="color:#666;font-style:italic">&#34;parameters&#34;</span>][<span style="color:#666;font-style:italic">&#34;required&#34;</span>].append(param[<span style="color:#666;font-style:italic">&#39;name&#39;</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @staticmethod
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold;text-decoration:underline">def</span> <span style="color:#666;font-weight:bold;font-style:italic">_path_to_name</span>(path: <span style="font-weight:bold;font-style:italic">str</span>) -&gt; <span style="font-weight:bold;font-style:italic">str</span>:
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">return</span> path.replace(<span style="color:#666;font-style:italic">&#39;/&#39;</span>, <span style="color:#666;font-style:italic">&#39;_&#39;</span>).strip(<span style="color:#666;font-style:italic">&#39;_&#39;</span>).replace(<span style="color:#666;font-style:italic">&#39;{&#39;</span>, <span style="color:#666;font-style:italic">&#39;&#39;</span>).replace(<span style="color:#666;font-style:italic">&#39;}&#39;</span>, <span style="color:#666;font-style:italic">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold;text-decoration:underline">def</span> <span style="color:#666;font-weight:bold;font-style:italic">get_functions</span>(<span style="font-weight:bold;font-style:italic">self</span>) -&gt; List[Dict[<span style="font-weight:bold;font-style:italic">str</span>, Any]]:
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">return</span> <span style="font-weight:bold;font-style:italic">self</span>.convert_to_functions()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#888;font-style:italic"># Usage</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">with</span> <span style="font-weight:bold;font-style:italic">open</span>(<span style="color:#666;font-style:italic">&#34;api_spec.yaml&#34;</span>) <span style="font-weight:bold;text-decoration:underline">as</span> f:
+</span></span><span style="display:flex;"><span>    raw_openapi_spec = yaml.safe_load(f)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>converter = OpenAPIToFunctionConverter(raw_openapi_spec)
+</span></span><span style="display:flex;"><span>functions = converter.get_functions()
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;font-style:italic">print</span>(functions)
+</span></span></code></pre></div><p>Output:</p>
+<pre tabindex="0"><code>[
+    {
+        &#34;name&#34;: &#34;get_users&#34;,
+        &#34;description&#34;: &#34;Get all users&#34;,
+        &#34;parameters&#34;: {
+            &#34;type&#34;: &#34;object&#34;,
+            &#34;properties&#34;: {},
+            &#34;required&#34;: []
+        }
+    },
+    {
+        &#34;name&#34;: &#34;post_users&#34;,
+        &#34;description&#34;: &#34;Create a user&#34;,
+        &#34;parameters&#34;: {
+            &#34;type&#34;: &#34;object&#34;,
+            &#34;properties&#34;: {
+                &#34;name&#34;: {
+                    &#34;type&#34;: &#34;string&#34;,
+                    &#34;description&#34;: &#34;User&#39;s name&#34;
+                },
+                &#34;email&#34;: {
+                    &#34;type&#34;: &#34;string&#34;,
+                    &#34;description&#34;: &#34;User&#39;s email&#34;
+                }
+            },
+            &#34;required&#34;: [&#34;name&#34;, &#34;email&#34;]
+        }
+    }
+]
+</code></pre><ol start="2">
+<li><strong>Create an LLMFunctionCaller class</strong>:
+This class uses the OpenAI API to call the language model with the converted functions.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">import</span> <span style="color:#666;font-weight:bold;font-style:italic">os</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">import</span> <span style="color:#666;font-weight:bold;font-style:italic">openai</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">from</span> <span style="color:#666;font-weight:bold;font-style:italic">dotenv</span> <span style="font-weight:bold;text-decoration:underline">import</span> load_dotenv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>load_dotenv()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">class</span> <span style="color:#666;font-weight:bold;font-style:italic">LLMFunctionCaller</span>:
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold;text-decoration:underline">def</span> __init__(<span style="font-weight:bold;font-style:italic">self</span>, api_key: <span style="font-weight:bold;font-style:italic">str</span>, model: <span style="font-weight:bold;font-style:italic">str</span> = <span style="color:#666;font-style:italic">&#34;gpt-4o-mini&#34;</span>):
+</span></span><span style="display:flex;"><span>        openai.api_key = api_key
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;font-style:italic">self</span>.model = model
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold;text-decoration:underline">def</span> <span style="color:#666;font-weight:bold;font-style:italic">call_llm_with_functions</span>(<span style="font-weight:bold;font-style:italic">self</span>, prompt: <span style="font-weight:bold;font-style:italic">str</span>, functions: List[Dict[<span style="font-weight:bold;font-style:italic">str</span>, Any]]):
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">try</span>:
+</span></span><span style="display:flex;"><span>            response = openai.chat.completions.create(
+</span></span><span style="display:flex;"><span>                model=<span style="font-weight:bold;font-style:italic">self</span>.model,
+</span></span><span style="display:flex;"><span>                messages=[{<span style="color:#666;font-style:italic">&#34;role&#34;</span>: <span style="color:#666;font-style:italic">&#34;user&#34;</span>, <span style="color:#666;font-style:italic">&#34;content&#34;</span>: prompt}],
+</span></span><span style="display:flex;"><span>                functions=functions,
+</span></span><span style="display:flex;"><span>                function_call=<span style="color:#666;font-style:italic">&#34;auto&#34;</span>
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold;text-decoration:underline">return</span> response.choices[0].message
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold;text-decoration:underline">except</span> Exception <span style="font-weight:bold;text-decoration:underline">as</span> e:
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold;font-style:italic">print</span>(<span style="color:#666;font-style:italic">f</span><span style="color:#666;font-style:italic">&#34;An error occurred: </span><span style="color:#666;font-style:italic">{</span>e<span style="color:#666;font-style:italic">}</span><span style="color:#666;font-style:italic">&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold;text-decoration:underline">return</span> <span style="font-weight:bold;text-decoration:underline">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#888;font-style:italic"># Usage</span>
+</span></span><span style="display:flex;"><span>llm_caller = LLMFunctionCaller(os.getenv(<span style="color:#666;font-style:italic">&#39;OPENAI_API_KEY&#39;</span>))
+</span></span><span style="display:flex;"><span>prompt = <span style="color:#666;font-style:italic">&#34;Get information about all users&#34;</span>
+</span></span><span style="display:flex;"><span>response = llm_caller.call_llm_with_functions(prompt, functions)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;font-style:italic">print</span>(<span style="color:#666;font-style:italic">&#34;LLM Response:&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;font-style:italic">print</span>(response)
+</span></span></code></pre></div><p>Output:</p>
+<pre tabindex="0"><code>LLM Response:
+{
+  &#34;function_call&#34;: {
+    &#34;name&#34;: &#34;get_users&#34;,
+    &#34;arguments&#34;: &#34;{}&#34;
+  },
+  &#34;content&#34;: null
+}
+</code></pre><h3 id="implementation-using-langchain">Implementation using Langchain</h3>
+<p>Langchain simplifies this process:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">import</span> <span style="color:#666;font-weight:bold;font-style:italic">yaml</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">from</span> <span style="color:#666;font-weight:bold;font-style:italic">langchain.agents.agent_toolkits.openapi</span> <span style="font-weight:bold;text-decoration:underline">import</span> planner
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">from</span> <span style="color:#666;font-weight:bold;font-style:italic">langchain_community.utilities</span> <span style="font-weight:bold;text-decoration:underline">import</span> RequestsWrapper
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">from</span> <span style="color:#666;font-weight:bold;font-style:italic">langchain_openai</span> <span style="font-weight:bold;text-decoration:underline">import</span> ChatOpenAI
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">from</span> <span style="color:#666;font-weight:bold;font-style:italic">dotenv</span> <span style="font-weight:bold;text-decoration:underline">import</span> load_dotenv
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">from</span> <span style="color:#666;font-weight:bold;font-style:italic">langchain_community.agent_toolkits.openapi.spec</span> <span style="font-weight:bold;text-decoration:underline">import</span> reduce_openapi_spec
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>load_dotenv()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ALLOW_DANGEROUS_REQUEST = <span style="font-weight:bold;text-decoration:underline">True</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#888;font-style:italic"># Load the OpenAPI spec</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">with</span> <span style="font-weight:bold;font-style:italic">open</span>(<span style="color:#666;font-style:italic">&#34;api_spec.yaml&#34;</span>) <span style="font-weight:bold;text-decoration:underline">as</span> f:
+</span></span><span style="display:flex;"><span>    raw_openapi_spec = yaml.safe_load(f)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#888;font-style:italic"># Reduce the OpenAPI spec dict</span>
+</span></span><span style="display:flex;"><span>reduced_spec = reduce_openapi_spec(raw_openapi_spec)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#888;font-style:italic"># Create the agent</span>
+</span></span><span style="display:flex;"><span>agent = planner.create_openapi_agent(
+</span></span><span style="display:flex;"><span>    openai_api_spec,
+</span></span><span style="display:flex;"><span>    RequestsWrapper(headers={}),
+</span></span><span style="display:flex;"><span>    llm,
+</span></span><span style="display:flex;"><span>    allow_dangerous_requests=ALLOW_DANGEROUS_REQUEST,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#888;font-style:italic"># Use the agent</span>
+</span></span><span style="display:flex;"><span>agent.invoke(<span style="color:#666;font-style:italic">&#34;Get information about all users&#34;</span>)
+</span></span></code></pre></div><p>Output:</p>
+<pre tabindex="0"><code>&gt; Entering new AgentExecutor chain...
+I need to use the GET /users endpoint to retrieve information about all users.
+
+Action: get_users
+Action Input: {}
+
+&gt; Entering new RequestsChain chain...
+Entering GET /users with:
+headers: {}
+params: {}
+data: {}
+Response: {&#34;status&#34;: &#34;success&#34;, &#34;data&#34;: [{&#34;id&#34;: 1, &#34;name&#34;: &#34;John Doe&#34;, &#34;email&#34;: &#34;john@example.com&#34;}, {&#34;id&#34;: 2, &#34;name&#34;: &#34;Jane Smith&#34;, &#34;email&#34;: &#34;jane@example.com&#34;}]}
+
+&gt; Finished chain.
+
+The GET /users endpoint returned information about all users. Here&#39;s a summary of the data:
+
+1. User ID: 1
+   Name: John Doe
+   Email: john@example.com
+
+2. User ID: 2
+   Name: Jane Smith
+   Email: jane@example.com
+
+Is there anything specific you&#39;d like to know about these users?
+
+&gt; Finished chain.
+</code></pre><h2 id="practical-use-cases">Practical Use Cases</h2>
+<p>This OpenAPI to function calling approach has numerous applications:</p>
+<ol>
+<li><strong>Chatbots for API Interaction</strong>: Create chatbots that can interact with complex APIs using natural language.</li>
+<li><strong>Automated Testing</strong>: Generate test cases for APIs based on their specifications.</li>
+<li><strong>API Exploration</strong>: Allow developers to explore and understand APIs through natural language queries.</li>
+<li><strong>Workflow Automation</strong>: Create complex workflows that interact with multiple APIs using AI-driven decision-making.</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<p>The combination of OpenAPI specifications and function calling in language models opens up exciting possibilities for creating more intelligent and user-friendly systems. Whether you&rsquo;re building a chatbot, automating workflows, or exploring APIs, this approach can significantly simplify your development process and enhance the capabilities of your applications.</p>
+<p>Start exploring the powerful world of AI-driven API interactions!</p>
+
+    
+  </div>
+
+  
+
+  
+  
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flex">
+
+        <div class="single-pagination-prev">
+            
+            <div class="single-pagination-container-prev">
+                <div class="single-pagination-text">←</div>
+                <div class="single-pagination-text">
+                    <a href="/blogs/defensive_distillation/">
+                        Defensive Distillation
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+      </main>
+    </div>
+
+    <footer>
+      <p>Powered by
+    <a href="https://gohugo.io/">Hugo</a>
+    and
+    <a href="https://github.com/tomfran/typo">tomfran/typo</a>
+</p>
+
+
+<link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+
+    </footer>
+
+  </body>
+
+  <script>
+
+  function isAuto() {
+    return document.body.classList.contains("auto");
+  }
+
+  function setTheme() {
+    if (!isAuto()) {
+      return
+    }
+
+    document.body.classList.remove("auto");
+    let cls = "light";
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      cls = "dark";
+    }
+
+    document.body.classList.add(cls);
+  }
+
+  function invertBody() {
+    document.body.classList.toggle("dark");
+    document.body.classList.toggle("light");
+  }
+
+  if (isAuto()) {
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(invertBody);
+  }
+
+  setTheme();
+
+</script>
+
+</html>
