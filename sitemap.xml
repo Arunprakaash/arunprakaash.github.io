@@ -3,12 +3,30 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://arunprakaash.github.io/blogs/</loc>
-    <lastmod>2024-07-27T00:00:00+00:00</lastmod>
+    <lastmod>2024-10-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/function-calling/</loc>
-    <lastmod>2024-07-27T00:00:00+00:00</lastmod>
+    <loc>https://arunprakaash.github.io/tags/decision-making/</loc>
+    <lastmod>2024-10-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/tags/exploration-vs-exploitation/</loc>
+    <lastmod>2024-10-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/</loc>
+    <lastmod>2024-10-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/tags/k-armed-bandit/</loc>
+    <lastmod>2024-10-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/blogs/rl/k-armed-bandit-problem/</loc>
+    <lastmod>2024-10-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/tags/reinforcement-learning/</loc>
+    <lastmod>2024-10-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/tags/</loc>
+    <lastmod>2024-10-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/tags/function-calling/</loc>
     <lastmod>2024-07-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/tags/nla/</loc>
@@ -20,10 +38,7 @@
     <loc>https://arunprakaash.github.io/tags/openapispec/</loc>
     <lastmod>2024-07-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/</loc>
-    <lastmod>2024-07-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://arunprakaash.github.io/blogs/defensive_distillation/</loc>
+    <loc>https://arunprakaash.github.io/blogs/defensive-distillation/</loc>
     <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/tags/machine-learning/</loc>

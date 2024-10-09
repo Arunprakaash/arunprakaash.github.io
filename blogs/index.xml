@@ -6,8 +6,15 @@
     <description>Recent content in Blogs on arun._space</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Jul 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 09 Oct 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://arunprakaash.github.io/blogs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>K-Armed Bandit Problem: From Casinos to Wall Street</title>
+      <link>https://arunprakaash.github.io/blogs/rl/k-armed-bandit-problem/</link>
+      <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/blogs/rl/k-armed-bandit-problem/</guid>
+      <description>An engaging exploration of the k-armed bandit problem, covering key concepts like exploration vs. exploitation, continuous rewards, and non-stationary environments.</description>
+    </item>
     <item>
       <title>OpenAPI to Function Calling: A Comprehensive Guide</title>
       <link>https://arunprakaash.github.io/blogs/openapi-function-calling-blog/</link>
@@ -17,9 +24,9 @@
     </item>
     <item>
       <title>Defensive Distillation</title>
-      <link>https://arunprakaash.github.io/blogs/defensive_distillation/</link>
+      <link>https://arunprakaash.github.io/blogs/defensive-distillation/</link>
       <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/blogs/defensive_distillation/</guid>
+      <guid>https://arunprakaash.github.io/blogs/defensive-distillation/</guid>
       <description>An exploration of defensive distillation techniques to protect neural networks against adversarial attacks</description>
     </item>
   </channel>

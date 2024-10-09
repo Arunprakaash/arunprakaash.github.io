@@ -6,8 +6,15 @@
     <description>Recent content in Home on arun._space</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Jul 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 09 Oct 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://arunprakaash.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>K-Armed Bandit Problem: From Casinos to Wall Street</title>
+      <link>https://arunprakaash.github.io/blogs/rl/k-armed-bandit-problem/</link>
+      <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/blogs/rl/k-armed-bandit-problem/</guid>
+      <description>An engaging exploration of the k-armed bandit problem, covering key concepts like exploration vs. exploitation, continuous rewards, and non-stationary environments.</description>
+    </item>
     <item>
       <title>OpenAPI to Function Calling: A Comprehensive Guide</title>
       <link>https://arunprakaash.github.io/blogs/openapi-function-calling-blog/</link>
@@ -17,9 +24,9 @@
     </item>
     <item>
       <title>Defensive Distillation</title>
-      <link>https://arunprakaash.github.io/blogs/defensive_distillation/</link>
+      <link>https://arunprakaash.github.io/blogs/defensive-distillation/</link>
       <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/blogs/defensive_distillation/</guid>
+      <guid>https://arunprakaash.github.io/blogs/defensive-distillation/</guid>
       <description>An exploration of defensive distillation techniques to protect neural networks against adversarial attacks</description>
     </item>
     <item>
@@ -27,7 +34,7 @@
       <link>https://arunprakaash.github.io/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://arunprakaash.github.io/about/</guid>
-      <description>I got my Master&amp;rsquo;s degree in Artificial Intelligence and Machine Learning from the Coimbatore Institute of Technology. Currently, I work as an AI researcher/Engineer at RocketFrog.ai in India.&#xA;During my studies and early career, I developed a strong interest in AI and machine learning applications, which I&amp;rsquo;ve been able to explore through various professional experiences.&#xA;I had the opportunity to work as an AI Researcher/Engineer and a Founding Member at Sayvai, and as an AI/ML Intern at Bosch Global Software Technologies.</description>
+      <description>&lt;p&gt;I got my Master&amp;rsquo;s degree in Artificial Intelligence and Machine Learning from the &lt;a href=&#34;https://www.cit.edu.in/&#34;&gt;Coimbatore Institute of Technology&lt;/a&gt;. Currently, I work as an AI researcher/Engineer at &lt;a href=&#34;https://rocketfrog.ai&#34;&gt;RocketFrog.ai&lt;/a&gt; in India.&lt;/p&gt;&#xA;&lt;p&gt;During my studies and early career, I developed a strong interest in AI and machine learning applications, which I&amp;rsquo;ve been able to explore through various professional experiences.&lt;/p&gt;&#xA;&lt;p&gt;I had the opportunity to work as an AI Researcher/Engineer and a Founding Member at &lt;a href=&#34;https://sayvai.io&#34;&gt;Sayvai&lt;/a&gt;, and as an AI/ML Intern at &lt;a href=&#34;https://www.bosch-softwaretechnologies.com&#34;&gt;Bosch Global Software Technologies&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
