@@ -2,56 +2,56 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://arunprakaash.github.io/blogs/</loc>
+    <loc>http://localhost:1313/blogs/</loc>
     <lastmod>2024-10-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/decision-making/</loc>
+    <loc>http://localhost:1313/tags/decision-making/</loc>
     <lastmod>2024-10-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/exploration-vs-exploitation/</loc>
+    <loc>http://localhost:1313/tags/exploration-vs-exploitation/</loc>
     <lastmod>2024-10-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2024-10-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/k-armed-bandit/</loc>
+    <loc>http://localhost:1313/tags/k-armed-bandit/</loc>
     <lastmod>2024-10-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/blogs/rl/k-armed-bandit-problem/</loc>
+    <loc>http://localhost:1313/blogs/rl/k-armed-bandit-problem/</loc>
     <lastmod>2024-10-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/reinforcement-learning/</loc>
+    <loc>http://localhost:1313/tags/reinforcement-learning/</loc>
     <lastmod>2024-10-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2024-10-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/function-calling/</loc>
+    <loc>http://localhost:1313/tags/function-calling/</loc>
     <lastmod>2024-07-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/nla/</loc>
+    <loc>http://localhost:1313/tags/nla/</loc>
     <lastmod>2024-07-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/blogs/openapi-function-calling-blog/</loc>
+    <loc>http://localhost:1313/blogs/openapi-function-calling-blog/</loc>
     <lastmod>2024-07-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/openapispec/</loc>
+    <loc>http://localhost:1313/tags/openapispec/</loc>
     <lastmod>2024-07-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/blogs/defensive-distillation/</loc>
+    <loc>http://localhost:1313/blogs/defensive-distillation/</loc>
     <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/machine-learning/</loc>
+    <loc>http://localhost:1313/tags/machine-learning/</loc>
     <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/neural-networks/</loc>
+    <loc>http://localhost:1313/tags/neural-networks/</loc>
     <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/security/</loc>
+    <loc>http://localhost:1313/tags/security/</loc>
     <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/about/</loc>
+    <loc>http://localhost:1313/about/</loc>
   </url><url>
-    <loc>https://arunprakaash.github.io/g-wmpe5d82nn/</loc>
+    <loc>http://localhost:1313/g-wmpe5d82nn/</loc>
   </url>
 </urlset>

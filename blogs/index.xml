@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blogs on arun._space</title>
-    <link>https://arunprakaash.github.io/blogs/</link>
+    <link>http://localhost:1313/blogs/</link>
     <description>Recent content in Blogs on arun._space</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 09 Oct 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://arunprakaash.github.io/blogs/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blogs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>K-Armed Bandit Problem: From Casinos to Wall Street</title>
-      <link>https://arunprakaash.github.io/blogs/rl/k-armed-bandit-problem/</link>
+      <link>http://localhost:1313/blogs/rl/k-armed-bandit-problem/</link>
       <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/blogs/rl/k-armed-bandit-problem/</guid>
+      <guid>http://localhost:1313/blogs/rl/k-armed-bandit-problem/</guid>
       <description>An engaging exploration of the k-armed bandit problem, covering key concepts like exploration vs. exploitation, continuous rewards, and non-stationary environments.</description>
     </item>
     <item>
       <title>OpenAPI to Function Calling: A Comprehensive Guide</title>
-      <link>https://arunprakaash.github.io/blogs/openapi-function-calling-blog/</link>
+      <link>http://localhost:1313/blogs/openapi-function-calling-blog/</link>
       <pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/blogs/openapi-function-calling-blog/</guid>
+      <guid>http://localhost:1313/blogs/openapi-function-calling-blog/</guid>
       <description>Learn how to convert OpenAPI specs to AI-usable functions for smarter API interactions.</description>
     </item>
     <item>
       <title>Defensive Distillation</title>
-      <link>https://arunprakaash.github.io/blogs/defensive-distillation/</link>
+      <link>http://localhost:1313/blogs/defensive-distillation/</link>
       <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/blogs/defensive-distillation/</guid>
+      <guid>http://localhost:1313/blogs/defensive-distillation/</guid>
       <description>An exploration of defensive distillation techniques to protect neural networks against adversarial attacks</description>
     </item>
   </channel>

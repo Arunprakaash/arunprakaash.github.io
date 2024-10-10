@@ -2,38 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Home on arun._space</title>
-    <link>https://arunprakaash.github.io/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content in Home on arun._space</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 09 Oct 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://arunprakaash.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>K-Armed Bandit Problem: From Casinos to Wall Street</title>
-      <link>https://arunprakaash.github.io/blogs/rl/k-armed-bandit-problem/</link>
+      <link>http://localhost:1313/blogs/rl/k-armed-bandit-problem/</link>
       <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/blogs/rl/k-armed-bandit-problem/</guid>
+      <guid>http://localhost:1313/blogs/rl/k-armed-bandit-problem/</guid>
       <description>An engaging exploration of the k-armed bandit problem, covering key concepts like exploration vs. exploitation, continuous rewards, and non-stationary environments.</description>
     </item>
     <item>
       <title>OpenAPI to Function Calling: A Comprehensive Guide</title>
-      <link>https://arunprakaash.github.io/blogs/openapi-function-calling-blog/</link>
+      <link>http://localhost:1313/blogs/openapi-function-calling-blog/</link>
       <pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/blogs/openapi-function-calling-blog/</guid>
+      <guid>http://localhost:1313/blogs/openapi-function-calling-blog/</guid>
       <description>Learn how to convert OpenAPI specs to AI-usable functions for smarter API interactions.</description>
     </item>
     <item>
       <title>Defensive Distillation</title>
-      <link>https://arunprakaash.github.io/blogs/defensive-distillation/</link>
+      <link>http://localhost:1313/blogs/defensive-distillation/</link>
       <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/blogs/defensive-distillation/</guid>
+      <guid>http://localhost:1313/blogs/defensive-distillation/</guid>
       <description>An exploration of defensive distillation techniques to protect neural networks against adversarial attacks</description>
     </item>
     <item>
       <title>About</title>
-      <link>https://arunprakaash.github.io/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/about/</guid>
+      <guid>http://localhost:1313/about/</guid>
       <description>&lt;p&gt;I got my Master&amp;rsquo;s degree in Artificial Intelligence and Machine Learning from the &lt;a href=&#34;https://www.cit.edu.in/&#34;&gt;Coimbatore Institute of Technology&lt;/a&gt;. Currently, I work as an AI researcher/Engineer at &lt;a href=&#34;https://rocketfrog.ai&#34;&gt;RocketFrog.ai&lt;/a&gt; in India.&lt;/p&gt;&#xA;&lt;p&gt;During my studies and early career, I developed a strong interest in AI and machine learning applications, which I&amp;rsquo;ve been able to explore through various professional experiences.&lt;/p&gt;&#xA;&lt;p&gt;I had the opportunity to work as an AI Researcher/Engineer and a Founding Member at &lt;a href=&#34;https://sayvai.io&#34;&gt;Sayvai&lt;/a&gt;, and as an AI/ML Intern at &lt;a href=&#34;https://www.bosch-softwaretechnologies.com&#34;&gt;Bosch Global Software Technologies&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
   </channel>
