@@ -2,9 +2,19 @@
 <html lang="en-us"
   dir="ltr">
 
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
-<meta name="viewport" content="width=device-width"><meta name="description" content="Learn how defensive distillation can enhance the robustness of deep learning models, with a practical case study using the MNIST dataset" />
+<meta name="viewport" content="width=device-width">
+
+
+
+<link rel="icon" type="image/ico" href="https://arunprakaash.github.io//favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://arunprakaash.github.io//favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://arunprakaash.github.io//favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://arunprakaash.github.io//android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://arunprakaash.github.io//apple-touch-icon.png">
+
+<meta name="description" content="Learn how defensive distillation can enhance the robustness of deep learning models, with a practical case study using the MNIST dataset"/>
 
 <title>
     
@@ -12,7 +22,20 @@
     
 </title>
 
-<link rel="canonical" href="http://localhost:1313/blogs/defensive-distillation/" />
+<link rel="canonical" href="https://arunprakaash.github.io/blogs/defensive-distillation/"/>
+
+<meta property="og:url" content="https://arunprakaash.github.io/blogs/defensive-distillation/">
+  <meta property="og:site_name" content="arun._space">
+  <meta property="og:title" content="Defensive Distillation">
+  <meta property="og:description" content="Learn how defensive distillation can enhance the robustness of deep learning models, with a practical case study using the MNIST dataset">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blogs">
+    <meta property="article:published_time" content="2023-06-12T00:00:00+00:00">
+    <meta property="article:modified_time" content="2023-06-12T00:00:00+00:00">
+    <meta property="article:tag" content="Machine Learning">
+    <meta property="article:tag" content="Security">
+    <meta property="article:tag" content="Neural Networks">
 
 
 
@@ -25,7 +48,13 @@
 
 
 
-<link rel="stylesheet" href="/assets/combined.min.a6824bbee0d90d5af09fed9b70395ce7076b615e315037455d903314e96ef91b.css" media="all">
+
+<link rel="stylesheet" href="/assets/combined.min.186794b3399a702d3092949042cdc215dea303c17e71e7c0254768448de11db8.css" media="all">
+
+
+
+
+
 
 
 
@@ -48,27 +77,32 @@
 
     
 
-    <h1 class="header-title">arun._space</h1>
+    <h1 class="header-title">
+        <a href="https://arunprakaash.github.io/">arun._space</a>
+    </h1>
 
     <div class="flex">
         
 
         
         
+      
         <p class="small ">
-            <a href="/">
+            <a href="/" >
                 /home
             </a>
         </p>
         
+      
         <p class="small ">
-            <a href="/blogs">
+            <a href="/blogs" >
                 /blogs
             </a>
         </p>
         
+      
         <p class="small ">
-            <a href="/about">
+            <a href="/about" >
                 /about
             </a>
         </p>
@@ -79,10 +113,12 @@
     
 
 </div>
+
       </header>
 
       <main class="main">
         
+
 
 
 
@@ -97,6 +133,7 @@
     
     <a class="breadcrumbs-current" href="/blogs/defensive-distillation/">Defensive Distillation</a>
 </div>
+
 
 
 <div  class="autonumber" >
@@ -164,18 +201,31 @@
   
 
   <div class="single-content">
-    <h2 id="defensive-distillation-enhancing-neural-network-robustness-against-adversarial-attacks">Defensive Distillation: Enhancing Neural Network Robustness Against Adversarial Attacks</h2>
+    <h2 class="heading" id="defensive-distillation-enhancing-neural-network-robustness-against-adversarial-attacks">
+  Defensive Distillation: Enhancing Neural Network Robustness Against Adversarial Attacks
+  <a href="#defensive-distillation-enhancing-neural-network-robustness-against-adversarial-attacks">#</a>
+</h2>
 <p>In the rapidly evolving field of machine learning and artificial intelligence, ensuring the security of our models has become a critical concern.
 As we deploy increasingly sophisticated neural networks in various applications, their vulnerability to adversarial attacks poses a significant challenge.
 This article explores defensive distillation, a powerful technique designed to fortify our models against such malicious attempts.</p>
-<h2 id="understanding-defensive-distillation">Understanding Defensive Distillation</h2>
+<h2 class="heading" id="understanding-defensive-distillation">
+  Understanding Defensive Distillation
+  <a href="#understanding-defensive-distillation">#</a>
+</h2>
 <p>Defensive distillation is an innovative approach introduced in the 2016 paper &ldquo;<a href="https://www.researchgate.net/publication/306304648_Distillation_as_a_Defense_to_Adversarial_Perturbations_Against_Deep_Neural_Networks">Distillation as a Defense to Adversarial Perturbations against Deep Neural Networks</a>&rdquo; by Nicolas Papernot et al.
 Its primary goal is to enhance the resilience of deep neural networks against adversarial examples - carefully crafted inputs designed to fool our models.</p>
-<h3 id="the-core-idea">The Core Idea</h3>
+<h3 class="heading" id="the-core-idea">
+  The Core Idea
+  <a href="#the-core-idea">#</a>
+</h3>
 <p>At its heart, defensive distillation involves training a model on perturbed data generated from the original training set.
 This process helps the model learn to be more robust and generalize better to unseen examples, particularly those that might be adversarial in nature.</p>
-<h2 id="how-defensive-distillation-works">How Defensive Distillation Works</h2>
+<h2 class="heading" id="how-defensive-distillation-works">
+  How Defensive Distillation Works
+  <a href="#how-defensive-distillation-works">#</a>
+</h2>
 <p>
+
 
 
 
@@ -192,7 +242,7 @@ This process helps the model learn to be more robust and generalize better to un
 <figure class=" img-small">
 
     <div>
-        <img loading="lazy" alt="defensive distillation architecture" src=" https://secml.github.io/images/class3/defense.png#small">
+        <img loading="lazy" alt="defensive distillation architecture" src="https://secml.github.io/images/class3/defense.png#small" >
     </div>
 
     
@@ -200,7 +250,8 @@ This process helps the model learn to be more robust and generalize better to un
         <figcaption> Defensive Distillation Architecture </figcaption>
     </div>
     
-</figure></p>
+</figure>
+</p>
 <p>The process of defensive distillation can be broken down into two main steps:</p>
 <ol>
 <li>
@@ -219,14 +270,20 @@ This process helps the model learn to be more robust and generalize better to un
 </ul>
 </li>
 </ol>
-<h3 id="the-magic-of-soft-labels">The Magic of Soft Labels</h3>
+<h3 class="heading" id="the-magic-of-soft-labels">
+  The Magic of Soft Labels
+  <a href="#the-magic-of-soft-labels">#</a>
+</h3>
 <p>A key aspect of defensive distillation is the use of soft labels. Instead of hard class labels (e.g., 0 or 1), soft labels provide probability distributions over all classes.
 This is achieved by modifying the standard softmax function with a temperature parameter T:</p>
 <p>$$
 \text{softmax}(z_i, T) = \frac{\exp(z_i / T)}{\sum_j \exp(z_j / T)}
 $$</p>
 <p>Where $z_i$ represents the logits for class i, and T is the temperature. Based on the original paper, T is typically set to 40.</p>
-<h2 id="implementing-defensive-distillation">Implementing Defensive Distillation</h2>
+<h2 class="heading" id="implementing-defensive-distillation">
+  Implementing Defensive Distillation
+  <a href="#implementing-defensive-distillation">#</a>
+</h2>
 <p>To implement defensive distillation in your own projects, follow these steps:</p>
 <ol>
 <li>Prepare a large labeled dataset for training the initial teacher model.</li>
@@ -235,8 +292,12 @@ $$</p>
 <li>Train the student model using the perturbed examples and soft labels from the teacher model.</li>
 <li>Optionally, fine-tune the student model on the original training set to enhance performance.</li>
 </ol>
-<h2 id="a-case-study-mnist-dataset">A Case Study: MNIST Dataset</h2>
+<h2 class="heading" id="a-case-study-mnist-dataset">
+  A Case Study: MNIST Dataset
+  <a href="#a-case-study-mnist-dataset">#</a>
+</h2>
 <p>To illustrate the effectiveness of defensive distillation, let&rsquo;s look at a case study using the MNIST dataset of handwritten digits.
+
 
 
 
@@ -254,7 +315,7 @@ $$</p>
 <figure class=" img-small">
 
     <div>
-        <img loading="lazy" alt="MNIST Dataset" src=" https://datasets.activeloop.ai/wp-content/uploads/2019/12/MNIST-handwritten-digits-dataset-visualized-by-Activeloop.webp#small">
+        <img loading="lazy" alt="MNIST Dataset" src="https://datasets.activeloop.ai/wp-content/uploads/2019/12/MNIST-handwritten-digits-dataset-visualized-by-Activeloop.webp#small" >
     </div>
 
     
@@ -262,8 +323,12 @@ $$</p>
         <figcaption> MNIST Dataset </figcaption>
     </div>
     
-</figure></p>
-<h3 id="model-architecture">Model Architecture</h3>
+</figure>
+</p>
+<h3 class="heading" id="model-architecture">
+  Model Architecture
+  <a href="#model-architecture">#</a>
+</h3>
 <p>The model used in this example is a Convolutional Neural Network (CNN) with the following architecture:</p>
 <ol>
 <li>Convolutional layer (32 filters, 3x3 kernel, ReLU activation)</li>
@@ -274,14 +339,20 @@ $$</p>
 <li>Fully connected layer (128 units, ReLU activation)</li>
 <li>Output layer (10 units, softmax activation)</li>
 </ol>
-<h3 id="results">Results</h3>
+<h3 class="heading" id="results">
+  Results
+  <a href="#results">#</a>
+</h3>
 <p>The results of training this model on the MNIST dataset are quite interesting:</p>
 <ul>
 <li>Accuracy without distillation: <strong>98.4%</strong></li>
 <li>Accuracy with distillation: <strong>97.1%</strong></li>
 </ul>
 <p>At first glance, it might seem that defensive distillation has slightly decreased the model&rsquo;s accuracy. However, the true value of this technique becomes apparent when we subject our model to adversarial attacks.</p>
-<h3 id="fgsm-attack-test">FGSM Attack Test</h3>
+<h3 class="heading" id="fgsm-attack-test">
+  FGSM Attack Test
+  <a href="#fgsm-attack-test">#</a>
+</h3>
 <p>To test the robustness of our models, we used the Fast Gradient Sign Method (FGSM) to generate an adversarial example from a test sample. The results were striking:</p>
 <ul>
 <li>Model without distillation on unattacked data: Correctly predicted &lsquo;4&rsquo;</li>
@@ -289,13 +360,17 @@ $$</p>
 <li>Model with distillation on attacked data: Correctly predicted &lsquo;4&rsquo;</li>
 </ul>
 <p>This demonstrates the power of defensive distillation. While the non-distilled model was fooled by the adversarial example, the distilled model maintained its correct prediction, showcasing improved robustness against the attack.</p>
-<h2 id="conclusion">Conclusion</h2>
+<h2 class="heading" id="conclusion">
+  Conclusion
+  <a href="#conclusion">#</a>
+</h2>
 <p>Defensive distillation offers a promising approach to enhancing the security of our neural networks. While it may come at a small cost to raw accuracy, the improved robustness against adversarial attacks can be crucial in many real-world applications where security is paramount.</p>
 <p>As we continue to push the boundaries of what&rsquo;s possible with machine learning, techniques like defensive distillation will play an increasingly important role in ensuring our models are not just accurate, but also secure and reliable.</p>
 <p>Remember, the field of adversarial machine learning is rapidly evolving. While defensive distillation is a powerful technique, it&rsquo;s important to stay updated with the latest research and combine multiple defense strategies for the best protection against adversarial attacks.</p>
 
     
-<script src="https://giscus.app/client.js"
+    
+    <script src="https://giscus.app/client.js"
         data-repo="arunprakaash/arunprakaash.github.io"
         data-repo-id="R_kgDOMQKpEw"
         data-category=""
@@ -310,9 +385,14 @@ $$</p>
         data-loading="lazy"
         crossorigin="anonymous"
         async>
-        </script>
+</script>
 
+    
+    
   </div>
+
+  
+
 
   
 
@@ -367,12 +447,23 @@ $$</p>
     </div>
 
     <footer>
-      <p>Made with ❤️ by 
-    <a href="https://github.com/arunprakaash">Arunprakaash</a>
-</p>
+      
+
+    
+    <p>Powered by
+        <a href="https://gohugo.io/">Hugo</a>
+        and
+        <a href="https://github.com/tomfran/typo">tomfran/typo</a>
+    </p>
+    
+    
+    
 
 
-<link rel="stylesheet"
+    </footer>
+
+    
+    <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
 <script defer
   src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
@@ -391,8 +482,7 @@ $$</p>
     });
   });
 </script>
-
-    </footer>
+    
 
   </body>
 

@@ -2,9 +2,19 @@
 <html lang="en-us"
   dir="ltr">
 
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
-<meta name="viewport" content="width=device-width"><meta name="description" content="Discover how to combine OpenAPI specifications with AI function calling to create intelligent API interactions. This guide covers manual and Langchain implementations, practical use cases, and key considerations for developers and AI enthusiasts." />
+<meta name="viewport" content="width=device-width">
+
+
+
+<link rel="icon" type="image/ico" href="https://arunprakaash.github.io//favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://arunprakaash.github.io//favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://arunprakaash.github.io//favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://arunprakaash.github.io//android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://arunprakaash.github.io//apple-touch-icon.png">
+
+<meta name="description" content="Discover how to combine OpenAPI specifications with AI function calling to create intelligent API interactions. This guide covers manual and Langchain implementations, practical use cases, and key considerations for developers and AI enthusiasts."/>
 
 <title>
     
@@ -12,7 +22,20 @@
     
 </title>
 
-<link rel="canonical" href="http://localhost:1313/blogs/openapi-function-calling-blog/" />
+<link rel="canonical" href="https://arunprakaash.github.io/blogs/openapi-function-calling-blog/"/>
+
+<meta property="og:url" content="https://arunprakaash.github.io/blogs/openapi-function-calling-blog/">
+  <meta property="og:site_name" content="arun._space">
+  <meta property="og:title" content="OpenAPI to Function Calling: A Comprehensive Guide">
+  <meta property="og:description" content="Discover how to combine OpenAPI specifications with AI function calling to create intelligent API interactions. This guide covers manual and Langchain implementations, practical use cases, and key considerations for developers and AI enthusiasts.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blogs">
+    <meta property="article:published_time" content="2024-07-27T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-07-27T00:00:00+00:00">
+    <meta property="article:tag" content="NLA">
+    <meta property="article:tag" content="OpenAPISpec">
+    <meta property="article:tag" content="Function Calling">
 
 
 
@@ -25,7 +48,13 @@
 
 
 
-<link rel="stylesheet" href="/assets/combined.min.a6824bbee0d90d5af09fed9b70395ce7076b615e315037455d903314e96ef91b.css" media="all">
+
+<link rel="stylesheet" href="/assets/combined.min.186794b3399a702d3092949042cdc215dea303c17e71e7c0254768448de11db8.css" media="all">
+
+
+
+
+
 
 
 
@@ -48,27 +77,32 @@
 
     
 
-    <h1 class="header-title">arun._space</h1>
+    <h1 class="header-title">
+        <a href="https://arunprakaash.github.io/">arun._space</a>
+    </h1>
 
     <div class="flex">
         
 
         
         
+      
         <p class="small ">
-            <a href="/">
+            <a href="/" >
                 /home
             </a>
         </p>
         
+      
         <p class="small ">
-            <a href="/blogs">
+            <a href="/blogs" >
                 /blogs
             </a>
         </p>
         
+      
         <p class="small ">
-            <a href="/about">
+            <a href="/about" >
                 /about
             </a>
         </p>
@@ -79,10 +113,12 @@
     
 
 </div>
+
       </header>
 
       <main class="main">
         
+
 
 
 
@@ -97,6 +133,7 @@
     
     <a class="breadcrumbs-current" href="/blogs/openapi-function-calling-blog/">OpenAPI to Function Calling: A Comprehensive Guide</a>
 </div>
+
 
 
 <div  class="autonumber" >
@@ -163,11 +200,17 @@
   
 
   <div class="single-content">
-    <h1 id="openapi-to-function-calling-a-comprehensive-guide">OpenAPI to Function Calling: A Comprehensive Guide</h1>
+    <h1 class="heading" id="openapi-to-function-calling-a-comprehensive-guide">
+  OpenAPI to Function Calling: A Comprehensive Guide
+  <a href="#openapi-to-function-calling-a-comprehensive-guide">#</a>
+</h1>
 <p>Imagine a world where machines can talk to each other seamlessly, sharing data and insights like old friends swapping stories. Sounds like science fiction, right? Well, we&rsquo;re about to make it a reality!</p>
 <p>In this blog post, we&rsquo;re going to take you on a thrilling adventure that combines two revolutionary concepts: OpenAPI specifications and function calling in language models. Buckle up, because we&rsquo;re about to show you how these two game-changers can come together to create systems that are not only intelligent but also flexible and adaptable.</p>
 <p>So, what are you waiting for? Let&rsquo;s dive into the world of APIs, AI, and the future of intelligent systems!</p>
-<h2 id="understanding-openapi-specifications">Understanding OpenAPI Specifications</h2>
+<h2 class="heading" id="understanding-openapi-specifications">
+  Understanding OpenAPI Specifications
+  <a href="#understanding-openapi-specifications">#</a>
+</h2>
 <p>OpenAPI (formerly known as Swagger) is a standard way to describe RESTful APIs. It&rsquo;s like a blueprint for an API, telling developers what the API can do, what data it expects, and what it will return.</p>
 <p>Key components of an OpenAPI spec include:</p>
 <ul>
@@ -204,9 +247,15 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">      </span><span style="color:#7ee787">responses</span>:<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span><span style="color:#7ee787">&#39;201&#39;</span>:<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">          </span><span style="color:#7ee787">description</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">User created</span><span style="color:#6e7681">
-</span></span></span></code></pre></div><h2 id="function-calling-in-language-models">Function Calling in Language Models</h2>
+</span></span></span></code></pre></div><h2 class="heading" id="function-calling-in-language-models">
+  Function Calling in Language Models
+  <a href="#function-calling-in-language-models">#</a>
+</h2>
 <p>Function calling is a feature in advanced language models like GPT-4. However, it&rsquo;s important to understand what this feature actually does and what it doesn&rsquo;t do.</p>
-<h3 id="what-function-calling-is">What Function Calling Is</h3>
+<h3 class="heading" id="what-function-calling-is">
+  What Function Calling Is
+  <a href="#what-function-calling-is">#</a>
+</h3>
 <p>Function calling in language models is essentially a way to generate structured outputs. When we say the model can &ldquo;call functions,&rdquo; what we really mean is:</p>
 <ol>
 <li>The model is given information about one or more functions, including their names, parameters, and descriptions.</li>
@@ -218,9 +267,15 @@
 </li>
 </ol>
 <p>This output is formatted in a specific, structured way that makes it easy for a program to parse and use.</p>
-<h3 id="what-function-calling-isnt">What Function Calling Isn&rsquo;t</h3>
+<h3 class="heading" id="what-function-calling-isnt">
+  What Function Calling Isn&rsquo;t
+  <a href="#what-function-calling-isnt">#</a>
+</h3>
 <p>It&rsquo;s crucial to understand that the language model does not actually execute any functions. The model merely suggests a function call and its arguments. The actual execution of the function must be done by the application using the model&rsquo;s output.</p>
-<h3 id="how-it-works">How It Works</h3>
+<h3 class="heading" id="how-it-works">
+  How It Works
+  <a href="#how-it-works">#</a>
+</h3>
 <p>Here&rsquo;s a step-by-step breakdown of how function calling works:</p>
 <ol>
 <li>
@@ -239,7 +294,10 @@
 <p><strong>Actual Execution</strong>: If appropriate, your application then actually calls the real function with the suggested arguments.</p>
 </li>
 </ol>
-<h3 id="example">Example</h3>
+<h3 class="heading" id="example">
+  Example
+  <a href="#example">#</a>
+</h3>
 <p>Let&rsquo;s say we define a function like this:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;name&#34;</span>: <span style="color:#a5d6ff">&#34;get_weather&#34;</span>,
@@ -268,7 +326,10 @@
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>This output doesn&rsquo;t actually get the weather - it just suggests calling a function that would get the weather. Your application would then need to have an actual <code>get_weather</code> function that it calls with these arguments to retrieve the real weather data.</p>
-<h3 id="why-its-useful">Why It&rsquo;s Useful</h3>
+<h3 class="heading" id="why-its-useful">
+  Why It&rsquo;s Useful
+  <a href="#why-its-useful">#</a>
+</h3>
 <p>Despite not actually executing functions, this feature is extremely powerful because it allows the model to:</p>
 <ol>
 <li>Understand and respond to user intents in a structured way</li>
@@ -276,10 +337,19 @@
 <li>Provide consistent, parseable outputs for complex queries</li>
 </ol>
 <p>By combining this with OpenAPI specifications, we can create systems where AI models can effectively &ldquo;use&rdquo; APIs based on their documentation, opening up a world of possibilities for AI-driven automation and interaction.</p>
-<h2 id="the-magic-converting-openapi-to-functions">The Magic: Converting OpenAPI to Functions</h2>
+<h2 class="heading" id="the-magic-converting-openapi-to-functions">
+  The Magic: Converting OpenAPI to Functions
+  <a href="#the-magic-converting-openapi-to-functions">#</a>
+</h2>
 <p>Now, here&rsquo;s where it gets exciting. We can take an OpenAPI specification and convert it into a format that a language model can understand for function calling. This means the AI can effectively &ldquo;use&rdquo; the API!</p>
-<h2 id="core-idea">Core Idea</h2>
-<h3 id="basic-implementation">Basic Implementation</h3>
+<h2 class="heading" id="core-idea">
+  Core Idea
+  <a href="#core-idea">#</a>
+</h2>
+<h3 class="heading" id="basic-implementation">
+  Basic Implementation
+  <a href="#basic-implementation">#</a>
+</h3>
 <p>Let&rsquo;s break down the logic:</p>
 <ol>
 <li><strong>Create an OpenAPIToFunctionConverter class</strong>:
@@ -449,7 +519,10 @@ This class uses the OpenAI API to call the language model with the converted fun
   },
   &#34;content&#34;: null
 }
-</code></pre><h3 id="implementation-using-langchain">Implementation using Langchain</h3>
+</code></pre><h3 class="heading" id="implementation-using-langchain">
+  Implementation using Langchain
+  <a href="#implementation-using-langchain">#</a>
+</h3>
 <p>Langchain simplifies this process:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">yaml</span>
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">langchain.agents.agent_toolkits.openapi</span> <span style="color:#ff7b72">import</span> planner
@@ -509,7 +582,10 @@ The GET /users endpoint returned information about all users. Here&#39;s a summa
 Is there anything specific you&#39;d like to know about these users?
 
 &gt; Finished chain.
-</code></pre><h2 id="practical-use-cases">Practical Use Cases</h2>
+</code></pre><h2 class="heading" id="practical-use-cases">
+  Practical Use Cases
+  <a href="#practical-use-cases">#</a>
+</h2>
 <p>This OpenAPI to function calling approach has numerous applications:</p>
 <ol>
 <li><strong>Chatbots for API Interaction</strong>: Create chatbots that can interact with complex APIs using natural language.</li>
@@ -517,12 +593,16 @@ Is there anything specific you&#39;d like to know about these users?
 <li><strong>API Exploration</strong>: Allow developers to explore and understand APIs through natural language queries.</li>
 <li><strong>Workflow Automation</strong>: Create complex workflows that interact with multiple APIs using AI-driven decision-making.</li>
 </ol>
-<h2 id="conclusion">Conclusion</h2>
+<h2 class="heading" id="conclusion">
+  Conclusion
+  <a href="#conclusion">#</a>
+</h2>
 <p>The combination of OpenAPI specifications and function calling in language models opens up exciting possibilities for creating more intelligent and user-friendly systems. Whether you&rsquo;re building a chatbot, automating workflows, or exploring APIs, this approach can significantly simplify your development process and enhance the capabilities of your applications.</p>
 <p>Start exploring the powerful world of AI-driven API interactions!</p>
 
     
-<script src="https://giscus.app/client.js"
+    
+    <script src="https://giscus.app/client.js"
         data-repo="arunprakaash/arunprakaash.github.io"
         data-repo-id="R_kgDOMQKpEw"
         data-category=""
@@ -537,9 +617,14 @@ Is there anything specific you&#39;d like to know about these users?
         data-loading="lazy"
         crossorigin="anonymous"
         async>
-        </script>
+</script>
 
+    
+    
   </div>
+
+  
+
 
   
 
@@ -603,12 +688,23 @@ Is there anything specific you&#39;d like to know about these users?
     </div>
 
     <footer>
-      <p>Made with ❤️ by 
-    <a href="https://github.com/arunprakaash">Arunprakaash</a>
-</p>
+      
+
+    
+    <p>Powered by
+        <a href="https://gohugo.io/">Hugo</a>
+        and
+        <a href="https://github.com/tomfran/typo">tomfran/typo</a>
+    </p>
+    
+    
+    
 
 
-<link rel="stylesheet"
+    </footer>
+
+    
+    <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
 <script defer
   src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
@@ -627,8 +723,7 @@ Is there anything specific you&#39;d like to know about these users?
     });
   });
 </script>
-
-    </footer>
+    
 
   </body>
 
