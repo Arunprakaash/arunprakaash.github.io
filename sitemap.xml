@@ -2,9 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://arunprakaash.github.io/blogs/</loc>
-    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://arunprakaash.github.io/tags/built-in-ai/</loc>
     <lastmod>2025-01-12T00:00:00+00:00</lastmod>
   </url><url>
@@ -20,7 +17,10 @@
     <loc>https://arunprakaash.github.io/tags/llm/</loc>
     <lastmod>2025-01-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/blogs/meh-ai/</loc>
+    <loc>https://arunprakaash.github.io/posts/2025-01-12/meh-ai/</loc>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/posts/</loc>
     <lastmod>2025-01-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/tags/</loc>
@@ -35,7 +35,7 @@
     <loc>https://arunprakaash.github.io/tags/k-armed-bandit/</loc>
     <lastmod>2024-10-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/blogs/rl/k-armed-bandit-problem/</loc>
+    <loc>https://arunprakaash.github.io/posts/2024-10-09/k-armed-bandit-problem/</loc>
     <lastmod>2024-10-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/tags/reinforcement-learning/</loc>
@@ -47,13 +47,13 @@
     <loc>https://arunprakaash.github.io/tags/nla/</loc>
     <lastmod>2024-07-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/blogs/openapi-function-calling-blog/</loc>
+    <loc>https://arunprakaash.github.io/posts/2024-07-27/openapi-function-calling-blog/</loc>
     <lastmod>2024-07-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/tags/openapispec/</loc>
     <lastmod>2024-07-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/blogs/defensive-distillation/</loc>
+    <loc>https://arunprakaash.github.io/posts/2023-06-12/defensive-distillation/</loc>
     <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/tags/machine-learning/</loc>
@@ -66,7 +66,5 @@
     <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/about/</loc>
-  </url><url>
-    <loc>https://arunprakaash.github.io/g-wmpe5d82nn/</loc>
   </url>
 </urlset>

@@ -2,17 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on arun._space</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>https://arunprakaash.github.io/posts/</link>
     <description>Recent content in Posts on arun._space</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Nov 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Jan 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://arunprakaash.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Meh.ai</title>
+      <link>https://arunprakaash.github.io/posts/2025-01-12/meh-ai/</link>
+      <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/posts/2025-01-12/meh-ai/</guid>
+      <description>Discover how Meh.ai revolutionizes browsing by turning Chrome into your personal AI sidekick.</description>
+    </item>
+    <item>
+      <title>K-Armed Bandit Problem: From Casinos to Wall Street</title>
+      <link>https://arunprakaash.github.io/posts/2024-10-09/k-armed-bandit-problem/</link>
+      <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/posts/2024-10-09/k-armed-bandit-problem/</guid>
+      <description>An engaging exploration of the k-armed bandit problem, covering key concepts like exploration vs. exploitation, continuous rewards, and non-stationary environments.</description>
+    </item>
+    <item>
+      <title>OpenAPI to Function Calling: A Comprehensive Guide</title>
+      <link>https://arunprakaash.github.io/posts/2024-07-27/openapi-function-calling-blog/</link>
+      <pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/posts/2024-07-27/openapi-function-calling-blog/</guid>
+      <description>Learn how to convert OpenAPI specs to AI-usable functions for smarter API interactions.</description>
+    </item>
     <item>
       <title>Defensive Distillation</title>
-      <link>http://localhost:1313/posts/defensive_distillation/</link>
-      <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/defensive_distillation/</guid>
+      <link>https://arunprakaash.github.io/posts/2023-06-12/defensive-distillation/</link>
+      <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/posts/2023-06-12/defensive-distillation/</guid>
       <description>An exploration of defensive distillation techniques to protect neural networks against adversarial attacks</description>
     </item>
   </channel>
