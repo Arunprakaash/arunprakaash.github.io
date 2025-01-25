@@ -10,9 +10,9 @@
     <atom:link href="https://arunprakaash.github.io/tags/neural-networks/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Defensive Distillation</title>
-      <link>https://arunprakaash.github.io/posts/2023-06-12/defensive-distillation/</link>
+      <link>https://arunprakaash.github.io/curiosities/2023-06-12/defensive-distillation/</link>
       <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/posts/2023-06-12/defensive-distillation/</guid>
+      <guid>https://arunprakaash.github.io/curiosities/2023-06-12/defensive-distillation/</guid>
       <description>An exploration of defensive distillation techniques to protect neural networks against adversarial attacks</description>
     </item>
   </channel>
