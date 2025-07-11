@@ -2,17 +2,17 @@
 <html lang="en-us"
   dir="ltr">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 
 
 
-<link rel="icon" type="image/ico" href="https://arunprakaash.github.io//favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://arunprakaash.github.io//favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://arunprakaash.github.io//favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="https://arunprakaash.github.io//android-chrome-192x192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="https://arunprakaash.github.io//apple-touch-icon.png">
+<link rel="icon" type="image/ico" href="http://localhost:1313//favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313//favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313//favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="http://localhost:1313//android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313//apple-touch-icon.png">
 
 <meta name="description" content="Discover how to combine OpenAPI specifications with AI function calling to create intelligent API interactions. This guide covers manual and Langchain implementations, practical use cases, and key considerations for developers and AI enthusiasts."/>
 
@@ -24,9 +24,9 @@
     
 </title>
 
-<link rel="canonical" href="https://arunprakaash.github.io/curiosities/2024-07-27/openapi-function-calling-blog/"/>
+<link rel="canonical" href="http://localhost:1313/curiosities/2024-07-27/openapi-function-calling-blog/"/>
 
-<meta property="og:url" content="https://arunprakaash.github.io/curiosities/2024-07-27/openapi-function-calling-blog/">
+<meta property="og:url" content="http://localhost:1313/curiosities/2024-07-27/openapi-function-calling-blog/">
   <meta property="og:site_name" content="arun._space">
   <meta property="og:title" content="OpenAPI to Function Calling: A Comprehensive Guide">
   <meta property="og:description" content="Discover how to combine OpenAPI specifications with AI function calling to create intelligent API interactions. This guide covers manual and Langchain implementations, practical use cases, and key considerations for developers and AI enthusiasts.">
@@ -51,25 +51,7 @@
 
 
 
-<link rel="stylesheet" href="/assets/combined.min.a904013acd8e3bd04ce56a64a8fe5525fd5f738ad6caa0bfbcbe39a8d7ed932d.css" media="all">
-
-
-
-
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-TCQ19GBNVQ"></script>
-      <script>
-        var doNotTrack = false;
-        if ( false ) {
-          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
-          var doNotTrack = (dnt == "1" || dnt == "yes");
-        }
-        if (!doNotTrack) {
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-TCQ19GBNVQ');
-        }
-      </script>
+<link rel="stylesheet" href="/assets/combined.min.fb73015f9d400c8a9e83cd838d03d42b8b6316b9c19bd16e4f01b130719e243b.css" media="all">
 
 
 
@@ -94,7 +76,7 @@
     
 
     <h1 class="header-title">
-        <a href="https://arunprakaash.github.io/">arun._space</a>
+        <a href="http://localhost:1313/">arun._space</a>
     </h1>
 
     <div class="flex">
@@ -372,7 +354,7 @@
 This class takes an OpenAPI spec and converts it to a list of functions the AI can understand.</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff7b72">class</span> <span style="color:#f0883e;font-weight:bold">OpenAPIToFunctionConverter</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">def</span> __init__(self, spec: Dict[str, Any]):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">def</span> <span style="color:#d2a8ff;font-weight:bold">__init__</span>(self, spec: Dict[str, Any]):
 </span></span><span style="display:flex;"><span>        self<span style="color:#ff7b72;font-weight:bold">.</span>spec <span style="color:#ff7b72;font-weight:bold">=</span> spec
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">def</span> <span style="color:#d2a8ff;font-weight:bold">convert_to_functions</span>(self) <span style="color:#ff7b72;font-weight:bold">-&gt;</span> List[Dict[str, Any]]:
@@ -503,7 +485,7 @@ This class uses the OpenAI API to call the language model with the converted fun
 </span></span><span style="display:flex;"><span>load_dotenv()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">class</span> <span style="color:#f0883e;font-weight:bold">LLMFunctionCaller</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">def</span> __init__(self, api_key: str, model: str <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;gpt-4o-mini&#34;</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">def</span> <span style="color:#d2a8ff;font-weight:bold">__init__</span>(self, api_key: str, model: str <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;gpt-4o-mini&#34;</span>):
 </span></span><span style="display:flex;"><span>        openai<span style="color:#ff7b72;font-weight:bold">.</span>api_key <span style="color:#ff7b72;font-weight:bold">=</span> api_key
 </span></span><span style="display:flex;"><span>        self<span style="color:#ff7b72;font-weight:bold">.</span>model <span style="color:#ff7b72;font-weight:bold">=</span> model
 </span></span><span style="display:flex;"><span>
