@@ -51,7 +51,7 @@
 
 
 
-<link rel="stylesheet" href="/assets/combined.min.fb73015f9d400c8a9e83cd838d03d42b8b6316b9c19bd16e4f01b130719e243b.css" media="all">
+<link rel="stylesheet" href="/assets/combined.min.9d0bddfc76f8055138e33522166b6706eeb5451ed978fab2f609c0e5227ba445.css" media="all">
 
 
 
@@ -218,7 +218,7 @@
 <li>Responses: What the API will return</li>
 </ul>
 <p>Here&rsquo;s a simple example of an OpenAPI specification:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#7ee787">openapi</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">3.0.0</span><span style="color:#6e7681">
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#7ee787">openapi</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">3.0.0</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">info</span>:<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">title</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Sample API</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">version</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">1.0.0</span><span style="color:#6e7681">
@@ -316,11 +316,11 @@
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>If we then ask the model &ldquo;What&rsquo;s the weather like in New York?&rdquo;, it might generate an output like this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;function&#34;</span>: <span style="color:#a5d6ff">&#34;get_weather&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;arguments&#34;</span>: {
-</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;location&#34;</span>: <span style="color:#a5d6ff">&#34;New York, NY&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;unit&#34;</span>: <span style="color:#a5d6ff">&#34;fahrenheit&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;function&#34;</span>: <span style="color:#a5d6ff">&#34;get_weather&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;arguments&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#a5d6ff">&#34;location&#34;</span>: <span style="color:#a5d6ff">&#34;New York, NY&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a5d6ff">&#34;unit&#34;</span>: <span style="color:#a5d6ff">&#34;fahrenheit&#34;</span>
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>This output doesn&rsquo;t actually get the weather - it just suggests calling a function that would get the weather. Your application would then need to have an actual <code>get_weather</code> function that it calls with these arguments to retrieve the real weather data.</p>
@@ -445,36 +445,36 @@ This class takes an OpenAPI spec and converts it to a list of functions the AI c
 </span></span><span style="display:flex;"><span>functions <span style="color:#ff7b72;font-weight:bold">=</span> converter<span style="color:#ff7b72;font-weight:bold">.</span>get_functions()
 </span></span><span style="display:flex;"><span>print(functions)
 </span></span></code></pre></div><p>Output:</p>
-<pre tabindex="0"><code>[
-    {
-        &#34;name&#34;: &#34;get_users&#34;,
-        &#34;description&#34;: &#34;Get all users&#34;,
-        &#34;parameters&#34;: {
-            &#34;type&#34;: &#34;object&#34;,
-            &#34;properties&#34;: {},
-            &#34;required&#34;: []
-        }
-    },
-    {
-        &#34;name&#34;: &#34;post_users&#34;,
-        &#34;description&#34;: &#34;Create a user&#34;,
-        &#34;parameters&#34;: {
-            &#34;type&#34;: &#34;object&#34;,
-            &#34;properties&#34;: {
-                &#34;name&#34;: {
-                    &#34;type&#34;: &#34;string&#34;,
-                    &#34;description&#34;: &#34;User&#39;s name&#34;
-                },
-                &#34;email&#34;: {
-                    &#34;type&#34;: &#34;string&#34;,
-                    &#34;description&#34;: &#34;User&#39;s email&#34;
-                }
-            },
-            &#34;required&#34;: [&#34;name&#34;, &#34;email&#34;]
-        }
-    }
-]
-</code></pre><ol start="2">
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;name&#34;</span>: <span style="color:#a5d6ff">&#34;get_users&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;Get all users&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;parameters&#34;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#a5d6ff">&#34;type&#34;</span>: <span style="color:#a5d6ff">&#34;object&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a5d6ff">&#34;properties&#34;</span>: {},
+</span></span><span style="display:flex;"><span>            <span style="color:#a5d6ff">&#34;required&#34;</span>: []
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;name&#34;</span>: <span style="color:#a5d6ff">&#34;post_users&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;Create a user&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;parameters&#34;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#a5d6ff">&#34;type&#34;</span>: <span style="color:#a5d6ff">&#34;object&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a5d6ff">&#34;properties&#34;</span>: {
+</span></span><span style="display:flex;"><span>                <span style="color:#a5d6ff">&#34;name&#34;</span>: {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a5d6ff">&#34;type&#34;</span>: <span style="color:#a5d6ff">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#a5d6ff">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;User&#39;s name&#34;</span>
+</span></span><span style="display:flex;"><span>                },
+</span></span><span style="display:flex;"><span>                <span style="color:#a5d6ff">&#34;email&#34;</span>: {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a5d6ff">&#34;type&#34;</span>: <span style="color:#a5d6ff">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#a5d6ff">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;User&#39;s email&#34;</span>
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a5d6ff">&#34;required&#34;</span>: [<span style="color:#a5d6ff">&#34;name&#34;</span>, <span style="color:#a5d6ff">&#34;email&#34;</span>]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><ol start="2">
 <li><strong>Create an LLMFunctionCaller class</strong>:
 This class uses the OpenAI API to call the language model with the converted functions.</li>
 </ol>
@@ -509,15 +509,15 @@ This class uses the OpenAI API to call the language model with the converted fun
 </span></span><span style="display:flex;"><span>print(<span style="color:#a5d6ff">&#34;LLM Response:&#34;</span>)
 </span></span><span style="display:flex;"><span>print(response)
 </span></span></code></pre></div><p>Output:</p>
-<pre tabindex="0"><code>LLM Response:
-{
-  &#34;function_call&#34;: {
-    &#34;name&#34;: &#34;get_users&#34;,
-    &#34;arguments&#34;: &#34;{}&#34;
-  },
-  &#34;content&#34;: null
-}
-</code></pre><h3 class="heading" id="implementation-using-langchain">
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>LLM Response:
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;function_call&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#a5d6ff">&#34;name&#34;</span>: <span style="color:#a5d6ff">&#34;get_users&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a5d6ff">&#34;arguments&#34;</span>: <span style="color:#a5d6ff">&#34;</span><span style="color:#a5d6ff">{}</span><span style="color:#a5d6ff">&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;content&#34;</span>: null
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 class="heading" id="implementation-using-langchain">
   Implementation using Langchain
   <a href="#implementation-using-langchain">#</a>
 </h3>
@@ -552,35 +552,35 @@ This class uses the OpenAI API to call the language model with the converted fun
 </span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Use the agent</span>
 </span></span><span style="display:flex;"><span>agent<span style="color:#ff7b72;font-weight:bold">.</span>invoke(<span style="color:#a5d6ff">&#34;Get information about all users&#34;</span>)
 </span></span></code></pre></div><p>Output:</p>
-<pre tabindex="0"><code>&gt; Entering new AgentExecutor chain...
-I need to use the GET /users endpoint to retrieve information about all users.
-
-Action: get_users
-Action Input: {}
-
-&gt; Entering new RequestsChain chain...
-Entering GET /users with:
-headers: {}
-params: {}
-data: {}
-Response: {&#34;status&#34;: &#34;success&#34;, &#34;data&#34;: [{&#34;id&#34;: 1, &#34;name&#34;: &#34;John Doe&#34;, &#34;email&#34;: &#34;john@example.com&#34;}, {&#34;id&#34;: 2, &#34;name&#34;: &#34;Jane Smith&#34;, &#34;email&#34;: &#34;jane@example.com&#34;}]}
-
-&gt; Finished chain.
-
-The GET /users endpoint returned information about all users. Here&#39;s a summary of the data:
-
-1. User ID: 1
-   Name: John Doe
-   Email: john@example.com
-
-2. User ID: 2
-   Name: Jane Smith
-   Email: jane@example.com
-
-Is there anything specific you&#39;d like to know about these users?
-
-&gt; Finished chain.
-</code></pre><h2 class="heading" id="practical-use-cases">
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff7b72;font-weight:bold">&gt;</span> Entering new AgentExecutor chain<span style="color:#ff7b72;font-weight:bold">...</span>
+</span></span><span style="display:flex;"><span>I need to use the GET <span style="color:#ff7b72;font-weight:bold">/</span>users endpoint to retrieve information about all users<span style="color:#ff7b72;font-weight:bold">.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Action: get_users
+</span></span><span style="display:flex;"><span>Action Input: {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72;font-weight:bold">&gt;</span> Entering new RequestsChain chain<span style="color:#ff7b72;font-weight:bold">...</span>
+</span></span><span style="display:flex;"><span>Entering GET <span style="color:#ff7b72;font-weight:bold">/</span>users <span style="color:#ff7b72">with</span>:
+</span></span><span style="display:flex;"><span>headers: {}
+</span></span><span style="display:flex;"><span>params: {}
+</span></span><span style="display:flex;"><span>data: {}
+</span></span><span style="display:flex;"><span>Response: {<span style="color:#a5d6ff">&#34;status&#34;</span>: <span style="color:#a5d6ff">&#34;success&#34;</span>, <span style="color:#a5d6ff">&#34;data&#34;</span>: [{<span style="color:#a5d6ff">&#34;id&#34;</span>: <span style="color:#a5d6ff">1</span>, <span style="color:#a5d6ff">&#34;name&#34;</span>: <span style="color:#a5d6ff">&#34;John Doe&#34;</span>, <span style="color:#a5d6ff">&#34;email&#34;</span>: <span style="color:#a5d6ff">&#34;john@example.com&#34;</span>}, {<span style="color:#a5d6ff">&#34;id&#34;</span>: <span style="color:#a5d6ff">2</span>, <span style="color:#a5d6ff">&#34;name&#34;</span>: <span style="color:#a5d6ff">&#34;Jane Smith&#34;</span>, <span style="color:#a5d6ff">&#34;email&#34;</span>: <span style="color:#a5d6ff">&#34;jane@example.com&#34;</span>}]}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72;font-weight:bold">&gt;</span> Finished chain<span style="color:#ff7b72;font-weight:bold">.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The GET <span style="color:#ff7b72;font-weight:bold">/</span>users endpoint returned information about all users<span style="color:#ff7b72;font-weight:bold">.</span> Here<span style="color:#a5d6ff">&#39;s a summary of the data:</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a5d6ff">1.</span> User ID: <span style="color:#a5d6ff">1</span>
+</span></span><span style="display:flex;"><span>   Name: John Doe
+</span></span><span style="display:flex;"><span>   Email: john<span style="color:#d2a8ff;font-weight:bold">@example.com</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a5d6ff">2.</span> User ID: <span style="color:#a5d6ff">2</span>
+</span></span><span style="display:flex;"><span>   Name: Jane Smith
+</span></span><span style="display:flex;"><span>   Email: jane<span style="color:#d2a8ff;font-weight:bold">@example.com</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Is there anything specific you<span style="color:#a5d6ff">&#39;d like to know about these users?</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72;font-weight:bold">&gt;</span> Finished chain<span style="color:#ff7b72;font-weight:bold">.</span>
+</span></span></code></pre></div><h2 class="heading" id="practical-use-cases">
   Practical Use Cases
   <a href="#practical-use-cases">#</a>
 </h2>
