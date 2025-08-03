@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>K-Armed Bandit on arun._space</title>
-    <link>http://localhost:1313/tags/k-armed-bandit/</link>
+    <link>https://arunprakaash.github.io/tags/k-armed-bandit/</link>
     <description>Recent content in K-Armed Bandit on arun._space</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 09 Oct 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/k-armed-bandit/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://arunprakaash.github.io/tags/k-armed-bandit/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>K-Armed Bandit Problem: From Casinos to Wall Street</title>
-      <link>http://localhost:1313/curiosities/2024-10-09/k-armed-bandit-problem/</link>
+      <link>https://arunprakaash.github.io/curiosities/2024-10-09/k-armed-bandit-problem/</link>
       <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/curiosities/2024-10-09/k-armed-bandit-problem/</guid>
+      <guid>https://arunprakaash.github.io/curiosities/2024-10-09/k-armed-bandit-problem/</guid>
       <description>An engaging exploration of the k-armed bandit problem, covering key concepts like exploration vs. exploitation, continuous rewards, and non-stationary environments.</description>
     </item>
   </channel>

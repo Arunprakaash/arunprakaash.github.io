@@ -2,136 +2,136 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on arun._space</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://arunprakaash.github.io/tags/</link>
     <description>Recent content in Tags on arun._space</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 24 Jul 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://arunprakaash.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>AI Interaction</title>
-      <link>http://localhost:1313/tags/ai-interaction/</link>
+      <link>https://arunprakaash.github.io/tags/ai-interaction/</link>
       <pubDate>Thu, 24 Jul 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/ai-interaction/</guid>
+      <guid>https://arunprakaash.github.io/tags/ai-interaction/</guid>
       <description></description>
     </item>
     <item>
       <title>Future of Communication</title>
-      <link>http://localhost:1313/tags/future-of-communication/</link>
+      <link>https://arunprakaash.github.io/tags/future-of-communication/</link>
       <pubDate>Thu, 24 Jul 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/future-of-communication/</guid>
+      <guid>https://arunprakaash.github.io/tags/future-of-communication/</guid>
       <description></description>
     </item>
     <item>
       <title>Language</title>
-      <link>http://localhost:1313/tags/language/</link>
+      <link>https://arunprakaash.github.io/tags/language/</link>
       <pubDate>Thu, 24 Jul 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/language/</guid>
+      <guid>https://arunprakaash.github.io/tags/language/</guid>
       <description></description>
     </item>
     <item>
       <title>Thought Communication</title>
-      <link>http://localhost:1313/tags/thought-communication/</link>
+      <link>https://arunprakaash.github.io/tags/thought-communication/</link>
       <pubDate>Thu, 24 Jul 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/thought-communication/</guid>
+      <guid>https://arunprakaash.github.io/tags/thought-communication/</guid>
       <description></description>
     </item>
     <item>
       <title>Built in AI</title>
-      <link>http://localhost:1313/tags/built-in-ai/</link>
+      <link>https://arunprakaash.github.io/tags/built-in-ai/</link>
       <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/built-in-ai/</guid>
+      <guid>https://arunprakaash.github.io/tags/built-in-ai/</guid>
       <description></description>
     </item>
     <item>
       <title>Chrome Extension</title>
-      <link>http://localhost:1313/tags/chrome-extension/</link>
+      <link>https://arunprakaash.github.io/tags/chrome-extension/</link>
       <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/chrome-extension/</guid>
+      <guid>https://arunprakaash.github.io/tags/chrome-extension/</guid>
       <description></description>
     </item>
     <item>
       <title>Gemini Nano</title>
-      <link>http://localhost:1313/tags/gemini-nano/</link>
+      <link>https://arunprakaash.github.io/tags/gemini-nano/</link>
       <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/gemini-nano/</guid>
+      <guid>https://arunprakaash.github.io/tags/gemini-nano/</guid>
       <description></description>
     </item>
     <item>
       <title>LLM</title>
-      <link>http://localhost:1313/tags/llm/</link>
+      <link>https://arunprakaash.github.io/tags/llm/</link>
       <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/llm/</guid>
+      <guid>https://arunprakaash.github.io/tags/llm/</guid>
       <description></description>
     </item>
     <item>
       <title>Decision Making</title>
-      <link>http://localhost:1313/tags/decision-making/</link>
+      <link>https://arunprakaash.github.io/tags/decision-making/</link>
       <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/decision-making/</guid>
+      <guid>https://arunprakaash.github.io/tags/decision-making/</guid>
       <description></description>
     </item>
     <item>
       <title>Exploration vs Exploitation</title>
-      <link>http://localhost:1313/tags/exploration-vs-exploitation/</link>
+      <link>https://arunprakaash.github.io/tags/exploration-vs-exploitation/</link>
       <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/exploration-vs-exploitation/</guid>
+      <guid>https://arunprakaash.github.io/tags/exploration-vs-exploitation/</guid>
       <description></description>
     </item>
     <item>
       <title>K-Armed Bandit</title>
-      <link>http://localhost:1313/tags/k-armed-bandit/</link>
+      <link>https://arunprakaash.github.io/tags/k-armed-bandit/</link>
       <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/k-armed-bandit/</guid>
+      <guid>https://arunprakaash.github.io/tags/k-armed-bandit/</guid>
       <description></description>
     </item>
     <item>
       <title>Reinforcement Learning</title>
-      <link>http://localhost:1313/tags/reinforcement-learning/</link>
+      <link>https://arunprakaash.github.io/tags/reinforcement-learning/</link>
       <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/reinforcement-learning/</guid>
+      <guid>https://arunprakaash.github.io/tags/reinforcement-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Function Calling</title>
-      <link>http://localhost:1313/tags/function-calling/</link>
+      <link>https://arunprakaash.github.io/tags/function-calling/</link>
       <pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/function-calling/</guid>
+      <guid>https://arunprakaash.github.io/tags/function-calling/</guid>
       <description></description>
     </item>
     <item>
       <title>NLA</title>
-      <link>http://localhost:1313/tags/nla/</link>
+      <link>https://arunprakaash.github.io/tags/nla/</link>
       <pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/nla/</guid>
+      <guid>https://arunprakaash.github.io/tags/nla/</guid>
       <description></description>
     </item>
     <item>
       <title>OpenAPISpec</title>
-      <link>http://localhost:1313/tags/openapispec/</link>
+      <link>https://arunprakaash.github.io/tags/openapispec/</link>
       <pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/openapispec/</guid>
+      <guid>https://arunprakaash.github.io/tags/openapispec/</guid>
       <description></description>
     </item>
     <item>
       <title>Machine Learning</title>
-      <link>http://localhost:1313/tags/machine-learning/</link>
+      <link>https://arunprakaash.github.io/tags/machine-learning/</link>
       <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/machine-learning/</guid>
+      <guid>https://arunprakaash.github.io/tags/machine-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Neural Networks</title>
-      <link>http://localhost:1313/tags/neural-networks/</link>
+      <link>https://arunprakaash.github.io/tags/neural-networks/</link>
       <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/neural-networks/</guid>
+      <guid>https://arunprakaash.github.io/tags/neural-networks/</guid>
       <description></description>
     </item>
     <item>
       <title>Security</title>
-      <link>http://localhost:1313/tags/security/</link>
+      <link>https://arunprakaash.github.io/tags/security/</link>
       <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/security/</guid>
+      <guid>https://arunprakaash.github.io/tags/security/</guid>
       <description></description>
     </item>
   </channel>
