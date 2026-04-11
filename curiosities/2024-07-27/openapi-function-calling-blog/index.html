@@ -2,17 +2,17 @@
 <html lang="en-us"
   dir="ltr">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 
 
 
-<link rel="icon" type="image/ico" href="http://localhost:1313//favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313//favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313//favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="http://localhost:1313//android-chrome-192x192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313//apple-touch-icon.png">
+<link rel="icon" type="image/ico" href="https://arunprakaash.github.io//favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://arunprakaash.github.io//favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://arunprakaash.github.io//favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://arunprakaash.github.io//android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://arunprakaash.github.io//apple-touch-icon.png">
 
 <meta name="description" content="Discover how to combine OpenAPI specifications with AI function calling to create intelligent API interactions. This guide covers manual and Langchain implementations, practical use cases, and key considerations for developers and AI enthusiasts."/>
 
@@ -24,9 +24,9 @@
     
 </title>
 
-<link rel="canonical" href="http://localhost:1313/curiosities/2024-07-27/openapi-function-calling-blog/"/>
+<link rel="canonical" href="https://arunprakaash.github.io/curiosities/2024-07-27/openapi-function-calling-blog/"/>
 
-<meta property="og:url" content="http://localhost:1313/curiosities/2024-07-27/openapi-function-calling-blog/">
+<meta property="og:url" content="https://arunprakaash.github.io/curiosities/2024-07-27/openapi-function-calling-blog/">
   <meta property="og:site_name" content="arun._space">
   <meta property="og:title" content="OpenAPI to Function Calling: A Comprehensive Guide">
   <meta property="og:description" content="Discover how to combine OpenAPI specifications with AI function calling to create intelligent API interactions. This guide covers manual and Langchain implementations, practical use cases, and key considerations for developers and AI enthusiasts.">
@@ -51,7 +51,25 @@
 
 
 
-<link rel="stylesheet" href="/assets/combined.min.9d0bddfc76f8055138e33522166b6706eeb5451ed978fab2f609c0e5227ba445.css" media="all">
+<link rel="stylesheet" href="/assets/combined.min.5acb51c4f29fcb06d2faba7a6a80b15d04f05502206ae3d93bed1948484ae7c0.css" media="all">
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-TCQ19GBNVQ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-TCQ19GBNVQ');
+        }
+      </script>
 
 
 
@@ -76,7 +94,7 @@
     
 
     <h1 class="header-title">
-        <a href="http://localhost:1313/">arun._space</a>
+        <a href="https://arunprakaash.github.io/">arun._space</a>
     </h1>
 
     <div class="flex">
@@ -218,11 +236,11 @@
 <li>Responses: What the API will return</li>
 </ul>
 <p>Here&rsquo;s a simple example of an OpenAPI specification:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#7ee787">openapi</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">3.0.0</span><span style="color:#6e7681">
-</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">info</span>:<span style="color:#6e7681">
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#7ee787">openapi</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">3.0.0</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#7ee787">info</span>:<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">title</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Sample API</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">version</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">1.0.0</span><span style="color:#6e7681">
-</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">paths</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#7ee787">paths</span>:<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">/users</span>:<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#7ee787">get</span>:<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">      </span><span style="color:#7ee787">summary</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Get all users</span><span style="color:#6e7681">
@@ -297,7 +315,7 @@
   <a href="#example">#</a>
 </h3>
 <p>Let&rsquo;s say we define a function like this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>{
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;name&#34;</span>: <span style="color:#a5d6ff">&#34;get_weather&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;Get the current weather in a given location&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;parameters&#34;</span>: {
@@ -316,7 +334,7 @@
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>If we then ask the model &ldquo;What&rsquo;s the weather like in New York?&rdquo;, it might generate an output like this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>{
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;function&#34;</span>: <span style="color:#a5d6ff">&#34;get_weather&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;arguments&#34;</span>: {
 </span></span><span style="display:flex;"><span>    <span style="color:#a5d6ff">&#34;location&#34;</span>: <span style="color:#a5d6ff">&#34;New York, NY&#34;</span>,
@@ -353,7 +371,7 @@
 <li><strong>Create an OpenAPIToFunctionConverter class</strong>:
 This class takes an OpenAPI spec and converts it to a list of functions the AI can understand.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff7b72">class</span> <span style="color:#f0883e;font-weight:bold">OpenAPIToFunctionConverter</span>:
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff7b72">class</span> <span style="color:#f0883e;font-weight:bold">OpenAPIToFunctionConverter</span>:
 </span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">def</span> <span style="color:#d2a8ff;font-weight:bold">__init__</span>(self, spec: Dict[str, Any]):
 </span></span><span style="display:flex;"><span>        self<span style="color:#ff7b72;font-weight:bold">.</span>spec <span style="color:#ff7b72;font-weight:bold">=</span> spec
 </span></span><span style="display:flex;"><span>
@@ -445,7 +463,7 @@ This class takes an OpenAPI spec and converts it to a list of functions the AI c
 </span></span><span style="display:flex;"><span>functions <span style="color:#ff7b72;font-weight:bold">=</span> converter<span style="color:#ff7b72;font-weight:bold">.</span>get_functions()
 </span></span><span style="display:flex;"><span>print(functions)
 </span></span></code></pre></div><p>Output:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>[
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>[
 </span></span><span style="display:flex;"><span>    {
 </span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;name&#34;</span>: <span style="color:#a5d6ff">&#34;get_users&#34;</span>,
 </span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;Get all users&#34;</span>,
@@ -478,7 +496,7 @@ This class takes an OpenAPI spec and converts it to a list of functions the AI c
 <li><strong>Create an LLMFunctionCaller class</strong>:
 This class uses the OpenAI API to call the language model with the converted functions.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">os</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">os</span>
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">openai</span>
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">dotenv</span> <span style="color:#ff7b72">import</span> load_dotenv
 </span></span><span style="display:flex;"><span>
@@ -509,7 +527,7 @@ This class uses the OpenAI API to call the language model with the converted fun
 </span></span><span style="display:flex;"><span>print(<span style="color:#a5d6ff">&#34;LLM Response:&#34;</span>)
 </span></span><span style="display:flex;"><span>print(response)
 </span></span></code></pre></div><p>Output:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>LLM Response:
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>LLM Response:
 </span></span><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;function_call&#34;</span>: {
 </span></span><span style="display:flex;"><span>    <span style="color:#a5d6ff">&#34;name&#34;</span>: <span style="color:#a5d6ff">&#34;get_users&#34;</span>,
@@ -522,7 +540,7 @@ This class uses the OpenAI API to call the language model with the converted fun
   <a href="#implementation-using-langchain">#</a>
 </h3>
 <p>Langchain simplifies this process:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">yaml</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">yaml</span>
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">langchain.agents.agent_toolkits.openapi</span> <span style="color:#ff7b72">import</span> planner
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">langchain_community.utilities</span> <span style="color:#ff7b72">import</span> RequestsWrapper
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">langchain_openai</span> <span style="color:#ff7b72">import</span> ChatOpenAI
@@ -552,7 +570,7 @@ This class uses the OpenAI API to call the language model with the converted fun
 </span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Use the agent</span>
 </span></span><span style="display:flex;"><span>agent<span style="color:#ff7b72;font-weight:bold">.</span>invoke(<span style="color:#a5d6ff">&#34;Get information about all users&#34;</span>)
 </span></span></code></pre></div><p>Output:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff7b72;font-weight:bold">&gt;</span> Entering new AgentExecutor chain<span style="color:#ff7b72;font-weight:bold">...</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff7b72;font-weight:bold">&gt;</span> Entering new AgentExecutor chain<span style="color:#ff7b72;font-weight:bold">...</span>
 </span></span><span style="display:flex;"><span>I need to use the GET <span style="color:#ff7b72;font-weight:bold">/</span>users endpoint to retrieve information about all users<span style="color:#ff7b72;font-weight:bold">.</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Action: get_users

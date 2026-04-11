@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Built in AI on arun._space</title>
-    <link>http://localhost:1313/tags/built-in-ai/</link>
+    <link>https://arunprakaash.github.io/tags/built-in-ai/</link>
     <description>Recent content in Built in AI on arun._space</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 12 Jan 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/built-in-ai/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://arunprakaash.github.io/tags/built-in-ai/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Meh.ai</title>
-      <link>http://localhost:1313/curiosities/2025-01-12/meh-ai/</link>
+      <link>https://arunprakaash.github.io/curiosities/2025-01-12/meh-ai/</link>
       <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/curiosities/2025-01-12/meh-ai/</guid>
+      <guid>https://arunprakaash.github.io/curiosities/2025-01-12/meh-ai/</guid>
       <description>Discover how Meh.ai revolutionizes browsing by turning Chrome into your personal AI sidekick.</description>
     </item>
   </channel>
