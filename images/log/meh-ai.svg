@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#e7f8f5"/>
+  <circle cx="980" cy="160" r="170" fill="#c9efe7"/>
+  <text x="70" y="300" font-family="Arial, sans-serif" font-size="74" fill="#17433b">Meh.ai</text>
+  <text x="70" y="370" font-family="Arial, sans-serif" font-size="34" fill="#2f6b60">AI sidekick for browsing and context retrieval</text>
+</svg>

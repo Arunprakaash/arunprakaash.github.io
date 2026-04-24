@@ -46,7 +46,7 @@
 
 
 
-<link rel="stylesheet" href="/assets/combined.min.5acb51c4f29fcb06d2faba7a6a80b15d04f05502206ae3d93bed1948484ae7c0.css" media="all">
+<link rel="stylesheet" href="/assets/combined.min.0467c9e1d4415e9ed52f35c8ee0f99464bd5521fbd887fff0f11b77eb0f918d3.css" media="all">
 
 
 
@@ -94,24 +94,35 @@
 
     <div class="flex">
         
+        
+        
 
         
         
-      
+        
+
         <p class="small ">
             <a href="/" >
                 /home
             </a>
         </p>
         
-      
+
+        
+        
+        
+
         <p class="small ">
-            <a href="/curiosities" >
-                /curiosities
+            <a href="/log" >
+                /log
             </a>
         </p>
         
-      
+
+        
+        
+        
+
         <p class="small ">
             <a href="/about" >
                 /about
@@ -155,7 +166,6 @@
     
 
     
-
     
     <div class="tag-line">
     <div>
@@ -165,9 +175,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -177,9 +185,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -189,9 +195,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -201,9 +205,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -213,9 +215,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -225,9 +225,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -237,9 +235,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -249,9 +245,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -261,9 +255,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -273,9 +265,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -285,9 +275,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -297,9 +285,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -309,9 +295,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -321,9 +305,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -333,9 +315,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -345,9 +325,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -357,9 +335,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -369,9 +345,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -381,9 +355,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -393,9 +365,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -405,9 +375,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -417,9 +385,7 @@
     </div>
 </div>
     
-
     
-
     
     <div class="tag-line">
     <div>
@@ -429,7 +395,6 @@
     </div>
 </div>
     
-
     
 
     
@@ -455,39 +420,6 @@
   
 
 </body>
-
-<script>
-
-  function isAuto() {
-    return document.body.classList.contains("auto");
-  }
-
-  function setTheme() {
-    if (!isAuto()) {
-      return
-    }
-
-    document.body.classList.remove("auto");
-    let cls = "light";
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      cls = "dark";
-    }
-
-    document.body.classList.add(cls);
-  }
-
-  function invertBody() {
-    document.body.classList.toggle("dark");
-    document.body.classList.toggle("light");
-  }
-
-  if (isAuto()) {
-    window.matchMedia('(prefers-color-scheme: dark)').addListener(invertBody);
-  }
-
-  setTheme();
-
-</script>
 
 <script defer src="/js/copy-code.js"></script>
 </html>

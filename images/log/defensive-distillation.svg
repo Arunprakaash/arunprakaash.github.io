@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#e8eff7"/>
+  <circle cx="980" cy="130" r="180" fill="#cfdff2"/>
+  <text x="70" y="300" font-family="Arial, sans-serif" font-size="70" fill="#1f2f45">Defensive Distillation</text>
+  <text x="70" y="370" font-family="Arial, sans-serif" font-size="34" fill="#3c4e69">Neural robustness against adversarial attacks</text>
+</svg>
