@@ -23,6 +23,13 @@
       <description>One neuron. A handful of weights. A rule so simple it fits in one line. And yet — it learns. This is the perceptron, and it&amp;rsquo;s where everything begins.</description>
     </item>
     <item>
+      <title>03 — The Switch That Isn&#39;t Really a Switch</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-03-activation-functions/</link>
+      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-03-activation-functions/</guid>
+      <description>Why neural nets need activation functions — and how sigmoid, tanh, ReLU, and softmax each solve the linearity problem in their own way.</description>
+    </item>
+    <item>
       <title>What If AI Understood Death? The Missing Piece of Survival Instinct</title>
       <link>https://arunprakaash.github.io/curiosities/2025-08-03/survival-instinct/</link>
       <pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate>

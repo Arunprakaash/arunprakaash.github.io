@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/ico" href="https://arunprakaash.github.io//favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://arunprakaash.github.io//favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://arunprakaash.github.io//favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://arunprakaash.github.io//android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://arunprakaash.github.io//apple-touch-icon.png">
+
+<meta name="description" content=""/>
+
+
+
+<title>
+    
+    03 — The Switch That Isn&#39;t Really a Switch | arun._space
+    
+</title>
+
+<link rel="canonical" href="https://arunprakaash.github.io/lab/neural-nets/lesson-03-activation-functions/"/>
+
+<meta property="og:url" content="https://arunprakaash.github.io/lab/neural-nets/lesson-03-activation-functions/">
+  <meta property="og:site_name" content="arun._space">
+  <meta property="og:title" content="03 — The Switch That Isn&#39;t Really a Switch">
+  <meta property="og:description" content="Why neural nets need activation functions — and how sigmoid, tanh, ReLU, and softmax each solve the linearity problem in their own way.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="lab">
+    <meta property="article:published_time" content="2026-05-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-01T00:00:00+00:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.405e542cd1848b8fe9e8f624499da2c820ff057ab70d0e9ad1d3f1bc702ae32b.css" media="all">
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-TCQ19GBNVQ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-TCQ19GBNVQ');
+        }
+      </script>
+
+
+
+
+</head>
+
+
+
+
+
+
+
+<body class="auto">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">
+        <a href="https://arunprakaash.github.io/">arun._space</a>
+    </h1>
+
+    <div class="flex">
+        
+        
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/" >
+                /home
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/log" >
+                /log
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/about" >
+                /about
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small  bold ">
+            <a href="/lab" >
+                /lab
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/">Lab</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/neural-nets/">Neural Nets</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/lab/neural-nets/lesson-03-activation-functions/">03 — The Switch That Isn&#39;t Really a Switch</a>
+</div>
+
+
+
+<div >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">03 — The Switch That Isn&#39;t Really a Switch</h1>
+    
+    <p class="single-summary">Why neural nets need activation functions — and how sigmoid, tanh, ReLU, and softmax each solve the linearity problem in their own way.</p>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2026-05-01T00:00:00&#43;00:00">May 1, 2026</time>
+      
+
+      
+    </p>
+
+  </div>
+
+  
+
+  
+
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-linearity-problem">The Linearity Problem</a></li>
+    <li><a href="#the-step-function-and-why-we-left-it-behind">The Step Function (and Why We Left It Behind)</a></li>
+    <li><a href="#sigmoid--the-smooth-step">Sigmoid — The Smooth Step</a></li>
+    <li><a href="#tanh--centered-sigmoid">Tanh — Centered Sigmoid</a></li>
+    <li><a href="#relu--the-accidental-king">ReLU — The Accidental King</a></li>
+    <li><a href="#softmax--from-scores-to-probabilities">Softmax — From Scores to Probabilities</a></li>
+    <li><a href="#side-by-side-comparison">Side-by-Side Comparison</a></li>
+    <li><a href="#interactive-activation-function-explorer">Interactive: Activation Function Explorer</a></li>
+    <li><a href="#interactive-what-happens-without-activations">Interactive: What Happens Without Activations?</a></li>
+    <li><a href="#the-intuition">The Intuition</a></li>
+    <li><a href="#whats-next">What&rsquo;s Next</a></li>
+  </ul>
+</nav>
+  </aside>
+  
+
+  
+
+  <div class="single-content">
+    <p>The perceptron used a step function — on or off, 1 or 0, no in-between. That was fine for flipping a single neuron but terrible for learning, because you can&rsquo;t take a gradient of a vertical wall.</p>
+<p>The entire deep learning revolution rests on one quiet fix: replace the hard step with something smooth.</p>
+<hr>
+<h2 class="heading" id="the-linearity-problem">
+  The Linearity Problem
+  <a href="#the-linearity-problem">#</a>
+</h2>
+<p>Imagine stacking two perceptron layers with <strong>no</strong> activation function. Layer 1 computes $\mathbf{W}_1 \mathbf{x} + \mathbf{b}_1$. Layer 2 computes $\mathbf{W}_2 (\mathbf{W}_1 \mathbf{x} + \mathbf{b}_1) + \mathbf{b}_2$.</p>
+<p>Expand that:</p>
+<p>$$\mathbf{W}_2 \mathbf{W}_1 \mathbf{x} + \mathbf{W}_2 \mathbf{b}_1 + \mathbf{b}_2$$</p>
+<p>That&rsquo;s just $\mathbf{W}&rsquo; \mathbf{x} + \mathbf{b}&rsquo;$ — a single linear transformation. No matter how many layers you stack, without nonlinearity they collapse into one. A 100-layer network with no activations is equivalent to logistic regression.</p>
+<p><strong>Activation functions are how depth becomes power.</strong> They inject the nonlinearity that lets each layer learn something genuinely new.</p>
+<hr>
+<h2 class="heading" id="the-step-function-and-why-we-left-it-behind">
+  The Step Function (and Why We Left It Behind)
+  <a href="#the-step-function-and-why-we-left-it-behind">#</a>
+</h2>
+<p>The original perceptron used:</p>
+<p>$$f(z) = \begin{cases} 1 &amp; \text{if } z \geq 0 \ 0 &amp; \text{if } z &lt; 0 \end{cases}$$</p>
+<p>It&rsquo;s a hard threshold. The derivative is zero everywhere except at $z = 0$ where it&rsquo;s undefined. That means gradient descent has nothing to work with — the loss surface is flat in every direction.</p>
+<p>We need something with a <em>slope</em>.</p>
+<hr>
+<h2 class="heading" id="sigmoid--the-smooth-step">
+  Sigmoid — The Smooth Step
+  <a href="#sigmoid--the-smooth-step">#</a>
+</h2>
+<p>$$\sigma(z) = \frac{1}{1 + e^{-z}}$$</p>
+<p>Sigmoid takes any real number and squashes it into $(0, 1)$. At $z = 0$ you get exactly $0.5$. As $z \to +\infty$ you approach 1; as $z \to -\infty$ you approach 0.</p>
+<p>Its derivative is beautifully self-referential:</p>
+<p>$$\sigma&rsquo;(z) = \sigma(z)(1 - \sigma(z))$$</p>
+<p>If the output is $0.7$, the gradient is $0.7 \times 0.3 = 0.21$. You never need to compute anything expensive — the forward pass gives you everything.</p>
+<p><strong>The catch:</strong> sigmoid <em>saturates</em>. When $z$ is very large or very small, $\sigma&rsquo;(z) \approx 0$. Gradients passing through saturated neurons become vanishingly small — the <strong>vanishing gradient problem</strong>. In deep networks, multiplying many near-zero gradients together means the early layers learn almost nothing.</p>
+<p>Also, sigmoid outputs are always positive (range $(0,1)$), which means the gradient updates always have the same sign — causing a zig-zagging inefficiency called <strong>gradient zig-zagging</strong>.</p>
+<hr>
+<h2 class="heading" id="tanh--centered-sigmoid">
+  Tanh — Centered Sigmoid
+  <a href="#tanh--centered-sigmoid">#</a>
+</h2>
+<p>$$\tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$$</p>
+<p>Tanh is sigmoid&rsquo;s better-adjusted sibling. It outputs $(-1, 1)$ and is centered at zero — so gradients can be positive or negative, which helps with the zig-zagging problem.</p>
+<p>It&rsquo;s related to sigmoid by:</p>
+<p>$$\tanh(z) = 2\sigma(2z) - 1$$</p>
+<p>Its derivative:</p>
+<p>$$\tanh&rsquo;(z) = 1 - \tanh^2(z)$$</p>
+<p>Still saturates, still has vanishing gradients in deep networks — but preferred over sigmoid for hidden layers when you want zero-centered outputs.</p>
+<hr>
+<h2 class="heading" id="relu--the-accidental-king">
+  ReLU — The Accidental King
+  <a href="#relu--the-accidental-king">#</a>
+</h2>
+<p>$$\text{ReLU}(z) = \max(0, z)$$</p>
+<p>That&rsquo;s it. No exponentials. No fractions. Just: if negative, zero; if positive, keep it.</p>
+<p>Introduced for neural networks in 2010 and it quietly changed everything. Why does something so simple work?</p>
+<p><strong>Sparse activations.</strong> On average half the neurons output zero — the network becomes sparse, which is computationally efficient and empirically generalises better.</p>
+<p><strong>No saturation on the positive side.</strong> If $z &gt; 0$, the gradient is exactly 1. It passes through perfectly. Deep networks finally started training properly.</p>
+<p><strong>Cheap.</strong> A single comparison operation. GPUs can do billions of these.</p>
+<p>The derivative:</p>
+<p>$$\text{ReLU}&rsquo;(z) = \begin{cases} 1 &amp; \text{if } z &gt; 0 \ 0 &amp; \text{if } z \leq 0 \end{cases}$$</p>
+<p><strong>The dying ReLU problem.</strong> If a neuron consistently receives negative inputs, it outputs zero, gets zero gradient, and never recovers. It&rsquo;s &ldquo;dead&rdquo; — it stopped contributing to the network.</p>
+<p>Fixes include:</p>
+<ul>
+<li><strong>Leaky ReLU:</strong> $f(z) = \max(0.01z, z)$ — lets a tiny gradient flow when negative</li>
+<li><strong>ELU, GELU, Swish</strong> — smoother variants used in modern transformers</li>
+</ul>
+<p>Despite its flaws, vanilla ReLU is still the default for most hidden layers. If it ain&rsquo;t broke&hellip;</p>
+<hr>
+<h2 class="heading" id="softmax--from-scores-to-probabilities">
+  Softmax — From Scores to Probabilities
+  <a href="#softmax--from-scores-to-probabilities">#</a>
+</h2>
+<p>For classification problems, the final layer often needs to output a probability distribution — values between 0 and 1 that sum to 1. That&rsquo;s softmax.</p>
+<p>Given a vector of scores $\mathbf{z} = [z_1, z_2, \ldots, z_k]$:</p>
+<p>$$\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{k} e^{z_j}}$$</p>
+<p>The exponentials make larger scores dominate (winner-take-most), and dividing by the sum normalises to a proper probability distribution.</p>
+<p>For a 3-class problem with scores $[2.0, 1.0, 0.1]$:</p>
+<p>$$e^{2.0} = 7.39, \quad e^{1.0} = 2.72, \quad e^{0.1} = 1.11$$
+$$\text{sum} = 11.22$$
+$$\text{softmax} = [0.659, 0.242, 0.099]$$</p>
+<p>The model is 66% confident it&rsquo;s class 1. Softmax is almost always paired with <strong>cross-entropy loss</strong>, which has a clean gradient and is the standard recipe for classification.</p>
+<hr>
+<h2 class="heading" id="side-by-side-comparison">
+  Side-by-Side Comparison
+  <a href="#side-by-side-comparison">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Function</th>
+          <th>Range</th>
+          <th>Zero-centred</th>
+          <th>Saturates</th>
+          <th>Typical use</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Step</td>
+          <td>${0, 1}$</td>
+          <td>No</td>
+          <td>Yes (hard)</td>
+          <td>Perceptron only</td>
+      </tr>
+      <tr>
+          <td>Sigmoid</td>
+          <td>$(0, 1)$</td>
+          <td>No</td>
+          <td>Yes</td>
+          <td>Binary output layer</td>
+      </tr>
+      <tr>
+          <td>Tanh</td>
+          <td>$(-1, 1)$</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>RNNs, hidden layers</td>
+      </tr>
+      <tr>
+          <td>ReLU</td>
+          <td>$[0, \infty)$</td>
+          <td>No</td>
+          <td>No (positive side)</td>
+          <td>Hidden layers (default)</td>
+      </tr>
+      <tr>
+          <td>Leaky ReLU</td>
+          <td>$(-\infty, \infty)$</td>
+          <td>No</td>
+          <td>No</td>
+          <td>When dying ReLU is a problem</td>
+      </tr>
+      <tr>
+          <td>Softmax</td>
+          <td>$(0, 1)$, sums to 1</td>
+          <td>No</td>
+          <td>—</td>
+          <td>Multi-class output layer</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 class="heading" id="interactive-activation-function-explorer">
+  Interactive: Activation Function Explorer
+  <a href="#interactive-activation-function-explorer">#</a>
+</h2>
+<p>Pick any function and drag the slider to see how the output and gradient change with $z$.</p>
+<div class="nn-demo"><canvas id="actCanvas" style="width:100%;display:block;"></canvas><div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;"><div style="display:flex;gap:8px;flex-wrap:wrap;" id="actBtns"></div><div style="display:flex;align-items:center;gap:10px;margin-left:auto;"><label style="font-size:0.85rem;font-family:monospace;">z = <span id="zVal">0.0</span></label><input type="range" id="zSlider" min="-6" max="6" step="0.1" value="0" style="width:120px;"></div></div><div id="actStats" style="margin-top:14px;font-size:0.85rem;font-family:monospace;display:flex;gap:24px;flex-wrap:wrap;"></div><script>(function(){var dpr=window.devicePixelRatio||1;var canvas=document.getElementById('actCanvas');var parent=canvas.parentElement;var style=getComputedStyle(parent);var padX=parseFloat(style.paddingLeft)+parseFloat(style.paddingRight);var cssW=parent.clientWidth-padX;var cssH=Math.round(cssW*0.45);canvas.width=cssW*dpr;canvas.height=cssH*dpr;canvas.style.width=cssW+'px';canvas.style.height=cssH+'px';var ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);var W=cssW,H=cssH;var fns={Sigmoid:{f:function(z){return 1/(1+Math.exp(-z));},d:function(z){var s=1/(1+Math.exp(-z));return s*(1-s);},color:'#2563eb',range:[-1.2,1.2]},Tanh:{f:Math.tanh,d:function(z){return 1-Math.tanh(z)*Math.tanh(z);},color:'#16a34a',range:[-1.2,1.2]},ReLU:{f:function(z){return Math.max(0,z);},d:function(z){return z>0?1:0;},color:'#dc2626',range:[-0.5,6.5]},LeakyReLU:{f:function(z){return z>0?z:0.01*z;},d:function(z){return z>0?1:0.01;},color:'#9333ea',range:[-0.5,6.5]},Step:{f:function(z){return z>=0?1:0;},d:function(z){return 0;},color:'#b45309',range:[-1.2,1.2]}};var current='ReLU';var zSlider=document.getElementById('zSlider');var zVal=document.getElementById('zVal');var actStats=document.getElementById('actStats');var btnContainer=document.getElementById('actBtns');var xMin=-6,xMax=6;function toCanvasX(z){return(z-xMin)/(xMax-xMin)*W;}function toCanvasY(v,yMin,yMax){return H-(v-yMin)/(yMax-yMin)*H;}function draw(){var fn=fns[current];var yMin=fn.range[0],yMax=fn.range[1];ctx.clearRect(0,0,W,H);var bg=getComputedStyle(document.documentElement).getPropertyValue('--background').trim()||'#f5f0ea';ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);ctx.strokeStyle='rgba(0,0,0,0.08)';ctx.lineWidth=1;ctx.beginPath();var y0=toCanvasY(0,yMin,yMax);ctx.moveTo(0,y0);ctx.lineTo(W,y0);ctx.stroke();ctx.beginPath();var x0=toCanvasX(0);ctx.moveTo(x0,0);ctx.lineTo(x0,H);ctx.stroke();for(var g=-5;g<=5;g++){if(g===0)continue;ctx.beginPath();ctx.moveTo(toCanvasX(g),0);ctx.lineTo(toCanvasX(g),H);ctx.stroke();ctx.beginPath();var gv=g/3;if(gv>=yMin&&gv<=yMax){ctx.moveTo(0,toCanvasY(gv,yMin,yMax));ctx.lineTo(W,toCanvasY(gv,yMin,yMax));ctx.stroke();}}ctx.strokeStyle=fn.color;ctx.lineWidth=2.5;ctx.beginPath();var first=true;for(var px=0;px<W;px++){var z=xMin+(px/W)*(xMax-xMin);var v=fn.f(z);if(v<yMin-0.5||v>yMax+0.5){first=true;continue;}var cy=toCanvasY(v,yMin,yMax);if(first){ctx.moveTo(px,cy);first=false;}else{ctx.lineTo(px,cy);}}ctx.stroke();var z=parseFloat(zSlider.value);var v=fn.f(z);var d=fn.d(z);var cx=toCanvasX(z);var cy2=toCanvasY(v,yMin,yMax);ctx.fillStyle=fn.color;ctx.beginPath();ctx.arc(cx,cy2,6,0,2*Math.PI);ctx.fill();ctx.strokeStyle='white';ctx.lineWidth=2;ctx.stroke();var slope=d;var dx=1.5;var x1=toCanvasX(z-dx),x2=toCanvasX(z+dx);var y1=toCanvasY(v-slope*dx,yMin,yMax),y2=toCanvasY(v+slope*dx,yMin,yMax);ctx.strokeStyle=fn.color+'99';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.setLineDash([]);zVal.textContent=z.toFixed(1);actStats.innerHTML='<span>f(z) = <b>'+v.toFixed(4)+'</b></span><span>f\'(z) = <b>'+d.toFixed(4)+'</b></span>';}var btns={};Object.keys(fns).forEach(function(name){var b=document.createElement('button');b.textContent=name;b.style.cssText='padding:5px 12px;border-radius:6px;border:1.5px solid '+fns[name].color+';background:transparent;color:'+fns[name].color+';font-size:0.82rem;cursor:pointer;font-weight:600;transition:background 0.15s;';b.onclick=function(){current=name;Object.values(btns).forEach(function(btn){btn.style.background='transparent';});b.style.background=fns[name].color+'22';draw();};btns[name]=b;btnContainer.appendChild(b);});btns['ReLU'].style.background=fns['ReLU'].color+'22';zSlider.oninput=draw;draw();}());</script></div>
+<hr>
+<h2 class="heading" id="interactive-what-happens-without-activations">
+  Interactive: What Happens Without Activations?
+  <a href="#interactive-what-happens-without-activations">#</a>
+</h2>
+<p>Stack as many linear layers as you want — they always collapse to one. This demo makes it visceral.</p>
+<div class="nn-demo"><canvas id="linearCanvas" style="width:100%;display:block;"></canvas><div style="margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;"><label style="font-size:0.85rem;font-family:monospace;">Layers: <b id="layerCount">1</b></label><input type="range" id="layerSlider" min="1" max="8" step="1" value="1" style="width:130px;"><div style="display:flex;gap:8px;margin-left:auto;"><button id="addActBtn" style="padding:5px 14px;border-radius:6px;border:1.5px solid #16a34a;background:#16a34a22;color:#16a34a;font-size:0.82rem;cursor:pointer;font-weight:600;">With ReLU</button><button id="noActBtn" style="padding:5px 14px;border-radius:6px;border:1.5px solid #dc2626;background:#dc262622;color:#dc2626;font-size:0.82rem;cursor:pointer;font-weight:600;">Without</button></div></div><p id="linearMsg" style="margin-top:10px;font-size:0.85rem;font-family:monospace;text-align:center;"></p><script>(function(){var dpr=window.devicePixelRatio||1;var canvas=document.getElementById('linearCanvas');var parent=canvas.parentElement;var style=getComputedStyle(parent);var padX=parseFloat(style.paddingLeft)+parseFloat(style.paddingRight);var cssW=parent.clientWidth-padX;var cssH=Math.round(cssW*0.4);canvas.width=cssW*dpr;canvas.height=cssH*dpr;canvas.style.width=cssW+'px';canvas.style.height=cssH+'px';var ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);var W=cssW,H=cssH;var useAct=false;var layers=1;function sigmoid(z){return 1/(1+Math.exp(-z));}function relu(z){return Math.max(0,z);}function randWeight(){return(Math.random()-0.5)*2;}var weights=[];for(var i=0;i<8;i++){weights.push(randWeight());}function computeOutput(x,n,act){var v=x;for(var i=0;i<n;i++){v=weights[i]*v+(Math.random()*0-0);if(act&&i<n-1){v=relu(v);}}return v;}function draw(){var bg=getComputedStyle(document.documentElement).getPropertyValue('--background').trim()||'#f5f0ea';ctx.clearRect(0,0,W,H);ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);var xMin=-3,xMax=3,yMin=-4,yMax=4;function tx(v){return(v-xMin)/(xMax-xMin)*W;}function ty(v){return H-(v-yMin)/(yMax-yMin)*H;}ctx.strokeStyle='rgba(0,0,0,0.08)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,ty(0));ctx.lineTo(W,ty(0));ctx.stroke();ctx.beginPath();ctx.moveTo(tx(0),0);ctx.lineTo(tx(0),H);ctx.stroke();var color=useAct?'#16a34a':'#dc2626';ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.beginPath();var first=true;var pts=200;for(var i=0;i<=pts;i++){var x=xMin+(i/pts)*(xMax-xMin);var wProd=1;for(var j=0;j<layers;j++){wProd*=weights[j];}var y;if(useAct){var v2=x;for(var j=0;j<layers;j++){v2=weights[j]*v2;if(j<layers-1){v2=relu(v2);}}y=v2;}else{y=wProd*x;}if(y<yMin-1||y>yMax+1){first=true;continue;}var cx=tx(x),cy=ty(y);if(first){ctx.moveTo(cx,cy);first=false;}else{ctx.lineTo(cx,cy);}}ctx.stroke();var msg=document.getElementById('linearMsg');if(useAct){msg.textContent=layers+' layer'+(layers>1?'s':'')+' with ReLU — each layer adds genuine nonlinearity';}else{var wProd2=1;for(var j=0;j<layers;j++){wProd2*=weights[j];}msg.textContent=layers+' linear layer'+(layers>1?'s':'')+' without activation = one line, slope = '+wProd2.toFixed(3);}}document.getElementById('layerSlider').oninput=function(){layers=parseInt(this.value);document.getElementById('layerCount').textContent=layers;draw();};document.getElementById('addActBtn').onclick=function(){useAct=true;draw();};document.getElementById('noActBtn').onclick=function(){useAct=false;draw();};draw();}());</script></div>
+<hr>
+<h2 class="heading" id="the-intuition">
+  The Intuition
+  <a href="#the-intuition">#</a>
+</h2>
+<p>Think of activation functions as <strong>editorial judgment</strong>. The linear part ($\mathbf{Wx} + \mathbf{b}$) gathers evidence. The activation function decides what to do with it:</p>
+<ul>
+<li><strong>Step:</strong> binary verdict, no nuance</li>
+<li><strong>Sigmoid:</strong> nuanced verdict scaled to a confidence between 0 and 1</li>
+<li><strong>Tanh:</strong> same, but centred so it can push in either direction</li>
+<li><strong>ReLU:</strong> pass the evidence through unchanged if it&rsquo;s positive, silence it if it&rsquo;s negative</li>
+<li><strong>Softmax:</strong> distribute confidence across all possible verdicts</li>
+</ul>
+<p>The right choice depends on where in the network you are and what you&rsquo;re trying to do. For hidden layers today: <strong>ReLU</strong> (or a variant) is the default. For binary classification output: <strong>sigmoid</strong>. For multi-class output: <strong>softmax</strong>.</p>
+<hr>
+<h2 class="heading" id="whats-next">
+  What&rsquo;s Next
+  <a href="#whats-next">#</a>
+</h2>
+<p>We have neurons. We have nonlinearity. Now we need to connect them into actual layers — and understand how information flows forward through a full network before we can talk about how gradients flow backward.</p>
+<p>Next: <strong>Forward Pass — From Pixels to Predictions</strong>, where we build a complete feedforward network by hand and trace a single input all the way to an output.</p>
+
+    
+    
+    <script src="https://giscus.app/client.js"
+        data-repo="arunprakaash/arunprakaash.github.io"
+        data-repo-id="R_kgDOMQKpEw"
+        data-category=""
+        data-category-id="DIC_kwDOMQKpE84CjORF"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="noborder_light"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+    
+    
+  </div>
+
+  
+
+
+  
+
+  
+  
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flex">
+
+        <div class="single-pagination-prev">
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+            <div class="single-pagination-container-next">
+                <div class="single-pagination-text">
+                    <a href="/lab/neural-nets/lesson-02-perceptron/">
+                        02 — Meet the World&#39;s Dumbest Brain Cell
+                    </a>
+                </div>
+                <div class="single-pagination-text">→</div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  <footer>
+    
+
+    
+    <p>Made with ❤️ by
+        <a href="https://github.com/arunprakaash">Arunprakaash</a>
+    </p>
+        
+    
+
+
+  </footer>
+
+  
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+  
+
+</body>
+
+<script defer src="/js/copy-code.js"></script>
+</html>
