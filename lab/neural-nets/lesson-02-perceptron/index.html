@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/ico" href="https://arunprakaash.github.io//favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://arunprakaash.github.io//favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://arunprakaash.github.io//favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://arunprakaash.github.io//android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://arunprakaash.github.io//apple-touch-icon.png">
+
+<meta name="description" content=""/>
+
+
+
+<title>
+    
+    02 — Meet the World&#39;s Dumbest Brain Cell | arun._space
+    
+</title>
+
+<link rel="canonical" href="https://arunprakaash.github.io/lab/neural-nets/lesson-02-perceptron/"/>
+
+<meta property="og:url" content="https://arunprakaash.github.io/lab/neural-nets/lesson-02-perceptron/">
+  <meta property="og:site_name" content="arun._space">
+  <meta property="og:title" content="02 — Meet the World&#39;s Dumbest Brain Cell">
+  <meta property="og:description" content="One neuron. A handful of weights. A rule so simple it fits in one line. And yet — it learns. This is the perceptron, and it’s where everything begins.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="lab">
+    <meta property="article:published_time" content="2026-05-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-01T00:00:00+00:00">
+    <meta property="article:tag" content="Neural-Nets">
+    <meta property="article:tag" content="Perceptron">
+    <meta property="article:tag" content="Learning-Rule">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.cedb7e2f28000ef9c64db980252d4b17a2230ed736e3c9f719d6ec53b8a3616b.css" media="all">
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-TCQ19GBNVQ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-TCQ19GBNVQ');
+        }
+      </script>
+
+
+
+
+</head>
+
+
+
+
+
+
+
+<body class="auto">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">
+        <a href="https://arunprakaash.github.io/">arun._space</a>
+    </h1>
+
+    <div class="flex">
+        
+        
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/" >
+                /home
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/log" >
+                /log
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/about" >
+                /about
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small  bold ">
+            <a href="/lab" >
+                /lab
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/">Lab</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/neural-nets/">Neural Nets</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/lab/neural-nets/lesson-02-perceptron/">02 — Meet the World&#39;s Dumbest Brain Cell</a>
+</div>
+
+
+
+<div >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">02 — Meet the World&#39;s Dumbest Brain Cell</h1>
+    
+    <p class="single-summary">One neuron. A handful of weights. A rule so simple it fits in one line. And yet — it learns. This is the perceptron, and it&rsquo;s where everything begins.</p>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2026-05-01T00:00:00&#43;00:00">May 1, 2026</time>
+      
+
+      
+      &nbsp; · &nbsp;
+      6 min read
+      
+    </p>
+
+  </div>
+
+  
+
+  
+  
+
+  <div class="single-tags">
+    
+    <span>
+      <a href="https://arunprakaash.github.io/tags/neural-nets/">#Neural-Nets</a>
+    </span>
+    
+    
+    <span>
+      <a href="https://arunprakaash.github.io/tags/perceptron/">#Perceptron</a>
+    </span>
+    
+    
+    <span>
+      <a href="https://arunprakaash.github.io/tags/learning-rule/">#Learning-Rule</a>
+    </span>
+    
+    
+  </div>
+
+  
+  
+
+  
+
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-biological-inspiration">The Biological Inspiration</a></li>
+    <li><a href="#the-artificial-perceptron">The Artificial Perceptron</a>
+      <ul>
+        <li><a href="#what-each-piece-does">What each piece does</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-decision-boundary">The Decision Boundary</a></li>
+    <li><a href="#the-perceptron-learning-rule">The Perceptron Learning Rule</a></li>
+    <li><a href="#watch-it-learn">Watch It Learn</a></li>
+    <li><a href="#and-and-or--it-works">AND and OR — It Works</a></li>
+    <li><a href="#xor--it-breaks">XOR — It Breaks</a></li>
+    <li><a href="#one-perceptron--one-neuron">One Perceptron = One Neuron</a></li>
+    <li><a href="#before-you-go--try-these">Before You Go — Try These</a></li>
+  </ul>
+</nav>
+  </aside>
+  
+
+  
+
+  <div class="single-content">
+    <p>In 1957, Frank Rosenblatt built a machine called the Mark I Perceptron. It had 400 photocells as inputs, a bunch of potentiometers as weights, and it could — for the first time ever — <em>learn</em> to classify images by adjusting its own weights.</p>
+<p>The New York Times ran a headline: <em>&ldquo;New Navy Device Learns By Doing.&rdquo;</em></p>
+<p>Rosenblatt claimed it would one day be conscious. It wasn&rsquo;t. But the idea it introduced — a unit that takes inputs, computes a weighted sum, and fires or doesn&rsquo;t based on a threshold — is still the atom every neural network is built from.</p>
+<p>Let&rsquo;s build one.</p>
+<hr>
+<h2 class="heading" id="the-biological-inspiration">
+  The Biological Inspiration
+  <a href="#the-biological-inspiration">#</a>
+</h2>
+<p>A real neuron looks like this:</p>
+<ul>
+<li><strong>Dendrites</strong> receive signals from other neurons</li>
+<li>The <strong>soma</strong> (cell body) adds them all up</li>
+<li>If the total exceeds a threshold, the neuron fires — sending a signal down the <strong>axon</strong> to the next neuron</li>
+<li>If not, silence</li>
+</ul>
+<pre tabindex="0"><code>dendrites → [cell body: sum up] → threshold check → axon → next neuron
+</code></pre><p>The artificial version doesn&rsquo;t try to be biologically accurate. It just steals the core idea: <em>weighted inputs, sum, threshold.</em></p>
+<hr>
+<h2 class="heading" id="the-artificial-perceptron">
+  The Artificial Perceptron
+  <a href="#the-artificial-perceptron">#</a>
+</h2>
+<p>A perceptron takes $n$ inputs $x_1, x_2, \ldots, x_n$, multiplies each by a weight $w_i$, adds a bias $b$, and passes the result through a step function.</p>
+<p>$$z = w_1 x_1 + w_2 x_2 + \cdots + w_n x_n + b = \mathbf{w} \cdot \mathbf{x} + b$$</p>
+<p>$$\hat{y} = \text{step}(z) = \begin{cases} 1 &amp; \text{if } z \geq 0 \ 0 &amp; \text{if } z &lt; 0 \end{cases}$$</p>
+<p>That&rsquo;s it. The entire perceptron in two equations.</p>
+<h3 class="heading" id="what-each-piece-does">
+  What each piece does
+  <a href="#what-each-piece-does">#</a>
+</h3>
+<p><strong>Weights</strong> $\mathbf{w}$ — how much each input matters. A large positive weight means &ldquo;this input strongly pushes toward 1.&rdquo; A large negative weight means &ldquo;this input strongly pushes toward 0.&rdquo;</p>
+<p><strong>Bias</strong> $b$ — shifts the threshold. Without it, the decision boundary always passes through the origin. With it, we can shift it anywhere.</p>
+<p><strong>The step function</strong> — the simplest possible activation. Above zero → fire (output 1). Below zero → don&rsquo;t fire (output 0).</p>
+<p>In Python:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#cf222e">import</span> <span style="color:#24292e">numpy</span> <span style="color:#cf222e">as</span> <span style="color:#24292e">np</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">def</span> <span style="color:#6639ba">step</span><span style="color:#1f2328">(</span>z<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">return</span> <span style="color:#0550ae">1</span> <span style="color:#cf222e">if</span> z <span style="color:#0550ae">&gt;=</span> <span style="color:#0550ae">0</span> <span style="color:#cf222e">else</span> <span style="color:#0550ae">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">def</span> <span style="color:#6639ba">perceptron</span><span style="color:#1f2328">(</span>x<span style="color:#1f2328">,</span> w<span style="color:#1f2328">,</span> b<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>    z <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>dot<span style="color:#1f2328">(</span>w<span style="color:#1f2328">,</span> x<span style="color:#1f2328">)</span> <span style="color:#0550ae">+</span> b
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">return</span> step<span style="color:#1f2328">(</span>z<span style="color:#1f2328">)</span>
+</span></span></code></pre></div><hr>
+<h2 class="heading" id="the-decision-boundary">
+  The Decision Boundary
+  <a href="#the-decision-boundary">#</a>
+</h2>
+<p>Here&rsquo;s something beautiful. For a 2-input perceptron, the condition $\mathbf{w} \cdot \mathbf{x} + b = 0$ defines a <strong>line</strong> in 2D space — the boundary between &ldquo;fire&rdquo; and &ldquo;don&rsquo;t fire.&rdquo;</p>
+<p>$$w_1 x_1 + w_2 x_2 + b = 0 \implies x_2 = \frac{-w_1 x_1 - b}{w_2}$$</p>
+<p>Everything above this line → output 1. Everything below → output 0.</p>
+<p>This means a perceptron can only learn to separate things that are <strong>linearly separable</strong> — things you can split with a straight line. We&rsquo;ll come back to this. It matters a lot.</p>
+<hr>
+<h2 class="heading" id="the-perceptron-learning-rule">
+  The Perceptron Learning Rule
+  <a href="#the-perceptron-learning-rule">#</a>
+</h2>
+<p>This is where the magic happens. The perceptron can <em>adjust its own weights</em> when it makes a mistake.</p>
+<p>For each training example $({\mathbf{x}}, y)$:</p>
+<ol>
+<li>Make a prediction: $\hat{y} = \text{step}(\mathbf{w} \cdot \mathbf{x} + b)$</li>
+<li>Compute the error: $e = y - \hat{y}$</li>
+<li>Update every weight: $w_i \leftarrow w_i + \eta \cdot e \cdot x_i$</li>
+<li>Update the bias: $b \leftarrow b + \eta \cdot e$</li>
+</ol>
+<p>Where $\eta$ (eta) is the <strong>learning rate</strong> — how big a step to take each update. Usually a small number like $0.1$.</p>
+<p>Notice what happens:</p>
+<ul>
+<li>If the prediction is <strong>correct</strong> ($e = 0$) → nothing changes</li>
+<li>If prediction is <strong>0 but should be 1</strong> ($e = +1$) → weights increase in the direction of $\mathbf{x}$</li>
+<li>If prediction is <strong>1 but should be 0</strong> ($e = -1$) → weights decrease</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#cf222e">def</span> <span style="color:#6639ba">train_perceptron</span><span style="color:#1f2328">(</span>X<span style="color:#1f2328">,</span> y<span style="color:#1f2328">,</span> lr<span style="color:#0550ae">=</span><span style="color:#0550ae">0.1</span><span style="color:#1f2328">,</span> epochs<span style="color:#0550ae">=</span><span style="color:#0550ae">100</span><span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>    w <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>zeros<span style="color:#1f2328">(</span>X<span style="color:#0550ae">.</span>shape<span style="color:#1f2328">[</span><span style="color:#0550ae">1</span><span style="color:#1f2328">])</span>
+</span></span><span style="display:flex;"><span>    b <span style="color:#0550ae">=</span> <span style="color:#0550ae">0.0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">for</span> epoch <span style="color:#0550ae">in</span> <span style="color:#6639ba">range</span><span style="color:#1f2328">(</span>epochs<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">for</span> xi<span style="color:#1f2328">,</span> yi <span style="color:#0550ae">in</span> <span style="color:#6639ba">zip</span><span style="color:#1f2328">(</span>X<span style="color:#1f2328">,</span> y<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>            y_hat <span style="color:#0550ae">=</span> perceptron<span style="color:#1f2328">(</span>xi<span style="color:#1f2328">,</span> w<span style="color:#1f2328">,</span> b<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>            error <span style="color:#0550ae">=</span> yi <span style="color:#0550ae">-</span> y_hat
+</span></span><span style="display:flex;"><span>            w <span style="color:#0550ae">+=</span> lr <span style="color:#0550ae">*</span> error <span style="color:#0550ae">*</span> xi
+</span></span><span style="display:flex;"><span>            b <span style="color:#0550ae">+=</span> lr <span style="color:#0550ae">*</span> error
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">return</span> w<span style="color:#1f2328">,</span> b
+</span></span></code></pre></div><p>The <strong>Perceptron Convergence Theorem</strong> guarantees this will find a perfect solution — <em>if one exists</em>. That &ldquo;if&rdquo; is doing a lot of work. More on that in a moment.</p>
+<hr>
+<h2 class="heading" id="watch-it-learn">
+  Watch It Learn
+  <a href="#watch-it-learn">#</a>
+</h2>
+<p>Here&rsquo;s a perceptron learning to classify 2D points in real time. Pick a preset, hit <strong>Train</strong>, and watch the decision boundary rotate into place.</p>
+<div class="nn-demo"><h4 style="margin: 0 0 6px; font-size: 1rem;">Perceptron — Live Training</h4><p style="margin: 0 0 16px; font-size: 13px; opacity: 0.6;">Pick a gate, click train step-by-step or let it run. Place your own points by clicking the canvas.</p><div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;"><button class="pp-btn pp-preset" data-preset="and">AND</button><button class="pp-btn pp-preset" data-preset="or">OR</button><button class="pp-btn pp-preset" data-preset="xor" style="color:#dc2626;">XOR ⚡</button><button class="pp-btn pp-preset" data-preset="custom">Custom</button><span style="flex:1;"></span><button class="pp-btn" id="pp-step">Step</button><button class="pp-btn" id="pp-train">Train</button><button class="pp-btn" id="pp-reset">Reset</button></div><canvas id="pp-canvas" style="width:100%; border-radius:8px; display:block; cursor:crosshair;"></canvas><div style="margin-top:14px; display:grid; grid-template-columns:repeat(4,1fr); gap:8px; font-family:monospace; font-size:13px;"><div style="padding:10px; background:rgba(0,0,0,0.04); border-radius:6px; text-align:center;"><div style="opacity:0.5; font-size:11px; margin-bottom:4px;">w₁</div><strong id="pp-w1">0.00</strong></div><div style="padding:10px; background:rgba(0,0,0,0.04); border-radius:6px; text-align:center;"><div style="opacity:0.5; font-size:11px; margin-bottom:4px;">w₂</div><strong id="pp-w2">0.00</strong></div><div style="padding:10px; background:rgba(0,0,0,0.04); border-radius:6px; text-align:center;"><div style="opacity:0.5; font-size:11px; margin-bottom:4px;">bias</div><strong id="pp-bias">0.00</strong></div><div style="padding:10px; background:rgba(0,0,0,0.04); border-radius:6px; text-align:center;"><div style="opacity:0.5; font-size:11px; margin-bottom:4px;">accuracy</div><strong id="pp-acc">—</strong></div></div><p id="pp-msg" style="margin:12px 0 0; font-size:13px; min-height:20px; text-align:center; font-weight:600;"></p></div>
+<style>
+.pp-btn {
+  padding: 6px 14px; border-radius: 6px; border: 1px solid #ccc;
+  background: transparent; cursor: pointer; font-size: 13px;
+  font-family: inherit; transition: background 0.15s;
+}
+.pp-btn:hover { background: rgba(0,0,0,0.06); }
+.pp-btn.active { background: rgba(0,0,0,0.1); border-color: #888; font-weight: 600; }
+</style>
+<script>
+(function() {
+  var canvas = document.getElementById('pp-canvas');
+  var ctx = canvas.getContext('2d');
+  var W, H, dpr;
+  var LR = 0.1;
+  var w = [0, 0], b = 0;
+  var points = [];   // {x, y, label} in canvas coords
+  var trainIdx = 0;
+  var running = false;
+  var trainTimer = null;
+  var lastUpdated = -1;
+
+  var presets = {
+    and: [
+      {nx:-0.6, ny:-0.6, label:0}, {nx:0.6, ny:-0.6, label:0},
+      {nx:-0.6, ny:0.6, label:0}, {nx:0.6, ny:0.6, label:1}
+    ],
+    or: [
+      {nx:-0.6, ny:-0.6, label:0}, {nx:0.6, ny:-0.6, label:1},
+      {nx:-0.6, ny:0.6, label:1}, {nx:0.6, ny:0.6, label:1}
+    ],
+    xor: [
+      {nx:-0.6, ny:-0.6, label:0}, {nx:0.6, ny:-0.6, label:1},
+      {nx:-0.6, ny:0.6, label:1}, {nx:0.6, ny:0.6, label:0}
+    ],
+    custom: []
+  };
+  var currentPreset = 'and';
+
+  function setup() {
+    dpr = window.devicePixelRatio || 1;
+    var parent = canvas.parentElement;
+    var style = window.getComputedStyle(parent);
+    var padX = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+    var cssW = (parent.clientWidth - padX) || 600;
+    var cssH = Math.round(cssW * 0.55);
+    canvas.width = cssW * dpr; canvas.height = cssH * dpr;
+    canvas.style.width = cssW + 'px'; canvas.style.height = cssH + 'px';
+    ctx.scale(dpr, dpr);
+    W = cssW; H = cssH;
+  }
+
+  // Normalised coords (-1 to 1) ↔ canvas pixels
+  function toCanvas(nx, ny) {
+    return [W/2 + nx * W * 0.38, H/2 - ny * H * 0.38];
+  }
+  function toNorm(cx, cy) {
+    return [(cx - W/2) / (W * 0.38), -(cy - H/2) / (H * 0.38)];
+  }
+
+  function step(z) { return z >= 0 ? 1 : 0; }
+
+  function predict(nx, ny) {
+    return step(w[0]*nx + w[1]*ny + b);
+  }
+
+  function accuracy() {
+    if (!points.length) return null;
+    var correct = points.filter(function(p) {
+      return predict(p.nx, p.ny) === p.label;
+    }).length;
+    return Math.round(100 * correct / points.length);
+  }
+
+  function trainStep() {
+    if (!points.length) return;
+    var p = points[trainIdx % points.length];
+    trainIdx++;
+    var yhat = predict(p.nx, p.ny);
+    var err = p.label - yhat;
+    w[0] += LR * err * p.nx;
+    w[1] += LR * err * p.ny;
+    b    += LR * err;
+    lastUpdated = (trainIdx - 1) % points.length;
+    updateStats();
+    draw();
+  }
+
+  function updateStats() {
+    document.getElementById('pp-w1').textContent = w[0].toFixed(3);
+    document.getElementById('pp-w2').textContent = w[1].toFixed(3);
+    document.getElementById('pp-bias').textContent = b.toFixed(3);
+    var acc = accuracy();
+    var accEl = document.getElementById('pp-acc');
+    accEl.textContent = acc !== null ? acc + '%' : '—';
+    accEl.style.color = acc === 100 ? '#16a34a' : acc !== null && acc < 60 ? '#dc2626' : 'inherit';
+
+    var msg = document.getElementById('pp-msg');
+    if (currentPreset === 'xor' && acc !== null) {
+      msg.textContent = acc < 100 ? '⚡ XOR is not linearly separable — no straight line can ever solve this.' : '';
+      msg.style.color = '#dc2626';
+    } else if (acc === 100) {
+      msg.textContent = '✓ Perfectly classified!';
+      msg.style.color = '#16a34a';
+      if (running) stopTraining();
+    } else {
+      msg.textContent = '';
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, W, H);
+
+    // Background shading based on current boundary
+    var imageData = ctx.createImageData(Math.ceil(W), Math.ceil(H));
+    for (var px = 0; px < W; px += 3) {
+      for (var py = 0; py < H; py += 3) {
+        var nm = toNorm(px, py);
+        var pred = predict(nm[0], nm[1]);
+        var r = pred === 1 ? 37 : 220;
+        var g = pred === 1 ? 99 : 38;
+        var bv = pred === 1 ? 235 : 38;
+        for (var dx = 0; dx < 3 && px+dx < W; dx++) {
+          for (var dy = 0; dy < 3 && py+dy < H; dy++) {
+            var idx = ((py+dy) * Math.ceil(W) + (px+dx)) * 4;
+            imageData.data[idx]   = r;
+            imageData.data[idx+1] = g;
+            imageData.data[idx+2] = bv;
+            imageData.data[idx+3] = 22;
+          }
+        }
+      }
+    }
+    ctx.putImageData(imageData, 0, 0);
+
+    // Grid
+    ctx.strokeStyle = 'rgba(0,0,0,0.06)'; ctx.lineWidth = 1;
+    for (var gx = -1; gx <= 1; gx += 0.5) {
+      var cp = toCanvas(gx, 0);
+      ctx.beginPath(); ctx.moveTo(cp[0], 0); ctx.lineTo(cp[0], H); ctx.stroke();
+    }
+    for (var gy = -1; gy <= 1; gy += 0.5) {
+      var cp2 = toCanvas(0, gy);
+      ctx.beginPath(); ctx.moveTo(0, cp2[1]); ctx.lineTo(W, cp2[1]); ctx.stroke();
+    }
+
+    // Axes
+    ctx.strokeStyle = 'rgba(0,0,0,0.15)'; ctx.lineWidth = 1.5;
+    var o = toCanvas(0, 0);
+    ctx.beginPath(); ctx.moveTo(0, o[1]); ctx.lineTo(W, o[1]); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(o[0], 0); ctx.lineTo(o[0], H); ctx.stroke();
+
+    // Decision boundary line: w[0]*x + w[1]*y + b = 0
+    if (Math.abs(w[1]) > 0.001) {
+      var x1n = -1.5, x2n = 1.5;
+      var y1n = (-w[0]*x1n - b) / w[1];
+      var y2n = (-w[0]*x2n - b) / w[1];
+      var pt1 = toCanvas(x1n, y1n), pt2 = toCanvas(x2n, y2n);
+      ctx.beginPath();
+      ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 2.5;
+      ctx.moveTo(pt1[0], pt1[1]); ctx.lineTo(pt2[0], pt2[1]);
+      ctx.stroke();
+    } else if (Math.abs(w[0]) > 0.001) {
+      var xb = -b / w[0];
+      var ptb = toCanvas(xb, 0);
+      ctx.beginPath();
+      ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 2.5;
+      ctx.moveTo(ptb[0], 0); ctx.lineTo(ptb[0], H);
+      ctx.stroke();
+    }
+
+    // Points
+    points.forEach(function(p, i) {
+      var cp3 = toCanvas(p.nx, p.ny);
+      var isUpdated = (i === lastUpdated);
+      ctx.beginPath();
+      ctx.arc(cp3[0], cp3[1], isUpdated ? 11 : 9, 0, Math.PI*2);
+      ctx.fillStyle = p.label === 1 ? '#2563eb' : '#dc2626';
+      ctx.fill();
+      ctx.strokeStyle = isUpdated ? '#1e293b' : '#fff';
+      ctx.lineWidth = isUpdated ? 2.5 : 1.5;
+      ctx.stroke();
+      // Label
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 11px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(p.label, cp3[0], cp3[1] + 4);
+    });
+  }
+
+  function loadPreset(name) {
+    currentPreset = name;
+    w = [0, 0]; b = 0; trainIdx = 0; lastUpdated = -1;
+    stopTraining();
+    document.querySelectorAll('.pp-preset').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.preset === name);
+    });
+    if (name === 'custom') {
+      points = [];
+    } else {
+      var scale = 1;
+      points = presets[name].map(function(p) {
+        return { nx: p.nx, ny: p.ny, label: p.label };
+      });
+    }
+    document.getElementById('pp-msg').textContent = '';
+    updateStats(); draw();
+  }
+
+  function stopTraining() {
+    running = false;
+    clearInterval(trainTimer);
+    document.getElementById('pp-train').textContent = 'Train';
+  }
+
+  // Preset buttons
+  document.querySelectorAll('.pp-preset').forEach(function(btn) {
+    btn.addEventListener('click', function() { loadPreset(btn.dataset.preset); });
+  });
+
+  document.getElementById('pp-step').addEventListener('click', function() {
+    stopTraining(); trainStep();
+  });
+
+  document.getElementById('pp-train').addEventListener('click', function() {
+    if (running) { stopTraining(); return; }
+    running = true;
+    document.getElementById('pp-train').textContent = 'Pause';
+    trainTimer = setInterval(function() {
+      for (var i = 0; i < 3; i++) trainStep();
+    }, 80);
+  });
+
+  document.getElementById('pp-reset').addEventListener('click', function() {
+    w = [0,0]; b = 0; trainIdx = 0; lastUpdated = -1;
+    stopTraining();
+    updateStats(); draw();
+  });
+
+  // Click to add points in custom mode
+  canvas.addEventListener('click', function(e) {
+    if (currentPreset !== 'custom') return;
+    var rect = canvas.getBoundingClientRect();
+    var cx = e.clientX - rect.left, cy = e.clientY - rect.top;
+    var nm = toNorm(cx, cy);
+    var label = e.shiftKey ? 1 : 0;
+    points.push({ nx: nm[0], ny: nm[1], label: label });
+    updateStats(); draw();
+  });
+
+  canvas.title = 'Custom mode: click = red (0), shift+click = blue (1)';
+
+  window.addEventListener('resize', function() { setup(); draw(); });
+
+  setup();
+  loadPreset('and');
+})();
+</script>
+<blockquote>
+<p><strong>Custom mode:</strong> switch to &ldquo;Custom&rdquo;, click to place red dots (label 0), shift+click for blue dots (label 1). Then train.</p>
+</blockquote>
+<hr>
+<h2 class="heading" id="and-and-or--it-works">
+  AND and OR — It Works
+  <a href="#and-and-or--it-works">#</a>
+</h2>
+<p>Try AND and OR above. The perceptron finds a clean separating line every time.</p>
+<p>Why? Because AND and OR are <strong>linearly separable</strong>:</p>
+<pre tabindex="0"><code>AND truth table:         OR truth table:
+(0,0) → 0               (0,0) → 0
+(1,0) → 0               (1,0) → 1
+(0,1) → 0               (0,1) → 1
+(1,1) → 1               (1,1) → 1
+</code></pre><p>You can literally draw a straight line between the 0s and 1s.</p>
+<hr>
+<h2 class="heading" id="xor--it-breaks">
+  XOR — It Breaks
+  <a href="#xor--it-breaks">#</a>
+</h2>
+<p>Now try XOR. Hit train. Watch it spin forever.</p>
+<pre tabindex="0"><code>XOR truth table:
+(0,0) → 0
+(1,0) → 1     ← 1 is diagonal from the other 1
+(0,1) → 1
+(1,1) → 0     ← 0 is diagonal from the other 0
+</code></pre><p>There is no straight line that separates the 0s from the 1s. The 1s are at opposite corners of a square. This is called <strong>not linearly separable</strong>, and a single perceptron is mathematically incapable of solving it.</p>
+<p>In 1969, Minsky and Papert published a book proving this. It killed funding for neural network research for over a decade — the &ldquo;AI winter.&rdquo;</p>
+<p>The fix? Stack multiple perceptrons into <strong>layers</strong>. One layer draws one line. Two layers can draw two lines. Enough layers can carve up any shape.</p>
+<p>That&rsquo;s what the rest of this series is building toward.</p>
+<hr>
+<h2 class="heading" id="one-perceptron--one-neuron">
+  One Perceptron = One Neuron
+  <a href="#one-perceptron--one-neuron">#</a>
+</h2>
+<p>What we built today is one artificial neuron. It:</p>
+<ul>
+<li>Takes inputs (numbers)</li>
+<li>Multiplies each by a learned weight</li>
+<li>Adds a bias</li>
+<li>Fires or doesn&rsquo;t based on a threshold</li>
+</ul>
+<p>A neural network is just thousands of these, wired together, each learning its own weights.</p>
+<p>The perceptron learning rule we used here — nudge the weights when wrong — is the ancestor of backpropagation. It&rsquo;s cruder, but the spirit is identical.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#57606a"># Full perceptron from scratch</span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">import</span> <span style="color:#24292e">numpy</span> <span style="color:#cf222e">as</span> <span style="color:#24292e">np</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">class</span> <span style="color:#1f2328">Perceptron</span><span style="color:#1f2328">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">__init__</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> lr<span style="color:#0550ae">=</span><span style="color:#0550ae">0.1</span><span style="color:#1f2328">,</span> epochs<span style="color:#0550ae">=</span><span style="color:#0550ae">100</span><span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>lr <span style="color:#0550ae">=</span> lr
+</span></span><span style="display:flex;"><span>        <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>epochs <span style="color:#0550ae">=</span> epochs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">fit</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> X<span style="color:#1f2328">,</span> y<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>w <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>zeros<span style="color:#1f2328">(</span>X<span style="color:#0550ae">.</span>shape<span style="color:#1f2328">[</span><span style="color:#0550ae">1</span><span style="color:#1f2328">])</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>b <span style="color:#0550ae">=</span> <span style="color:#0550ae">0.0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">for</span> _ <span style="color:#0550ae">in</span> <span style="color:#6639ba">range</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>epochs<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#cf222e">for</span> xi<span style="color:#1f2328">,</span> yi <span style="color:#0550ae">in</span> <span style="color:#6639ba">zip</span><span style="color:#1f2328">(</span>X<span style="color:#1f2328">,</span> y<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>                error <span style="color:#0550ae">=</span> yi <span style="color:#0550ae">-</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>predict_single<span style="color:#1f2328">(</span>xi<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>w <span style="color:#0550ae">+=</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>lr <span style="color:#0550ae">*</span> error <span style="color:#0550ae">*</span> xi
+</span></span><span style="display:flex;"><span>                <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>b <span style="color:#0550ae">+=</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>lr <span style="color:#0550ae">*</span> error
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">predict_single</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> x<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">return</span> <span style="color:#0550ae">1</span> <span style="color:#cf222e">if</span> np<span style="color:#0550ae">.</span>dot<span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>w<span style="color:#1f2328">,</span> x<span style="color:#1f2328">)</span> <span style="color:#0550ae">+</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>b <span style="color:#0550ae">&gt;=</span> <span style="color:#0550ae">0</span> <span style="color:#cf222e">else</span> <span style="color:#0550ae">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">predict</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> X<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">return</span> np<span style="color:#0550ae">.</span>array<span style="color:#1f2328">([</span><span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>predict_single<span style="color:#1f2328">(</span>x<span style="color:#1f2328">)</span> <span style="color:#cf222e">for</span> x <span style="color:#0550ae">in</span> X<span style="color:#1f2328">])</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#57606a"># Train on AND</span>
+</span></span><span style="display:flex;"><span>X <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>array<span style="color:#1f2328">([[</span><span style="color:#0550ae">0</span><span style="color:#1f2328">,</span><span style="color:#0550ae">0</span><span style="color:#1f2328">],[</span><span style="color:#0550ae">1</span><span style="color:#1f2328">,</span><span style="color:#0550ae">0</span><span style="color:#1f2328">],[</span><span style="color:#0550ae">0</span><span style="color:#1f2328">,</span><span style="color:#0550ae">1</span><span style="color:#1f2328">],[</span><span style="color:#0550ae">1</span><span style="color:#1f2328">,</span><span style="color:#0550ae">1</span><span style="color:#1f2328">]])</span>
+</span></span><span style="display:flex;"><span>y <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>array<span style="color:#1f2328">([</span><span style="color:#0550ae">0</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">0</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">0</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">])</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#0550ae">=</span> Perceptron<span style="color:#1f2328">()</span>
+</span></span><span style="display:flex;"><span>p<span style="color:#0550ae">.</span>fit<span style="color:#1f2328">(</span>X<span style="color:#1f2328">,</span> y<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">print</span><span style="color:#1f2328">(</span>p<span style="color:#0550ae">.</span>predict<span style="color:#1f2328">(</span>X<span style="color:#1f2328">))</span>  <span style="color:#57606a"># [0, 0, 0, 1] ✓</span>
+</span></span></code></pre></div><hr>
+<h2 class="heading" id="before-you-go--try-these">
+  Before You Go — Try These
+  <a href="#before-you-go--try-these">#</a>
+</h2>
+<ol>
+<li>
+<p>In the demo, train on AND. Note the weights and bias. Verify by hand: does $w_1(1) + w_2(1) + b \geq 0$? Does $w_1(0) + w_2(0) + b &lt; 0$?</p>
+</li>
+<li>
+<p>Why does the bias matter? Try mentally removing it ($b = 0$) — what constraint does that put on the decision boundary?</p>
+</li>
+<li>
+<p>What happens if the learning rate $\eta$ is very large? Very small? Try it in the code.</p>
+</li>
+<li>
+<p>Can you find <em>any</em> assignment of weights and bias that solves XOR? Try to prove to yourself it&rsquo;s impossible.</p>
+</li>
+</ol>
+<hr>
+<p><strong>Next up → <a href="/lab/neural-nets/">Lesson 03: The Switch That Isn&rsquo;t Really a Switch</a></strong> — we replace the hard step function with smooth activations, and suddenly gradients become possible.</p>
+
+    
+    
+    <script src="https://giscus.app/client.js"
+        data-repo="arunprakaash/arunprakaash.github.io"
+        data-repo-id="R_kgDOMQKpEw"
+        data-category=""
+        data-category-id="DIC_kwDOMQKpE84CjORF"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="noborder_light"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+    
+    
+  </div>
+
+  
+
+
+  
+
+  
+  
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flex">
+
+        <div class="single-pagination-prev">
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+            <div class="single-pagination-container-next">
+                <div class="single-pagination-text">
+                    <a href="/lab/neural-nets/lesson-01-math-foundations/">
+                        01 — The Numbers That Run Everything
+                    </a>
+                </div>
+                <div class="single-pagination-text">→</div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  <footer>
+    
+
+    
+    <p>Made with ❤️ by
+        <a href="https://github.com/arunprakaash">Arunprakaash</a>
+    </p>
+        
+    
+
+
+  </footer>
+
+  
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+  
+
+</body>
+
+<script defer src="/js/copy-code.js"></script>
+</html>

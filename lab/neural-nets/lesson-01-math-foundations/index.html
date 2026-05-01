@@ -8,6 +8,7 @@
 
 
 
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/ico" href="https://arunprakaash.github.io//favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://arunprakaash.github.io//favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://arunprakaash.github.io//favicon-32x32.png">
@@ -71,7 +72,6 @@
           gtag('config', 'G-TCQ19GBNVQ');
         }
       </script>
-
 
 
 
@@ -387,7 +387,10 @@ Batch   →  4D tensor  →  shape (N, H, W, C)
 
   function setup() {
     var dpr = window.devicePixelRatio || 1;
-    var cssW = canvas.parentElement.clientWidth || 600;
+    var parent = canvas.parentElement;
+    var style = window.getComputedStyle(parent);
+    var padX = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+    var cssW = (parent.clientWidth - padX) || 600;
     var cssH = Math.round(cssW * 0.42);
     canvas.width = cssW * dpr; canvas.height = cssH * dpr;
     canvas.style.width = cssW + 'px'; canvas.style.height = cssH + 'px';
@@ -709,7 +712,10 @@ $$\frac{d}{dx}[c \cdot f(x)] = c \cdot f&rsquo;(x)$$</p>
 
   function setup() {
     var dpr = window.devicePixelRatio || 1;
-    var cssW = canvas.parentElement.clientWidth || 700;
+    var parent = canvas.parentElement;
+    var style = window.getComputedStyle(parent);
+    var padX = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+    var cssW = (parent.clientWidth - padX) || 700;
     var cssH = Math.round(cssW * 0.42);
     canvas.width = cssW * dpr; canvas.height = cssH * dpr;
     canvas.style.width = cssW + 'px'; canvas.style.height = cssH + 'px';
@@ -921,6 +927,35 @@ $$\frac{dy}{dx} = 3(x^2+1)^2 \cdot 2x = 6x(x^2+1)^2$$</p>
 
   
   
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flex">
+
+        <div class="single-pagination-prev">
+            
+            <div class="single-pagination-container-prev">
+                <div class="single-pagination-text">←</div>
+                <div class="single-pagination-text">
+                    <a href="/lab/neural-nets/lesson-02-perceptron/">
+                        02 — Meet the World&#39;s Dumbest Brain Cell
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
 
   
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Perceptron on arun._space</title>
+    <link>https://arunprakaash.github.io/tags/perceptron/</link>
+    <description>Recent content in Perceptron on arun._space</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 01 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://arunprakaash.github.io/tags/perceptron/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>02 — Meet the World&#39;s Dumbest Brain Cell</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-02-perceptron/</link>
+      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-02-perceptron/</guid>
+      <description>One neuron. A handful of weights. A rule so simple it fits in one line. And yet — it learns. This is the perceptron, and it&amp;rsquo;s where everything begins.</description>
+    </item>
+  </channel>
+</rss>
