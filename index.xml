@@ -27,7 +27,7 @@
       <link>https://arunprakaash.github.io/lab/neural-nets/lesson-03-activation-functions/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
       <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-03-activation-functions/</guid>
-      <description>Why neural nets need activation functions — and how sigmoid, tanh, ReLU, and softmax each solve the linearity problem in their own way.</description>
+      <description>Sigmoid, ReLU, tanh, softmax — the nonlinear magic that makes depth actually mean something.</description>
     </item>
     <item>
       <title>What If AI Understood Death? The Missing Piece of Survival Instinct</title>
