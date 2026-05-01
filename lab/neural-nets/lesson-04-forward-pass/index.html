@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/ico" href="https://arunprakaash.github.io//favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://arunprakaash.github.io//favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://arunprakaash.github.io//favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://arunprakaash.github.io//android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://arunprakaash.github.io//apple-touch-icon.png">
+
+<meta name="description" content=""/>
+
+
+
+<title>
+    
+    04 — Dominos All the Way Down | arun._space
+    
+</title>
+
+<link rel="canonical" href="https://arunprakaash.github.io/lab/neural-nets/lesson-04-forward-pass/"/>
+
+<meta property="og:url" content="https://arunprakaash.github.io/lab/neural-nets/lesson-04-forward-pass/">
+  <meta property="og:site_name" content="arun._space">
+  <meta property="og:title" content="04 — Dominos All the Way Down">
+  <meta property="og:description" content="The forward pass: how a number enters one end of a neural network and a prediction falls out the other, layer by layer.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="lab">
+    <meta property="article:published_time" content="2026-05-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-01T00:00:00+00:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.405e542cd1848b8fe9e8f624499da2c820ff057ab70d0e9ad1d3f1bc702ae32b.css" media="all">
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-TCQ19GBNVQ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-TCQ19GBNVQ');
+        }
+      </script>
+
+
+
+
+</head>
+
+
+
+
+
+
+
+<body class="auto">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">
+        <a href="https://arunprakaash.github.io/">arun._space</a>
+    </h1>
+
+    <div class="flex">
+        
+        
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/" >
+                /home
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/log" >
+                /log
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/about" >
+                /about
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small  bold ">
+            <a href="/lab" >
+                /lab
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/">Lab</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/neural-nets/">Neural Nets</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/lab/neural-nets/lesson-04-forward-pass/">04 — Dominos All the Way Down</a>
+</div>
+
+
+
+<div >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">04 — Dominos All the Way Down</h1>
+    
+    <p class="single-summary">The forward pass: how a number enters one end of a neural network and a prediction falls out the other, layer by layer.</p>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2026-05-01T00:00:00&#43;00:00">May 1, 2026</time>
+      
+
+      
+    </p>
+
+  </div>
+
+  
+
+  
+
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#one-neuron-revisited">One Neuron, Revisited</a></li>
+    <li><a href="#one-layer">One Layer</a></li>
+    <li><a href="#a-full-network-by-hand">A Full Network, by Hand</a></li>
+    <li><a href="#why-shape-matters">Why Shape Matters</a></li>
+    <li><a href="#in-python-numpy">In Python (NumPy)</a></li>
+    <li><a href="#demo-watch-the-signal-flow">Demo: Watch the Signal Flow</a></li>
+    <li><a href="#-build-this-two-input-classifier">🛠️ Build This: Two-Input Classifier</a></li>
+    <li><a href="#whats-next">What&rsquo;s Next</a></li>
+  </ul>
+</nav>
+  </aside>
+  
+
+  
+
+  <div class="single-content">
+    <p>A neural network is just a function. Feed it numbers. Get numbers back. Everything between input and output is called the <strong>forward pass</strong> — and once you understand it, the whole architecture stops being magic.</p>
+<p>Think of it like dominos. Push the first one (your input). It knocks over the next row (layer 1). That row knocks over the next (layer 2). On and on until the last tile falls — your prediction.</p>
+<p>Let&rsquo;s follow a number all the way through.</p>
+<hr>
+<h2 class="heading" id="one-neuron-revisited">
+  One Neuron, Revisited
+  <a href="#one-neuron-revisited">#</a>
+</h2>
+<p>Before tackling a full network, a single neuron:</p>
+<p>$$a = f!\left(\sum_i w_i x_i + b\right) = f(\mathbf{w}^\top \mathbf{x} + b)$$</p>
+<p>Two steps, always:</p>
+<ol>
+<li><strong>Weighted sum</strong> — dot product of weights and inputs, plus bias. This is $z$, the &ldquo;pre-activation.&rdquo;</li>
+<li><strong>Activation</strong> — squash $z$ through a nonlinear function to get $a$, the output.</li>
+</ol>
+<p>$z$ is the raw score. $a$ is what the neuron actually says.</p>
+<hr>
+<h2 class="heading" id="one-layer">
+  One Layer
+  <a href="#one-layer">#</a>
+</h2>
+<p>A layer is just many neurons running in parallel — each one looking at the same inputs but with different weights. In matrix form:</p>
+<p>$$\mathbf{z} = \mathbf{W}\mathbf{x} + \mathbf{b}$$
+$$\mathbf{a} = f(\mathbf{z})$$</p>
+<p>Where $\mathbf{W}$ is the weight matrix (rows = neurons, columns = inputs), $\mathbf{b}$ is a bias vector, and $f$ is applied element-wise.</p>
+<p>A layer with 4 neurons and 3 inputs: $\mathbf{W}$ is $4 \times 3$. Takes a 3D input, spits out a 4D output. The dimensions flow forward through the network, shaped entirely by the weight matrices.</p>
+<hr>
+<h2 class="heading" id="a-full-network-by-hand">
+  A Full Network, by Hand
+  <a href="#a-full-network-by-hand">#</a>
+</h2>
+<p>Let&rsquo;s build a tiny network: <strong>2 inputs → 2 hidden neurons (ReLU) → 1 output (sigmoid)</strong></p>
+<p>Say the input is $\mathbf{x} = [0.5,\ -1.0]^\top$.</p>
+<p><strong>Layer 1 weights and biases:</strong></p>
+<p>$$\mathbf{W}^{(1)} = \begin{bmatrix} 0.8 &amp; 0.4 \\ -0.5 &amp; 0.9 \end{bmatrix}, \quad \mathbf{b}^{(1)} = \begin{bmatrix} 0.1 \\ -0.2 \end{bmatrix}$$</p>
+<p><strong>Pre-activations:</strong></p>
+<p>$$\mathbf{z}^{(1)} = \mathbf{W}^{(1)}\mathbf{x} + \mathbf{b}^{(1)}$$</p>
+<p>$$z^{(1)}_1 = 0.8(0.5) + 0.4(-1.0) + 0.1 = 0.4 - 0.4 + 0.1 = 0.1$$
+$$z^{(1)}_2 = -0.5(0.5) + 0.9(-1.0) + (-0.2) = -0.25 - 0.9 - 0.2 = -1.35$$</p>
+<p><strong>Activations (ReLU):</strong></p>
+<p>$$\mathbf{a}^{(1)} = \text{ReLU}(\mathbf{z}^{(1)}) = \begin{bmatrix} 0.1 \\ 0 \end{bmatrix}$$</p>
+<p>Neuron 2 got a negative pre-activation and went silent. Domino didn&rsquo;t fall.</p>
+<p><strong>Layer 2 weights and biases:</strong></p>
+<p>$$\mathbf{W}^{(2)} = \begin{bmatrix} 1.2 &amp; -0.7 \end{bmatrix}, \quad b^{(2)} = 0.3$$</p>
+<p><strong>Output pre-activation:</strong></p>
+<p>$$z^{(2)} = 1.2(0.1) + (-0.7)(0) + 0.3 = 0.12 + 0 + 0.3 = 0.42$$</p>
+<p><strong>Output (sigmoid — probability):</strong></p>
+<p>$$\hat{y} = \sigma(0.42) = \frac{1}{1 + e^{-0.42}} \approx 0.603$$</p>
+<p>The network says: 60.3% chance this is a positive example. The whole thing — no mystery, just dot products and nonlinear squashing, layer after layer.</p>
+<hr>
+<h2 class="heading" id="why-shape-matters">
+  Why Shape Matters
+  <a href="#why-shape-matters">#</a>
+</h2>
+<p>The dimensions have to line up. If layer 1 has 64 neurons and layer 2 has 32 neurons, then:</p>
+<ul>
+<li>$\mathbf{W}^{(1)}$ is $64 \times \text{input_size}$</li>
+<li>$\mathbf{W}^{(2)}$ is $32 \times 64$</li>
+</ul>
+<p>Output of layer 1 is 64-dimensional → exactly what layer 2 expects as input. Get the shapes wrong and everything crashes. Neural network bugs are almost always shape mismatches.</p>
+<p>A good habit: before writing any code, sketch the shapes. $[batch \times 784] \to [batch \times 128] \to [batch \times 64] \to [batch \times 10]$. If the dimensions flow cleanly, you&rsquo;re good.</p>
+<hr>
+<h2 class="heading" id="in-python-numpy">
+  In Python (NumPy)
+  <a href="#in-python-numpy">#</a>
+</h2>
+<p>The entire forward pass of that tiny network:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#cf222e">import</span> <span style="color:#24292e">numpy</span> <span style="color:#cf222e">as</span> <span style="color:#24292e">np</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">def</span> <span style="color:#6639ba">relu</span><span style="color:#1f2328">(</span>z<span style="color:#1f2328">):</span> <span style="color:#cf222e">return</span> np<span style="color:#0550ae">.</span>maximum<span style="color:#1f2328">(</span><span style="color:#0550ae">0</span><span style="color:#1f2328">,</span> z<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">def</span> <span style="color:#6639ba">sigmoid</span><span style="color:#1f2328">(</span>z<span style="color:#1f2328">):</span> <span style="color:#cf222e">return</span> <span style="color:#0550ae">1</span> <span style="color:#0550ae">/</span> <span style="color:#1f2328">(</span><span style="color:#0550ae">1</span> <span style="color:#0550ae">+</span> np<span style="color:#0550ae">.</span>exp<span style="color:#1f2328">(</span><span style="color:#0550ae">-</span>z<span style="color:#1f2328">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>array<span style="color:#1f2328">([</span><span style="color:#0550ae">0.5</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">-</span><span style="color:#0550ae">1.0</span><span style="color:#1f2328">])</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>W1 <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>array<span style="color:#1f2328">([[</span><span style="color:#0550ae">0.8</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">0.4</span><span style="color:#1f2328">],</span> <span style="color:#1f2328">[</span><span style="color:#0550ae">-</span><span style="color:#0550ae">0.5</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">0.9</span><span style="color:#1f2328">]])</span>
+</span></span><span style="display:flex;"><span>b1 <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>array<span style="color:#1f2328">([</span><span style="color:#0550ae">0.1</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">-</span><span style="color:#0550ae">0.2</span><span style="color:#1f2328">])</span>
+</span></span><span style="display:flex;"><span>W2 <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>array<span style="color:#1f2328">([[</span><span style="color:#0550ae">1.2</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">-</span><span style="color:#0550ae">0.7</span><span style="color:#1f2328">]])</span>
+</span></span><span style="display:flex;"><span>b2 <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>array<span style="color:#1f2328">([</span><span style="color:#0550ae">0.3</span><span style="color:#1f2328">])</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>z1 <span style="color:#0550ae">=</span> W1 <span style="color:#0550ae">@</span> x <span style="color:#0550ae">+</span> b1       <span style="color:#57606a"># pre-activation, layer 1</span>
+</span></span><span style="display:flex;"><span>a1 <span style="color:#0550ae">=</span> relu<span style="color:#1f2328">(</span>z1<span style="color:#1f2328">)</span>           <span style="color:#57606a"># activation, layer 1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>z2 <span style="color:#0550ae">=</span> W2 <span style="color:#0550ae">@</span> a1 <span style="color:#0550ae">+</span> b2      <span style="color:#57606a"># pre-activation, layer 2</span>
+</span></span><span style="display:flex;"><span>y_hat <span style="color:#0550ae">=</span> sigmoid<span style="color:#1f2328">(</span>z2<span style="color:#1f2328">)</span>    <span style="color:#57606a"># output probability</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">print</span><span style="color:#1f2328">(</span>y_hat<span style="color:#1f2328">)</span>  <span style="color:#57606a"># ~0.603</span>
+</span></span></code></pre></div><p>Three lines of actual math. The rest is bookkeeping. That&rsquo;s it. Every modern neural network is this, just with more layers and way bigger matrices.</p>
+<hr>
+<h2 class="heading" id="demo-watch-the-signal-flow">
+  Demo: Watch the Signal Flow
+  <a href="#demo-watch-the-signal-flow">#</a>
+</h2>
+<p>Drag the inputs and watch the numbers ripple through the network in real time. Every node shows its $z$ (pre-activation) and $a$ (output). Thick edges carry more signal.</p>
+<div class="nn-demo"><canvas id="fwdCanvas" style="width:100%;display:block;"></canvas><div style="margin-top:16px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;"><div style="display:flex;flex-direction:column;gap:8px;"><label style="font-size:0.82rem;font-family:monospace;">x₁ = <span id="x1val">0.5</span><br><input type="range" id="x1" min="-2" max="2" step="0.05" value="0.5" style="width:110px;"></label><label style="font-size:0.82rem;font-family:monospace;">x₂ = <span id="x2val">-1.0</span><br><input type="range" id="x2" min="-2" max="2" step="0.05" value="-1.0" style="width:110px;"></label></div><button id="randWeights" style="padding:6px 16px;border-radius:6px;border:1.5px solid #555;background:transparent;color:#555;font-size:0.82rem;cursor:pointer;font-weight:600;margin-left:auto;">🎲 New weights</button></div><div id="fwdStats" style="margin-top:12px;font-size:0.82rem;font-family:monospace;text-align:center;"></div><script>(function(){var dpr=window.devicePixelRatio||1;var canvas=document.getElementById('fwdCanvas');var par=canvas.parentElement;var pst=getComputedStyle(par);var padX=parseFloat(pst.paddingLeft)+parseFloat(pst.paddingRight);var cssW=par.clientWidth-padX;var cssH=Math.round(cssW*0.55);canvas.width=cssW*dpr;canvas.height=cssH*dpr;canvas.style.width=cssW+'px';canvas.style.height=cssH+'px';var ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);var W=cssW,H=cssH;function relu(z){return Math.max(0,z);}function sigmoid(z){return 1/(1+Math.exp(-z));}function rw(){return(Math.random()-0.5)*3;}var weights={W1:[[rw(),rw()],[rw(),rw()],[rw(),rw()]],b1:[rw()*0.3,rw()*0.3,rw()*0.3],W2:[rw(),rw(),rw()],b2:rw()*0.3};function forward(x1,x2){var x=[x1,x2];var z1=weights.W1.map(function(row,i){return row[0]*x[0]+row[1]*x[1]+weights.b1[i];});var a1=z1.map(relu);var z2=weights.W2[0]*a1[0]+weights.W2[1]*a1[1]+weights.W2[2]*a1[2]+weights.b2;var a2=sigmoid(z2);return{x:x,z1:z1,a1:a1,z2:z2,a2:a2};}function nodeColor(val,isOutput){if(isOutput){var g=Math.round(val*180);return'rgb('+Math.round(255-val*100)+','+g+',80)';}var intensity=Math.min(1,Math.abs(val));return val>0?'rgba(37,99,235,'+0.3+intensity*0.7+')':'rgba(220,38,38,'+0.2+intensity*0.5+')';}function draw(){var x1=parseFloat(document.getElementById('x1').value);var x2=parseFloat(document.getElementById('x2').value);document.getElementById('x1val').textContent=x1.toFixed(2);document.getElementById('x2val').textContent=x2.toFixed(2);var res=forward(x1,x2);var bg=getComputedStyle(document.documentElement).getPropertyValue('--background').trim()||'#f5f0ea';ctx.clearRect(0,0,W,H);ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);var cols=[W*0.12,W*0.38,W*0.62,W*0.88];var inputY=[H*0.35,H*0.65];var hiddenY=[H*0.2,H*0.5,H*0.8];var outputY=H*0.5;var r=Math.min(W,H)*0.065;function drawEdge(x1c,y1c,x2c,y2c,weight,signal){var thickness=Math.min(5,0.5+Math.abs(weight*signal)*2);ctx.beginPath();ctx.moveTo(x1c,y1c);ctx.lineTo(x2c,y2c);ctx.lineWidth=thickness;var alpha=0.15+Math.min(0.6,Math.abs(signal)*0.4);ctx.strokeStyle=weight>0?'rgba(37,99,235,'+alpha+')':'rgba(220,38,38,'+alpha+')';ctx.stroke();}for(var i=0;i<3;i++){for(var j=0;j<2;j++){drawEdge(cols[1],hiddenY[i],cols[0],inputY[j],weights.W1[i][j],res.x[j]);}}for(var i=0;i<3;i++){drawEdge(cols[3],outputY,cols[2],hiddenY[i],weights.W2[i],res.a1[i]);}function drawNode(cx,cy,label,zVal,aVal,isInput,isOutput){ctx.beginPath();ctx.arc(cx,cy,r,0,2*Math.PI);var col=isInput?'rgba(80,80,80,0.15)':isOutput?nodeColor(aVal,true):nodeColor(aVal,false);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle='rgba(0,0,0,0.2)';ctx.lineWidth=1.5;ctx.stroke();ctx.fillStyle='rgba(0,0,0,0.8)';ctx.font='bold '+Math.round(r*0.55)+'px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,cx,cy-r*0.15);if(!isInput){ctx.font=Math.round(r*0.42)+'px monospace';ctx.fillStyle='rgba(0,0,0,0.5)';ctx.fillText(aVal.toFixed(2),cx,cy+r*0.35);}else{ctx.font=Math.round(r*0.42)+'px monospace';ctx.fillStyle='rgba(0,0,0,0.5)';ctx.fillText(aVal.toFixed(2),cx,cy+r*0.35);}}drawNode(cols[0],inputY[0],'x₁',res.x[0],res.x[0],true,false);drawNode(cols[0],inputY[1],'x₂',res.x[1],res.x[1],true,false);for(var i=0;i<3;i++){drawNode(cols[2],hiddenY[i],'h'+(i+1),res.z1[i],res.a1[i],false,false);}drawNode(cols[3],outputY,'ŷ',res.z2,res.a2,false,true);ctx.fillStyle='rgba(0,0,0,0.35)';ctx.font=Math.round(r*0.4)+'px monospace';ctx.textAlign='center';['Inputs','Hidden (ReLU)','Output (σ)'].forEach(function(label,i){ctx.fillText(label,cols[i===2?3:i===1?2:0],H*0.06);});ctx.fillText('Hidden (ReLU)',cols[2],H*0.06);document.getElementById('fwdStats').innerHTML='Output = <b>'+res.a2.toFixed(4)+'</b> → '+(res.a2>0.5?'<span style="color:#16a34a">Positive ✓</span>':'<span style="color:#dc2626">Negative ✗</span>');}document.getElementById('x1').oninput=draw;document.getElementById('x2').oninput=draw;document.getElementById('randWeights').onclick=function(){weights={W1:[[rw(),rw()],[rw(),rw()],[rw(),rw()]],b1:[rw()*0.3,rw()*0.3,rw()*0.3],W2:[rw(),rw(),rw()],b2:rw()*0.3};draw();};draw();}());</script></div>
+<p>Notice: some hidden neurons go dark (ReLU killed them). Flip $x_1$ or $x_2$ to negative and watch which dominos stop falling. Hit <strong>New weights</strong> and the whole network rewires — same structure, completely different behaviour.</p>
+<hr>
+<h2 class="heading" id="-build-this-two-input-classifier">
+  🛠️ Build This: Two-Input Classifier
+  <a href="#-build-this-two-input-classifier">#</a>
+</h2>
+<p>A full 2→3→1 network that draws its own decision boundary. Drag the inputs to move a point around the plane and watch the background colour (red/blue = network confidence) update live. Hit <strong>New weights</strong> and the boundary reshapes completely — you&rsquo;re seeing the geometry of a forward pass.</p>
+<div class="nn-demo"><canvas id="clsCanvas" style="width:100%;display:block;border-radius:6px;"></canvas><div style="margin-top:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;"><span style="font-size:0.82rem;font-family:monospace;">Drag the ✦ point</span><button id="clsRand" style="padding:5px 14px;border-radius:6px;border:1.5px solid #555;background:transparent;color:#555;font-size:0.82rem;cursor:pointer;font-weight:600;margin-left:auto;">🎲 New network</button><button id="clsAct" style="padding:5px 14px;border-radius:6px;border:1.5px solid #2563eb;background:#2563eb22;color:#2563eb;font-size:0.82rem;cursor:pointer;font-weight:600;">ReLU</button></div><div id="clsOut" style="margin-top:10px;font-size:0.82rem;font-family:monospace;text-align:center;"></div><script>(function(){var dpr=Math.min(window.devicePixelRatio||1,2);var canvas=document.getElementById('clsCanvas');var par=canvas.parentElement;var pst=getComputedStyle(par);var padX=parseFloat(pst.paddingLeft)+parseFloat(pst.paddingRight);var cssW=par.clientWidth-padX;var cssH=cssW*0.7;canvas.width=cssW*dpr;canvas.height=cssH*dpr;canvas.style.width=cssW+'px';canvas.style.height=cssH+'px';var ctx=canvas.getContext('2d');var W=cssW*dpr,H=cssH*dpr;var useRelu=true;function relu(z){return Math.max(0,z);}function tanh2(z){return Math.tanh(z);}function sigmoid(z){return 1/(1+Math.exp(-z));}function rw(){return(Math.random()-0.5)*4;}var net={W1:[[rw(),rw()],[rw(),rw()],[rw(),rw()]],b1:[rw()*0.5,rw()*0.5,rw()*0.5],W2:[rw(),rw(),rw()],b2:rw()*0.5};function forward(x1,x2){var act=useRelu?relu:tanh2;var z1=net.W1.map(function(row,i){return row[0]*x1+row[1]*x2+net.b1[i];});var a1=z1.map(act);var z2=net.W2[0]*a1[0]+net.W2[1]*a1[1]+net.W2[2]*a1[2]+net.b2;return sigmoid(z2);}var ptX=0.3,ptY=-0.4;var dragging=false;function canvasToWorld(cx,cy){return[(cx/W*dpr-0.5)*4,(cy/H*dpr-0.5)*4*(-1)];}function worldToCanvas(wx,wy){return[(wx/4+0.5)*W/dpr,((-wy)/4+0.5)*H/dpr];}function draw(){var imgData=ctx.createImageData(W,H);var data=imgData.data;var step=2;for(var py=0;py<H;py+=step){for(var px=0;px<W;px+=step){var wx=(px/W-0.5)*4;var wy=(-(py/H-0.5))*4;var v=forward(wx,wy);var r2=Math.round(220*(1-v)+30*v);var g2=Math.round(80*(1-v)+160*v);var b2=Math.round(80*(1-v)+220*v);for(var dy=0;dy<step&&py+dy<H;dy++){for(var dx=0;dx<step&&px+dx<W;dx++){var idx=((py+dy)*W+(px+dx))*4;data[idx]=r2;data[idx+1]=g2;data[idx+2]=b2;data[idx+3]=60;}}}}ctx.putImageData(imgData,0,0);ctx.strokeStyle='rgba(0,0,0,0.12)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(W/2,0);ctx.lineTo(W/2,H);ctx.stroke();ctx.beginPath();ctx.moveTo(0,H/2);ctx.lineTo(W,H/2);ctx.stroke();var pc=worldToCanvas(ptX,ptY);var pxc=pc[0]*dpr,pyc=pc[1]*dpr;var v2=forward(ptX,ptY);var ptR=Math.round(220*(1-v2)+30*v2);var ptG=Math.round(80*(1-v2)+160*v2);var ptB=Math.round(80*(1-v2)+220*v2);ctx.beginPath();ctx.arc(pxc,pyc,10*dpr,0,2*Math.PI);ctx.fillStyle='rgb('+ptR+','+ptG+','+ptB+')';ctx.fill();ctx.strokeStyle='white';ctx.lineWidth=2*dpr;ctx.stroke();ctx.fillStyle='rgba(0,0,0,0.7)';ctx.font='bold '+(12*dpr)+'px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('✦',pxc,pyc);document.getElementById('clsOut').innerHTML='Point ('+ptX.toFixed(2)+', '+ptY.toFixed(2)+') → output = <b>'+v2.toFixed(4)+'</b> → '+(v2>0.5?'<span style="color:#2563eb">Blue region</span>':'<span style="color:#dc2626">Red region</span>');}canvas.addEventListener('mousedown',function(e){var rect=canvas.getBoundingClientRect();var mx=(e.clientX-rect.left)*(cssW/rect.width);var my=(e.clientY-rect.top)*(cssH/rect.height);var wc=worldToCanvas(ptX,ptY);if(Math.abs(mx-wc[0])<20&&Math.abs(my-wc[1])<20){dragging=true;}});canvas.addEventListener('mousemove',function(e){if(!dragging)return;var rect=canvas.getBoundingClientRect();var mx=(e.clientX-rect.left)*(cssW/rect.width);var my=(e.clientY-rect.top)*(cssH/rect.height);var w=canvasToWorld(mx*dpr,my*dpr);ptX=Math.max(-2,Math.min(2,w[0]));ptY=Math.max(-2,Math.min(2,w[1]));draw();});canvas.addEventListener('mouseup',function(){dragging=false;});canvas.addEventListener('touchstart',function(e){e.preventDefault();var rect=canvas.getBoundingClientRect();var t=e.touches[0];var mx=(t.clientX-rect.left)*(cssW/rect.width);var my=(t.clientY-rect.top)*(cssH/rect.height);var wc=worldToCanvas(ptX,ptY);if(Math.abs(mx-wc[0])<30&&Math.abs(my-wc[1])<30){dragging=true;}},{passive:false});canvas.addEventListener('touchmove',function(e){e.preventDefault();if(!dragging)return;var rect=canvas.getBoundingClientRect();var t=e.touches[0];var mx=(t.clientX-rect.left)*(cssW/rect.width);var my=(t.clientY-rect.top)*(cssH/rect.height);var w=canvasToWorld(mx*dpr,my*dpr);ptX=Math.max(-2,Math.min(2,w[0]));ptY=Math.max(-2,Math.min(2,w[1]));draw();},{passive:false});canvas.addEventListener('touchend',function(){dragging=false;});document.getElementById('clsRand').onclick=function(){net={W1:[[rw(),rw()],[rw(),rw()],[rw(),rw()]],b1:[rw()*0.5,rw()*0.5,rw()*0.5],W2:[rw(),rw(),rw()],b2:rw()*0.5};draw();};document.getElementById('clsAct').onclick=function(){useRelu=!useRelu;this.textContent=useRelu?'ReLU':'Tanh';this.style.borderColor=useRelu?'#2563eb':'#16a34a';this.style.color=useRelu?'#2563eb':'#16a34a';this.style.background=useRelu?'#2563eb22':'#16a34a22';draw();};draw();}());</script></div>
+<p>What you&rsquo;re seeing is the decision boundary of an untrained network — the geometric shape that the weights carve into 2D space. Notice:</p>
+<ul>
+<li><strong>ReLU</strong> → sharp angular boundaries (cuts space with straight lines)</li>
+<li><strong>Tanh</strong> → smooth curved boundaries (bends space gently)</li>
+<li><strong>New network</strong> → completely different shape from the same architecture</li>
+</ul>
+<p>This is the forward pass. The network takes your coordinates $(x_1, x_2)$, runs them through layers of dot products and nonlinearities, and returns a number between 0 and 1. The colour map is just painting that number across the whole plane.</p>
+<p>Training a network means <em>adjusting the weights</em> until this boundary carves space in a useful way — separating cats from dogs, spam from email, healthy from diseased. That&rsquo;s the next big idea.</p>
+<hr>
+<h2 class="heading" id="whats-next">
+  What&rsquo;s Next
+  <a href="#whats-next">#</a>
+</h2>
+<p>We can push signals forward. But how does the network <em>learn</em>? It has to look at its mistakes and figure out which weights caused them — then nudge those weights in the right direction.</p>
+<p>That requires knowing how the output changes when you change any weight, deep inside the network. Which requires something called <strong>backpropagation</strong>.</p>
+<p>Next: <strong>05 — Blame It on the Weights</strong> — how gradients flow backwards and who gets the credit (or the blame).</p>
+
+    
+    
+    <script src="https://giscus.app/client.js"
+        data-repo="arunprakaash/arunprakaash.github.io"
+        data-repo-id="R_kgDOMQKpEw"
+        data-category=""
+        data-category-id="DIC_kwDOMQKpE84CjORF"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="noborder_light"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+    
+    
+  </div>
+
+  
+
+
+  
+
+  
+  
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flex">
+
+        <div class="single-pagination-prev">
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+            <div class="single-pagination-container-next">
+                <div class="single-pagination-text">
+                    <a href="/lab/neural-nets/lesson-03-activation-functions/">
+                        03 — The Switch That Isn&#39;t Really a Switch
+                    </a>
+                </div>
+                <div class="single-pagination-text">→</div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  <footer>
+    
+
+    
+    <p>Made with ❤️ by
+        <a href="https://github.com/arunprakaash">Arunprakaash</a>
+    </p>
+        
+    
+
+
+  </footer>
+
+  
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+  
+
+</body>
+
+<script defer src="/js/copy-code.js"></script>
+</html>

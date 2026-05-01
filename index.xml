@@ -30,6 +30,13 @@
       <description>Sigmoid, ReLU, tanh, softmax — the nonlinear magic that makes depth actually mean something.</description>
     </item>
     <item>
+      <title>04 — Dominos All the Way Down</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-04-forward-pass/</link>
+      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-04-forward-pass/</guid>
+      <description>The forward pass: how a number enters one end of a neural network and a prediction falls out the other, layer by layer.</description>
+    </item>
+    <item>
       <title>What If AI Understood Death? The Missing Piece of Survival Instinct</title>
       <link>https://arunprakaash.github.io/curiosities/2025-08-03/survival-instinct/</link>
       <pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate>
