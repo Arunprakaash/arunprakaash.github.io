@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/ico" href="https://arunprakaash.github.io//favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://arunprakaash.github.io//favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://arunprakaash.github.io//favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://arunprakaash.github.io//android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://arunprakaash.github.io//apple-touch-icon.png">
+
+<meta name="description" content=""/>
+
+
+
+<title>
+    
+    11 — The Machine That Remembers | arun._space
+    
+</title>
+
+<link rel="canonical" href="https://arunprakaash.github.io/lab/neural-nets/lesson-11-rnns/"/>
+
+<meta property="og:url" content="https://arunprakaash.github.io/lab/neural-nets/lesson-11-rnns/">
+  <meta property="og:site_name" content="arun._space">
+  <meta property="og:title" content="11 — The Machine That Remembers">
+  <meta property="og:description" content="Recurrent neural networks, hidden states, backprop through time, and why LSTMs were the memory upgrade that made sequences learnable.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="lab">
+    <meta property="article:published_time" content="2026-05-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-02T00:00:00+00:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.405e542cd1848b8fe9e8f624499da2c820ff057ab70d0e9ad1d3f1bc702ae32b.css" media="all">
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-TCQ19GBNVQ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-TCQ19GBNVQ');
+        }
+      </script>
+
+
+
+
+</head>
+
+
+
+
+
+
+
+<body class="auto">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">
+        <a href="https://arunprakaash.github.io/">arun._space</a>
+    </h1>
+
+    <div class="flex">
+        
+        
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/" >
+                /home
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/log" >
+                /log
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/about" >
+                /about
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small  bold ">
+            <a href="/lab" >
+                /lab
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/">Lab</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/neural-nets/">Neural Nets</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/lab/neural-nets/lesson-11-rnns/">11 — The Machine That Remembers</a>
+</div>
+
+
+
+<div >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">11 — The Machine That Remembers</h1>
+    
+    <p class="single-summary">Recurrent neural networks, hidden states, backprop through time, and why LSTMs were the memory upgrade that made sequences learnable.</p>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2026-05-02T00:00:00&#43;00:00">May 2, 2026</time>
+      
+
+      
+    </p>
+
+  </div>
+
+  
+
+  
+
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-vanilla-rnn">The Vanilla RNN</a></li>
+    <li><a href="#backprop-through-time">Backprop Through Time</a></li>
+    <li><a href="#the-lstm">The LSTM</a></li>
+    <li><a href="#gru-the-simpler-sibling">GRU: The Simpler Sibling</a></li>
+    <li><a href="#in-python">In Python</a></li>
+    <li><a href="#demo-sequence-prophet">Demo: Sequence Prophet</a></li>
+    <li><a href="#what-rnns-are-used-for-or-were">What RNNs Are Used For (or Were)</a></li>
+    <li><a href="#before-you-go--try-these">Before You Go — Try These</a></li>
+  </ul>
+</nav>
+  </aside>
+  
+
+  
+
+  <div class="single-content">
+    <p>Every network we&rsquo;ve built so far has no memory. Feed it the word &ldquo;bank&rdquo; and it gives you an answer without knowing whether the previous words were &ldquo;river&rdquo; or &ldquo;savings&rdquo;. Each input is processed in isolation.</p>
+<p>Real sequences don&rsquo;t work that way. The meaning of <em>now</em> depends on <em>before</em>. Language, music, time series, video — all of these have temporal structure that a feedforward network is blind to.</p>
+<p>Recurrent neural networks solve this with one simple idea: give the network a hidden state that persists between time steps.</p>
+<hr>
+<h2 class="heading" id="the-vanilla-rnn">
+  The Vanilla RNN
+  <a href="#the-vanilla-rnn">#</a>
+</h2>
+<p>At each time step $t$, the RNN takes the current input $x_t$ and the previous hidden state $h_{t-1}$, and produces a new hidden state $h_t$:</p>
+<p>$$h_t = \tanh(\mathbf{W}_x x_t + \mathbf{W}<em>h h</em>{t-1} + \mathbf{b}_h)$$</p>
+<p>$$\hat{y}_t = \mathbf{W}_y h_t + \mathbf{b}_y$$</p>
+<p>The hidden state $h_t$ is the network&rsquo;s memory — a compressed summary of everything it has seen up to time $t$. It gets passed back into the network at the next step.</p>
+<p>The same weights $\mathbf{W}_x$, $\mathbf{W}_h$, $\mathbf{W}_y$ are used at every time step. This is <strong>weight sharing through time</strong> — the same transformation is applied, just with a different history in the hidden state.</p>
+<p>To process a sequence of length $T$, you &ldquo;unroll&rdquo; the network $T$ times — the same weights applied repeatedly, feeding the hidden state forward.</p>
+<hr>
+<h2 class="heading" id="backprop-through-time">
+  Backprop Through Time
+  <a href="#backprop-through-time">#</a>
+</h2>
+<p>Training an RNN requires computing gradients through the unrolled network — <strong>Backpropagation Through Time (BPTT)</strong>. The loss at step $T$ depends on the hidden state at $T$, which depends on hidden state at $T-1$, which depends on&hellip; all the way back to step 1.</p>
+<p>$$\frac{\partial L}{\partial \mathbf{W}<em>h} = \sum</em>{t=1}^{T} \frac{\partial L_t}{\partial \mathbf{W}<em>h} = \sum</em>{t=1}^{T} \frac{\partial L_t}{\partial h_t} \cdot \prod_{k=t}^{T-1} \frac{\partial h_{k+1}}{\partial h_k} \cdot \frac{\partial h_t}{\partial \mathbf{W}_h}$$</p>
+<p>That product of Jacobians is the problem. With tanh activations and many time steps, each $\frac{\partial h_{k+1}}{\partial h_k}$ has magnitude less than 1. Multiply 50 of them together and the gradient vanishes. Multiply 50 values greater than 1 and it explodes.</p>
+<p><strong>Gradient clipping</strong> handles the exploding case — cap the gradient norm at some threshold:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>torch<span style="color:#0550ae">.</span>nn<span style="color:#0550ae">.</span>utils<span style="color:#0550ae">.</span>clip_grad_norm_<span style="color:#1f2328">(</span>model<span style="color:#0550ae">.</span>parameters<span style="color:#1f2328">(),</span> max_norm<span style="color:#0550ae">=</span><span style="color:#0550ae">5.0</span><span style="color:#1f2328">)</span>
+</span></span></code></pre></div><p>The vanishing case requires a better architecture.</p>
+<p><strong>Truncated BPTT</strong> is the practical solution for long sequences: only backpropagate through the last $k$ steps instead of the full sequence. You lose long-range gradients but training becomes stable.</p>
+<hr>
+<h2 class="heading" id="the-lstm">
+  The LSTM
+  <a href="#the-lstm">#</a>
+</h2>
+<p>Long Short-Term Memory networks, introduced in 1997 by Hochreiter and Schmidhuber. The idea: give the network an explicit <strong>cell state</strong> $c_t$ — a memory highway that gradients can flow through with minimal decay.</p>
+<p>Three gates control what happens to the cell state:</p>
+<p><strong>Forget gate</strong> — decides what to erase from memory:</p>
+<p>$$f_t = \sigma(\mathbf{W}<em>f [h</em>{t-1}, x_t] + \mathbf{b}_f)$$</p>
+<p><strong>Input gate</strong> — decides what new information to write:</p>
+<p>$$i_t = \sigma(\mathbf{W}<em>i [h</em>{t-1}, x_t] + \mathbf{b}_i)$$
+$$\tilde{c}_t = \tanh(\mathbf{W}<em>c [h</em>{t-1}, x_t] + \mathbf{b}_c)$$</p>
+<p><strong>Cell state update</strong> — erase the old, write the new:</p>
+<p>$$c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t$$</p>
+<p><strong>Output gate</strong> — decides what to expose as the hidden state:</p>
+<p>$$o_t = \sigma(\mathbf{W}<em>o [h</em>{t-1}, x_t] + \mathbf{b}_o)$$
+$$h_t = o_t \odot \tanh(c_t)$$</p>
+<p>The cell state $c_t$ is updated by addition — $c_t = f_t \odot c_{t-1} + \ldots$ When the forget gate is near 1 and the input gate is near 0, the cell state passes through almost unchanged. The gradient of the cell state update is:</p>
+<p>$$\frac{\partial c_t}{\partial c_{t-1}} = f_t$$</p>
+<p>A gradient flowing backward through the cell state is multiplied by $f_t$ at each step — not a product of Jacobians. If the forget gate is near 1, the gradient passes through cleanly. The LSTM can learn to remember things for hundreds of steps.</p>
+<hr>
+<h2 class="heading" id="gru-the-simpler-sibling">
+  GRU: The Simpler Sibling
+  <a href="#gru-the-simpler-sibling">#</a>
+</h2>
+<p>Gated Recurrent Units (2014) merge the cell state and hidden state, reducing the four gates to two:</p>
+<p>$$z_t = \sigma(\mathbf{W}<em>z [h</em>{t-1}, x_t])$$<br>
+$$r_t = \sigma(\mathbf{W}<em>r [h</em>{t-1}, x_t])$$<br>
+$$\tilde{h}<em>t = \tanh(\mathbf{W} [r_t \odot h</em>{t-1}, x_t])$$<br>
+$$h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t$$</p>
+<p>Fewer parameters, often similar performance. GRUs are faster to train and work well for many sequence tasks. In practice: if you don&rsquo;t know which to use, try GRU first.</p>
+<hr>
+<h2 class="heading" id="in-python">
+  In Python
+  <a href="#in-python">#</a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#cf222e">import</span> <span style="color:#24292e">torch</span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">import</span> <span style="color:#24292e">torch.nn</span> <span style="color:#cf222e">as</span> <span style="color:#24292e">nn</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">class</span> <span style="color:#1f2328">CharRNN</span><span style="color:#1f2328">(</span>nn<span style="color:#0550ae">.</span>Module<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">__init__</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> vocab_size<span style="color:#1f2328">,</span> hidden_size<span style="color:#1f2328">,</span> num_layers<span style="color:#0550ae">=</span><span style="color:#0550ae">2</span><span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6639ba">super</span><span style="color:#1f2328">()</span><span style="color:#0550ae">.</span><span style="color:#6639ba">__init__</span><span style="color:#1f2328">()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>embed <span style="color:#0550ae">=</span> nn<span style="color:#0550ae">.</span>Embedding<span style="color:#1f2328">(</span>vocab_size<span style="color:#1f2328">,</span> hidden_size<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>lstm <span style="color:#0550ae">=</span> nn<span style="color:#0550ae">.</span>LSTM<span style="color:#1f2328">(</span>hidden_size<span style="color:#1f2328">,</span> hidden_size<span style="color:#1f2328">,</span>
+</span></span><span style="display:flex;"><span>                            num_layers<span style="color:#0550ae">=</span>num_layers<span style="color:#1f2328">,</span> batch_first<span style="color:#0550ae">=</span><span style="color:#cf222e">True</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>fc <span style="color:#0550ae">=</span> nn<span style="color:#0550ae">.</span>Linear<span style="color:#1f2328">(</span>hidden_size<span style="color:#1f2328">,</span> vocab_size<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">forward</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> x<span style="color:#1f2328">,</span> hidden<span style="color:#0550ae">=</span><span style="color:#cf222e">None</span><span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#0550ae">=</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>embed<span style="color:#1f2328">(</span>x<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>        out<span style="color:#1f2328">,</span> hidden <span style="color:#0550ae">=</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>lstm<span style="color:#1f2328">(</span>x<span style="color:#1f2328">,</span> hidden<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">return</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>fc<span style="color:#1f2328">(</span>out<span style="color:#1f2328">),</span> hidden
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model <span style="color:#0550ae">=</span> CharRNN<span style="color:#1f2328">(</span>vocab_size<span style="color:#0550ae">=</span><span style="color:#0550ae">65</span><span style="color:#1f2328">,</span> hidden_size<span style="color:#0550ae">=</span><span style="color:#0550ae">256</span><span style="color:#1f2328">,</span> num_layers<span style="color:#0550ae">=</span><span style="color:#0550ae">2</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#57606a"># Training loop</span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">for</span> chars<span style="color:#1f2328">,</span> targets <span style="color:#0550ae">in</span> dataloader<span style="color:#1f2328">:</span>
+</span></span><span style="display:flex;"><span>    logits<span style="color:#1f2328">,</span> hidden <span style="color:#0550ae">=</span> model<span style="color:#1f2328">(</span>chars<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    loss <span style="color:#0550ae">=</span> F<span style="color:#0550ae">.</span>cross_entropy<span style="color:#1f2328">(</span>logits<span style="color:#0550ae">.</span>view<span style="color:#1f2328">(</span><span style="color:#0550ae">-</span><span style="color:#0550ae">1</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">65</span><span style="color:#1f2328">),</span> targets<span style="color:#0550ae">.</span>view<span style="color:#1f2328">(</span><span style="color:#0550ae">-</span><span style="color:#0550ae">1</span><span style="color:#1f2328">))</span>
+</span></span><span style="display:flex;"><span>    loss<span style="color:#0550ae">.</span>backward<span style="color:#1f2328">()</span>
+</span></span><span style="display:flex;"><span>    torch<span style="color:#0550ae">.</span>nn<span style="color:#0550ae">.</span>utils<span style="color:#0550ae">.</span>clip_grad_norm_<span style="color:#1f2328">(</span>model<span style="color:#0550ae">.</span>parameters<span style="color:#1f2328">(),</span> <span style="color:#0550ae">5.0</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    optimizer<span style="color:#0550ae">.</span>step<span style="color:#1f2328">()</span>
+</span></span></code></pre></div><hr>
+<h2 class="heading" id="demo-sequence-prophet">
+  Demo: Sequence Prophet
+  <a href="#demo-sequence-prophet">#</a>
+</h2>
+<p>A vanilla RNN trained from scratch on a repeating pattern. Hit <strong>Train</strong> and watch it learn to predict the next value in the sequence. Then switch patterns and retrain — the sawtooth and square wave are much harder than the sine wave. The animated hidden state bars show what the RNN is &ldquo;thinking&rdquo; at each step.</p>
+<div class="nn-demo"><canvas id="rnnCanvas" style="width:100%;display:block;border-radius:4px;"></canvas><div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;"><div style="display:flex;gap:6px;" id="rnnPatBtns"></div><div style="display:flex;align-items:center;gap:6px;margin-left:auto;"><label style="font-size:0.8rem;font-family:monospace;">noise <span id="rnnNoiseVal">0.0</span></label><input type="range" id="rnnNoise" min="0" max="0.5" step="0.05" value="0" style="width:80px;"></div><button id="rnnTrain" style="padding:5px 14px;border-radius:6px;border:1.5px solid #16a34a;background:#16a34a22;color:#16a34a;font-size:0.82rem;cursor:pointer;font-weight:600;">▶ Train</button><button id="rnnPlay" style="padding:5px 12px;border-radius:6px;border:1.5px solid #2563eb;background:#2563eb22;color:#2563eb;font-size:0.82rem;cursor:pointer;" disabled>⏸ Pause</button></div><p id="rnnStatus" style="margin-top:8px;font-size:0.8rem;font-family:monospace;text-align:center;opacity:0.7;"></p><script>(function(){var dpr=window.devicePixelRatio||1;var canvas=document.getElementById('rnnCanvas');var par=canvas.parentElement;var pst=getComputedStyle(par);var padX=parseFloat(pst.paddingLeft)+parseFloat(pst.paddingRight);var cssW=par.clientWidth-padX;var cssH=Math.round(cssW*0.55);canvas.width=cssW*dpr;canvas.height=cssH*dpr;canvas.style.width=cssW+'px';canvas.style.height=cssH+'px';var ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);var W=cssW,H=cssH;var HS=10;var Wx,Wh,bh,Wy,by_w;function randn(){return(Math.random()-0.5)*2;}function initRNN(){var s=0.5;Wx=Array.from({length:HS},function(){return randn()*s;});Wh=Array.from({length:HS},function(){return Array.from({length:HS},function(){return randn()*s/HS;});});bh=new Array(HS).fill(0);Wy=Array.from({length:HS},function(){return randn()*s;});by_w=[0];}function rnnStep(x,h_prev){var h=new Array(HS);for(var i=0;i<HS;i++){var z=Wx[i]*x+bh[i];for(var j=0;j<HS;j++){z+=Wh[i][j]*h_prev[j];}h[i]=Math.tanh(z);}var y=by_w[0];for(var i=0;i<HS;i++){y+=Wy[i]*h[i];}return{h:h,y:y};}function bptt(seq,h0,lr){var T=seq.length;var hs=[h0.slice()];var ys=[];for(var t=0;t<T-1;t++){var r=rnnStep(seq[t],hs[t]);hs.push(r.h);ys.push(r.y);}var dWx=new Array(HS).fill(0);var dWh=Array.from({length:HS},function(){return new Array(HS).fill(0);});var dbh=new Array(HS).fill(0);var dWy=new Array(HS).fill(0);var dby=0;var dh_next=new Array(HS).fill(0);var loss=0;for(var t=T-2;t>=0;t--){var dy=ys[t]-seq[t+1];loss+=0.5*dy*dy;for(var i=0;i<HS;i++){dWy[i]+=dy*hs[t+1][i];}dby+=dy;var dh=new Array(HS);for(var i=0;i<HS;i++){dh[i]=dy*Wy[i]+dh_next[i];}var dtanh=new Array(HS);for(var i=0;i<HS;i++){dtanh[i]=dh[i]*(1-hs[t+1][i]*hs[t+1][i]);}for(var i=0;i<HS;i++){dWx[i]+=dtanh[i]*seq[t];dbh[i]+=dtanh[i];for(var j=0;j<HS;j++){dWh[i][j]+=dtanh[i]*hs[t][j];}}var dhn=new Array(HS).fill(0);for(var j=0;j<HS;j++){for(var i=0;i<HS;i++){dhn[j]+=dtanh[i]*Wh[i][j];}}dh_next=dhn;}var clip=5,n=T-1;var norm=0;for(var i=0;i<HS;i++){norm+=dWx[i]*dWx[i]+dWy[i]*dWy[i]+dbh[i]*dbh[i];}norm=Math.sqrt(norm);var scale=norm>clip?clip/norm:1;for(var i=0;i<HS;i++){Wx[i]-=lr*dWx[i]*scale/n;Wy[i]-=lr*dWy[i]*scale/n;bh[i]-=lr*dbh[i]*scale/n;for(var j=0;j<HS;j++){Wh[i][j]-=lr*dWh[i][j]*scale/n;}}by_w[0]-=lr*dby*scale/n;return loss/n;}var patterns={Sine:function(t){return Math.sin(t*0.4);},Sawtooth:function(t){return 2*((t*0.08)%1)-1;},Square:function(t){return Math.sign(Math.sin(t*0.3));}};var currentPat='Sine';var noiseLevel=0;var seqLen=200;function makeSeq(){var fn=patterns[currentPat];var seq=[];for(var t=0;t<seqLen;t++){seq.push(fn(t)+(Math.random()-0.5)*2*noiseLevel);}return seq;}var trainSeq=makeSeq();var trained=false;var animSeq=[],animPreds=[],animH=[];var animIdx=0;var animPlaying=false;var animId=null;var h0=new Array(HS).fill(0);function runPredictions(){var fn=patterns[currentPat];var seq=[];for(var t=0;t<120;t++){seq.push(fn(t)+(Math.random()-0.5)*2*noiseLevel);}animSeq=seq;animPreds=[];animH=[];var h=new Array(HS).fill(0);for(var t=0;t<seq.length-1;t++){var r=rnnStep(seq[t],h);h=r.h;animPreds.push(r.y);animH.push(h.slice());}animIdx=20;}function drawScene(){var bg=getComputedStyle(document.documentElement).getPropertyValue('--background').trim()||'#f5f0ea';ctx.clearRect(0,0,W,H);ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);var chartH=H*0.72,stateH=H*0.22,gap=H*0.06;var win=60;var start=Math.max(0,animIdx-win);var end=Math.min(animSeq.length-1,start+win);function mapX(i){return(i-start)/(win)*W;}function mapY(v){return chartH*0.5-v*chartH*0.38;}ctx.strokeStyle='rgba(0,0,0,0.07)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,mapY(0));ctx.lineTo(W,mapY(0));ctx.stroke();ctx.strokeStyle='rgba(37,99,235,0.35)';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);ctx.beginPath();var first=true;for(var i=start;i<=end;i++){var y=mapY(animSeq[i]);if(first){ctx.moveTo(mapX(i),y);first=false;}else{ctx.lineTo(mapX(i),y);}}ctx.stroke();ctx.setLineDash([]);if(animPreds.length>0){ctx.strokeStyle='#dc2626';ctx.lineWidth=2;ctx.beginPath();first=true;for(var i=start;i<Math.min(animIdx,animPreds.length,end);i++){var y=mapY(animPreds[i]);if(first){ctx.moveTo(mapX(i),y);first=false;}else{ctx.lineTo(mapX(i),y);}}ctx.stroke();}if(animIdx>0&&animIdx<animSeq.length){var ci=Math.min(animIdx,animPreds.length-1);ctx.beginPath();ctx.arc(mapX(animIdx),mapY(animSeq[animIdx]),5,0,2*Math.PI);ctx.fillStyle='#2563eb';ctx.fill();}var stateY=chartH+gap;var barW=(W-20)/(HS*1.5);if(animIdx>0&&animIdx<=animH.length){var hNow=animH[animIdx-1];for(var i=0;i<HS;i++){var v=(hNow[i]+1)/2;var bx=10+(i*(W-20)/HS);ctx.fillStyle='rgba(37,99,235,0.15)';ctx.fillRect(bx,stateY,barW,stateH);ctx.fillStyle='rgba(37,99,235,'+( 0.3+v*0.7)+')';ctx.fillRect(bx,stateY+(1-v)*stateH,barW,v*stateH);}}ctx.fillStyle='rgba(0,0,0,0.3)';ctx.font=(9*dpr)+'px monospace';ctx.textAlign='left';ctx.fillText('actual',8*dpr,14*dpr);ctx.fillStyle='rgba(220,38,38,0.8)';ctx.fillText('predicted',60*dpr,14*dpr);ctx.fillStyle='rgba(0,0,0,0.25)';ctx.textAlign='center';ctx.fillText('hidden state',W/2*dpr,(chartH+gap+stateH/2)*dpr);}function animate(){if(!animPlaying)return;animIdx=Math.min(animIdx+1,animSeq.length-2);drawScene();if(animIdx>=animSeq.length-2){animIdx=20;}animId=requestAnimationFrame(animate);}var training=false;document.getElementById('rnnTrain').onclick=function(){if(training)return;training=true;this.textContent='Training...';this.style.opacity='0.5';var self=this;initRNN();trainSeq=makeSeq();var iters=0,maxIters=800;var lossArr=[];function step(){for(var k=0;k<5;k++){var start2=Math.floor(Math.random()*(trainSeq.length-25));var loss=bptt(trainSeq.slice(start2,start2+25),new Array(HS).fill(0),0.02);lossArr.push(loss);}iters+=5;if(iters<maxIters){requestAnimationFrame(step);}else{training=false;trained=true;self.textContent='↺ Retrain';self.style.opacity='1';var finalLoss=lossArr.slice(-20).reduce(function(a,b){return a+b;},0)/20;document.getElementById('rnnStatus').textContent='trained '+maxIters+' steps | final loss = '+finalLoss.toFixed(4);runPredictions();if(!animPlaying){animPlaying=true;document.getElementById('rnnPlay').disabled=false;animate();}}}step();};document.getElementById('rnnPlay').onclick=function(){animPlaying=!animPlaying;this.textContent=animPlaying?'⏸ Pause':'▶ Play';if(animPlaying)animate();};document.getElementById('rnnNoise').oninput=function(){noiseLevel=parseFloat(this.value);document.getElementById('rnnNoiseVal').textContent=noiseLevel.toFixed(2);if(trained)runPredictions();};var patBtns={};['Sine','Sawtooth','Square'].forEach(function(name){var b=document.createElement('button');b.textContent=name;b.style.cssText='padding:4px 10px;border-radius:6px;border:1.5px solid #888;background:transparent;font-size:0.8rem;cursor:pointer;';b.onclick=function(){currentPat=name;Object.keys(patBtns).forEach(function(n){patBtns[n].style.fontWeight='normal';});b.style.fontWeight='bold';trainSeq=makeSeq();if(trained)runPredictions();};patBtns[name]=b;document.getElementById('rnnPatBtns').appendChild(b);});patBtns['Sine'].style.fontWeight='bold';document.getElementById('rnnStatus').textContent='Hit Train to train from scratch';drawScene();}());</script></div>
+<p>Notice: after training, the RNN tracks the <strong>sine wave</strong> well — it learns the period and amplitude. The <strong>sawtooth</strong> is harder — sharp resets confuse it at first. The <strong>square wave</strong> is hardest — the RNN struggles with sudden transitions because its tanh activations are smooth and can&rsquo;t represent instant jumps. This is exactly why LSTMs with their gated cell state outperform vanilla RNNs on real sequences.</p>
+<p>The hidden state bars show the RNN&rsquo;s internal memory — different units activate for different phases of the sequence.</p>
+<hr>
+<h2 class="heading" id="what-rnns-are-used-for-or-were">
+  What RNNs Are Used For (or Were)
+  <a href="#what-rnns-are-used-for-or-were">#</a>
+</h2>
+<p>Before Transformers took over in 2017:</p>
+<ul>
+<li><strong>Language modelling</strong> — predict the next character/word (Karpathy&rsquo;s famous char-rnn)</li>
+<li><strong>Machine translation</strong> — encode source sentence into hidden state, decode to target</li>
+<li><strong>Speech recognition</strong> — audio frames → text</li>
+<li><strong>Time series</strong> — stock prices, sensor data, weather</li>
+</ul>
+<p>Today, Transformers have replaced RNNs for most NLP tasks. But RNNs are still used for:</p>
+<ul>
+<li>Real-time sequential tasks where you can&rsquo;t wait for the full sequence</li>
+<li>Embedded/low-memory devices</li>
+<li>Certain scientific time series problems</li>
+</ul>
+<p>Understanding RNNs is essential for understanding <em>why</em> attention and Transformers were invented — they fix the exact problems (vanishing gradients, sequential bottleneck) that make RNNs hard.</p>
+<hr>
+<h2 class="heading" id="before-you-go--try-these">
+  Before You Go — Try These
+  <a href="#before-you-go--try-these">#</a>
+</h2>
+<ol>
+<li>
+<p>In the demo, train on Sine and let it run. Now add noise 0.3 and watch the predictions. Does the RNN follow the noise, or does it smooth over it? What does that tell you about what the RNN learned?</p>
+</li>
+<li>
+<p>A vanilla RNN with hidden size 8, processing a scalar input, has how many parameters total? Count $\mathbf{W}_x$, $\mathbf{W}_h$, $\mathbf{b}_h$, $\mathbf{W}_y$, $b_y$.</p>
+</li>
+<li>
+<p>Why does the Square wave pattern cause problems for a tanh RNN? What property of tanh makes it hard to represent sudden transitions?</p>
+</li>
+<li>
+<p>The LSTM cell state update is $c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t$. If the forget gate $f_t \approx 1$ and input gate $i_t \approx 0$, what happens to the cell state? What has the LSTM &ldquo;decided&rdquo; to do?</p>
+</li>
+<li>
+<p>Gradient clipping in BPTT caps the gradient norm. If the gradient vector is $[10, 5, 8, 6]$ and the max norm is 5, what is the scaled gradient vector?</p>
+</li>
+</ol>
+<hr>
+<p><strong>Next up → <a href="/lab/neural-nets/">Lesson 12: Pay Attention</a></strong> — self-attention, positional encoding, and how Transformers replaced everything.</p>
+
+    
+    
+    <script src="https://giscus.app/client.js"
+        data-repo="arunprakaash/arunprakaash.github.io"
+        data-repo-id="R_kgDOMQKpEw"
+        data-category=""
+        data-category-id="DIC_kwDOMQKpE84CjORF"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="noborder_light"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+    
+    
+  </div>
+
+  
+
+
+  
+
+  
+  
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flex">
+
+        <div class="single-pagination-prev">
+            
+            <div class="single-pagination-container-prev">
+                <div class="single-pagination-text">←</div>
+                <div class="single-pagination-text">
+                    <a href="/lab/neural-nets/lesson-01-math-foundations/">
+                        01 — The Numbers That Run Everything
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+            <div class="single-pagination-container-next">
+                <div class="single-pagination-text">
+                    <a href="/lab/neural-nets/lesson-10-cnns/">
+                        10 — Seeing with Filters
+                    </a>
+                </div>
+                <div class="single-pagination-text">→</div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  <footer>
+    
+
+    
+    <p>Made with ❤️ by
+        <a href="https://github.com/arunprakaash">Arunprakaash</a>
+    </p>
+        
+    
+
+
+  </footer>
+
+  
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+  
+
+</body>
+
+<script defer src="/js/copy-code.js"></script>
+</html>

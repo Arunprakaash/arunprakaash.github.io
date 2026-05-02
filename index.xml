@@ -51,6 +51,13 @@
       <description>How convolutional neural networks see images — kernels, feature maps, pooling, and why a sliding 3×3 window beats a million fully-connected weights.</description>
     </item>
     <item>
+      <title>11 — The Machine That Remembers</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-11-rnns/</link>
+      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-11-rnns/</guid>
+      <description>Recurrent neural networks, hidden states, backprop through time, and why LSTMs were the memory upgrade that made sequences learnable.</description>
+    </item>
+    <item>
       <title>01 — The Numbers That Run Everything</title>
       <link>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
