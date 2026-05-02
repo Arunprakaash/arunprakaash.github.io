@@ -65,6 +65,13 @@
       <description>Self-attention, Q/K/V, multi-head attention, positional encodings, and the transformer block — the mechanism behind every modern language model, explained from scratch.</description>
     </item>
     <item>
+      <title>13 — Build a Mini-GPT</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-13-mini-gpt/</link>
+      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-13-mini-gpt/</guid>
+      <description>Every piece from lessons 1–12 assembled into a working character-level GPT in PyTorch — tokenisation, the full transformer stack, training loop, and text generation from scratch.</description>
+    </item>
+    <item>
       <title>01 — The Numbers That Run Everything</title>
       <link>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
