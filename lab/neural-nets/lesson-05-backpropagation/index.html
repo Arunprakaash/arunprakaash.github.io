@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/ico" href="https://arunprakaash.github.io//favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://arunprakaash.github.io//favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://arunprakaash.github.io//favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://arunprakaash.github.io//android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://arunprakaash.github.io//apple-touch-icon.png">
+
+<meta name="description" content=""/>
+
+
+
+<title>
+    
+    05 — Blame It on the Weights | arun._space
+    
+</title>
+
+<link rel="canonical" href="https://arunprakaash.github.io/lab/neural-nets/lesson-05-backpropagation/"/>
+
+<meta property="og:url" content="https://arunprakaash.github.io/lab/neural-nets/lesson-05-backpropagation/">
+  <meta property="og:site_name" content="arun._space">
+  <meta property="og:title" content="05 — Blame It on the Weights">
+  <meta property="og:description" content="Loss functions, gradient descent, and backpropagation — how a neural network looks at its mistakes and figures out exactly who to blame.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="lab">
+    <meta property="article:published_time" content="2026-05-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-02T00:00:00+00:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.405e542cd1848b8fe9e8f624499da2c820ff057ab70d0e9ad1d3f1bc702ae32b.css" media="all">
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-TCQ19GBNVQ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-TCQ19GBNVQ');
+        }
+      </script>
+
+
+
+
+</head>
+
+
+
+
+
+
+
+<body class="auto">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">
+        <a href="https://arunprakaash.github.io/">arun._space</a>
+    </h1>
+
+    <div class="flex">
+        
+        
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/" >
+                /home
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/log" >
+                /log
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/about" >
+                /about
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small  bold ">
+            <a href="/lab" >
+                /lab
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/">Lab</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/neural-nets/">Neural Nets</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/lab/neural-nets/lesson-05-backpropagation/">05 — Blame It on the Weights</a>
+</div>
+
+
+
+<div >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">05 — Blame It on the Weights</h1>
+    
+    <p class="single-summary">Loss functions, gradient descent, and backpropagation — how a neural network looks at its mistakes and figures out exactly who to blame.</p>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2026-05-02T00:00:00&#43;00:00">May 2, 2026</time>
+      
+
+      
+    </p>
+
+  </div>
+
+  
+
+  
+
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#first-how-wrong-are-we">First: How Wrong Are We?</a></li>
+    <li><a href="#gradient-descent-rolling-downhill">Gradient Descent: Rolling Downhill</a></li>
+    <li><a href="#the-chain-rule-the-only-tool-you-need">The Chain Rule: The Only Tool You Need</a></li>
+    <li><a href="#backprop-step-by-step">Backprop, Step by Step</a></li>
+    <li><a href="#the-key-insight">The Key Insight</a></li>
+    <li><a href="#in-python">In Python</a></li>
+    <li><a href="#demo-gradient-descent-on-a-loss-surface">Demo: Gradient Descent on a Loss Surface</a></li>
+    <li><a href="#why-does-backprop-work-so-fast">Why Does Backprop Work So Fast?</a></li>
+    <li><a href="#before-you-go--try-these">Before You Go — Try These</a></li>
+  </ul>
+</nav>
+  </aside>
+  
+
+  
+
+  <div class="single-content">
+    <p>The network made a prediction. It was wrong. Now what?</p>
+<p>Someone has to be blamed. Specifically, the weights that <em>caused</em> the wrong answer need to be identified and nudged in a better direction. Do this enough times, and the network learns.</p>
+<p>That process — tracing the error backward through every layer to every weight — is <strong>backpropagation</strong>. It&rsquo;s the algorithm that made deep learning possible. And it&rsquo;s just the chain rule from calculus, applied very carefully.</p>
+<hr>
+<h2 class="heading" id="first-how-wrong-are-we">
+  First: How Wrong Are We?
+  <a href="#first-how-wrong-are-we">#</a>
+</h2>
+<p>Before we can fix anything, we need to measure the wrongness. That&rsquo;s the <strong>loss function</strong> (also called cost function).</p>
+<p>For regression — predicting a number — the standard choice is <strong>Mean Squared Error</strong>:</p>
+<p>$$L = \frac{1}{n} \sum_{i=1}^n (\hat{y}_i - y_i)^2$$</p>
+<p>Predicted minus actual, squared, averaged. Squaring does two things: makes negatives positive, and punishes big errors much harder than small ones.</p>
+<p>For classification — picking a category — <strong>cross-entropy loss</strong> is the standard:</p>
+<p>$$L = -\sum_{i} y_i \log(\hat{y}_i)$$</p>
+<p>This punishes confident wrong answers brutally. If the true label is &ldquo;cat&rdquo; and you say 0.001% cat, the loss goes to infinity. The network learns to not be confidently wrong.</p>
+<hr>
+<h2 class="heading" id="gradient-descent-rolling-downhill">
+  Gradient Descent: Rolling Downhill
+  <a href="#gradient-descent-rolling-downhill">#</a>
+</h2>
+<p>Imagine the loss as a hilly landscape. Every point in that landscape is a different set of weights. We&rsquo;re standing somewhere on the hill — we want to find the lowest valley.</p>
+<p>The gradient $\nabla L$ points uphill (in the direction of steepest increase). So we go the opposite way:</p>
+<p>$$w \leftarrow w - \eta \cdot \frac{\partial L}{\partial w}$$</p>
+<p>This is the <strong>gradient descent update rule</strong>. $\eta$ (eta) is the learning rate — how big a step to take.</p>
+<p>Too large: you overshoot the valley and bounce around forever.
+Too small: you&rsquo;ll get there eventually, but you&rsquo;ll die of old age first.</p>
+<p>We apply this to <em>every single weight</em> in the network after every batch. That&rsquo;s gradient descent. The hard part is computing $\frac{\partial L}{\partial w}$ for every weight — especially weights buried deep in early layers, far from the output.</p>
+<p>That&rsquo;s what backprop solves.</p>
+<hr>
+<h2 class="heading" id="the-chain-rule-the-only-tool-you-need">
+  The Chain Rule: The Only Tool You Need
+  <a href="#the-chain-rule-the-only-tool-you-need">#</a>
+</h2>
+<p>If $L$ depends on $a$, which depends on $z$, which depends on $w$:</p>
+<p>$$\frac{dL}{dw} = \frac{dL}{da} \cdot \frac{da}{dz} \cdot \frac{dz}{dw}$$</p>
+<p>That&rsquo;s the chain rule. Applied to a neural network with many layers, it becomes:</p>
+<p>$$\frac{\partial L}{\partial w^{(1)}} = \frac{\partial L}{\partial a^{(L)}} \cdot \frac{\partial a^{(L)}}{\partial z^{(L)}} \cdot \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \cdots \frac{\partial a^{(1)}}{\partial z^{(1)}} \cdot \frac{\partial z^{(1)}}{\partial w^{(1)}}$$</p>
+<p>A long chain of derivatives, multiplied together. Each term is easy to compute on its own. Chained together, they give you the gradient of the loss with respect to any weight, no matter how deep.</p>
+<p>Backprop is just this chain rule applied layer by layer, starting from the output and working backwards.</p>
+<hr>
+<h2 class="heading" id="backprop-step-by-step">
+  Backprop, Step by Step
+  <a href="#backprop-step-by-step">#</a>
+</h2>
+<p>Take our tiny network: $\mathbf{x} \to \mathbf{z}^{(1)} \to \mathbf{a}^{(1)} \to z^{(2)} \to \hat{y} \to L$</p>
+<p><strong>Forward pass</strong> (computed and stored):</p>
+<p>$$z^{(1)} = \mathbf{W}^{(1)}\mathbf{x} + \mathbf{b}^{(1)}, \quad \mathbf{a}^{(1)} = \text{ReLU}(\mathbf{z}^{(1)})$$
+$$z^{(2)} = \mathbf{W}^{(2)}\mathbf{a}^{(1)} + b^{(2)}, \quad \hat{y} = \sigma(z^{(2)})$$</p>
+<p><strong>Backward pass</strong> (chain rule, right to left):</p>
+<p>Start at the loss. For MSE with one example: $L = (\hat{y} - y)^2$</p>
+<p>$$\frac{\partial L}{\partial \hat{y}} = 2(\hat{y} - y)$$</p>
+<p>Through sigmoid output:</p>
+<p>$$\frac{\partial L}{\partial z^{(2)}} = \frac{\partial L}{\partial \hat{y}} \cdot \sigma&rsquo;(z^{(2)}) = 2(\hat{y} - y) \cdot \hat{y}(1-\hat{y})$$</p>
+<p>Gradient w.r.t. output layer weights:</p>
+<p>$$\frac{\partial L}{\partial \mathbf{W}^{(2)}} = \frac{\partial L}{\partial z^{(2)}} \cdot \mathbf{a}^{(1)\top}$$</p>
+<p>Now propagate the error back through to the hidden layer:</p>
+<p>$$\frac{\partial L}{\partial \mathbf{a}^{(1)}} = \mathbf{W}^{(2)\top} \cdot \frac{\partial L}{\partial z^{(2)}}$$</p>
+<p>Through ReLU (derivative is 1 if $z &gt; 0$, else 0):</p>
+<p>$$\frac{\partial L}{\partial \mathbf{z}^{(1)}} = \frac{\partial L}{\partial \mathbf{a}^{(1)}} \odot \mathbf{1}[\mathbf{z}^{(1)} &gt; 0]$$</p>
+<p>Gradient w.r.t. first layer weights:</p>
+<p>$$\frac{\partial L}{\partial \mathbf{W}^{(1)}} = \frac{\partial L}{\partial \mathbf{z}^{(1)}} \cdot \mathbf{x}^{\top}$$</p>
+<p>Now we have gradients for every weight. Apply gradient descent. Repeat. That&rsquo;s training.</p>
+<hr>
+<h2 class="heading" id="the-key-insight">
+  The Key Insight
+  <a href="#the-key-insight">#</a>
+</h2>
+<p>Notice what backprop needs: the <strong>forward pass values</strong>, stored in memory. Every $z^{(l)}$, every $a^{(l)}$ — you need them during the backward pass to compute the derivatives.</p>
+<p>This is why training a large network uses so much more memory than inference. The forward pass caches everything. The backward pass reads it all back.</p>
+<p>Also notice: <strong>dead ReLU neurons</strong> (output zero during forward pass) have zero gradient during the backward pass. The weight update is zero. They&rsquo;re truly frozen — gradient can&rsquo;t reach them.</p>
+<hr>
+<h2 class="heading" id="in-python">
+  In Python
+  <a href="#in-python">#</a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#cf222e">import</span> <span style="color:#24292e">numpy</span> <span style="color:#cf222e">as</span> <span style="color:#24292e">np</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">def</span> <span style="color:#6639ba">sigmoid</span><span style="color:#1f2328">(</span>z<span style="color:#1f2328">):</span> <span style="color:#cf222e">return</span> <span style="color:#0550ae">1</span> <span style="color:#0550ae">/</span> <span style="color:#1f2328">(</span><span style="color:#0550ae">1</span> <span style="color:#0550ae">+</span> np<span style="color:#0550ae">.</span>exp<span style="color:#1f2328">(</span><span style="color:#0550ae">-</span>z<span style="color:#1f2328">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">def</span> <span style="color:#6639ba">relu</span><span style="color:#1f2328">(</span>z<span style="color:#1f2328">):</span> <span style="color:#cf222e">return</span> np<span style="color:#0550ae">.</span>maximum<span style="color:#1f2328">(</span><span style="color:#0550ae">0</span><span style="color:#1f2328">,</span> z<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#57606a"># Forward pass — store intermediate values</span>
+</span></span><span style="display:flex;"><span>x <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>array<span style="color:#1f2328">([</span><span style="color:#0550ae">0.5</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">-</span><span style="color:#0550ae">1.0</span><span style="color:#1f2328">])</span>
+</span></span><span style="display:flex;"><span>y <span style="color:#0550ae">=</span> <span style="color:#0550ae">1.0</span>  <span style="color:#57606a"># true label</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>W1 <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>array<span style="color:#1f2328">([[</span><span style="color:#0550ae">0.8</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">0.4</span><span style="color:#1f2328">],</span> <span style="color:#1f2328">[</span><span style="color:#0550ae">-</span><span style="color:#0550ae">0.5</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">0.9</span><span style="color:#1f2328">]])</span>
+</span></span><span style="display:flex;"><span>b1 <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>array<span style="color:#1f2328">([</span><span style="color:#0550ae">0.1</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">-</span><span style="color:#0550ae">0.2</span><span style="color:#1f2328">])</span>
+</span></span><span style="display:flex;"><span>W2 <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>array<span style="color:#1f2328">([[</span><span style="color:#0550ae">1.2</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">-</span><span style="color:#0550ae">0.7</span><span style="color:#1f2328">]])</span>
+</span></span><span style="display:flex;"><span>b2 <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>array<span style="color:#1f2328">([</span><span style="color:#0550ae">0.3</span><span style="color:#1f2328">])</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>z1 <span style="color:#0550ae">=</span> W1 <span style="color:#0550ae">@</span> x <span style="color:#0550ae">+</span> b1
+</span></span><span style="display:flex;"><span>a1 <span style="color:#0550ae">=</span> relu<span style="color:#1f2328">(</span>z1<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>z2 <span style="color:#0550ae">=</span> W2 <span style="color:#0550ae">@</span> a1 <span style="color:#0550ae">+</span> b2
+</span></span><span style="display:flex;"><span>y_hat <span style="color:#0550ae">=</span> sigmoid<span style="color:#1f2328">(</span>z2<span style="color:#1f2328">)[</span><span style="color:#0550ae">0</span><span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>loss <span style="color:#0550ae">=</span> <span style="color:#1f2328">(</span>y_hat <span style="color:#0550ae">-</span> y<span style="color:#1f2328">)</span> <span style="color:#0550ae">**</span> <span style="color:#0550ae">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#57606a"># Backward pass — chain rule</span>
+</span></span><span style="display:flex;"><span>dL_dyhat <span style="color:#0550ae">=</span> <span style="color:#0550ae">2</span> <span style="color:#0550ae">*</span> <span style="color:#1f2328">(</span>y_hat <span style="color:#0550ae">-</span> y<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>dL_dz2 <span style="color:#0550ae">=</span> dL_dyhat <span style="color:#0550ae">*</span> y_hat <span style="color:#0550ae">*</span> <span style="color:#1f2328">(</span><span style="color:#0550ae">1</span> <span style="color:#0550ae">-</span> y_hat<span style="color:#1f2328">)</span>          <span style="color:#57606a"># through sigmoid</span>
+</span></span><span style="display:flex;"><span>dL_dW2 <span style="color:#0550ae">=</span> dL_dz2 <span style="color:#0550ae">*</span> a1                              <span style="color:#57606a"># gradient for W2</span>
+</span></span><span style="display:flex;"><span>dL_da1 <span style="color:#0550ae">=</span> W2<span style="color:#1f2328">[</span><span style="color:#0550ae">0</span><span style="color:#1f2328">]</span> <span style="color:#0550ae">*</span> dL_dz2                           <span style="color:#57606a"># error to hidden layer</span>
+</span></span><span style="display:flex;"><span>dL_dz1 <span style="color:#0550ae">=</span> dL_da1 <span style="color:#0550ae">*</span> <span style="color:#1f2328">(</span>z1 <span style="color:#0550ae">&gt;</span> <span style="color:#0550ae">0</span><span style="color:#1f2328">)</span><span style="color:#0550ae">.</span>astype<span style="color:#1f2328">(</span><span style="color:#6639ba">float</span><span style="color:#1f2328">)</span>         <span style="color:#57606a"># through ReLU</span>
+</span></span><span style="display:flex;"><span>dL_dW1 <span style="color:#0550ae">=</span> np<span style="color:#0550ae">.</span>outer<span style="color:#1f2328">(</span>dL_dz1<span style="color:#1f2328">,</span> x<span style="color:#1f2328">)</span>                      <span style="color:#57606a"># gradient for W1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#57606a"># Update weights</span>
+</span></span><span style="display:flex;"><span>lr <span style="color:#0550ae">=</span> <span style="color:#0550ae">0.01</span>
+</span></span><span style="display:flex;"><span>W1 <span style="color:#0550ae">-=</span> lr <span style="color:#0550ae">*</span> dL_dW1
+</span></span><span style="display:flex;"><span>W2 <span style="color:#0550ae">-=</span> lr <span style="color:#0550ae">*</span> dL_dW2
+</span></span></code></pre></div><p>No magic. Just derivatives multiplied together, working backwards.</p>
+<hr>
+<h2 class="heading" id="demo-gradient-descent-on-a-loss-surface">
+  Demo: Gradient Descent on a Loss Surface
+  <a href="#demo-gradient-descent-on-a-loss-surface">#</a>
+</h2>
+<p>This is what gradient descent is actually doing in weight space. Pick a surface, drop a ball, watch it roll. Adjust the learning rate and see what happens.</p>
+<div class="nn-demo"><canvas id="gdCanvas" style="width:100%;display:block;border-radius:4px;"></canvas><div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;"><div style="display:flex;gap:6px;flex-wrap:wrap;" id="surfBtns"></div><div style="display:flex;align-items:center;gap:8px;margin-left:auto;"><label style="font-size:0.82rem;font-family:monospace;">lr = <span id="lrVal">0.05</span></label><input type="range" id="lrSlider" min="0.005" max="0.4" step="0.005" value="0.05" style="width:100px;"></div><button id="gdReset" style="padding:5px 12px;border-radius:6px;border:1.5px solid #555;background:transparent;color:#555;font-size:0.82rem;cursor:pointer;font-weight:600;">Reset</button></div><p id="gdMsg" style="margin-top:10px;font-size:0.82rem;font-family:monospace;text-align:center;opacity:0.75;"></p><script>(function(){var dpr=Math.min(window.devicePixelRatio||1,2);var canvas=document.getElementById('gdCanvas');var par=canvas.parentElement;var pst=getComputedStyle(par);var padX=parseFloat(pst.paddingLeft)+parseFloat(pst.paddingRight);var cssW=par.clientWidth-padX;var cssH=Math.round(cssW*0.6);canvas.width=cssW*dpr;canvas.height=cssH*dpr;canvas.style.width=cssW+'px';canvas.style.height=cssH+'px';var ctx=canvas.getContext('2d');var W=cssW*dpr,H=cssH*dpr;var surfaces={Bowl:{f:function(w1,w2){return w1*w1+w2*w2;},label:'Convex bowl — gradient descent works perfectly'},Elongated:{f:function(w1,w2){return w1*w1*0.5+w2*w2*8;},label:'Elongated bowl — slow in one direction, needs momentum'},Saddle:{f:function(w1,w2){return w1*w1-w2*w2*0.8;},label:'Saddle point — gradient descent escapes naturally'},Ravine:{f:function(w1,w2){return Math.pow(w1,2)*0.3+Math.pow(w2-w1*w1,2)*10;},label:'Curved ravine — oscillates, classic gradient descent problem'}};var currentSurf='Bowl';var range=2.5;var ballW1=0,ballW2=0;var path=[];var running=false;var animId=null;var lr=0.05;function grad(f,w1,w2){var h=0.001;return{g1:(f(w1+h,w2)-f(w1-h,w2))/(2*h),g2:(f(w1,w2+h)-f(w1,w2-h))/(2*h)};}function worldToCanvas(w1,w2){return[(w1/range+1)*W/2,(-(w2/range)+1)*H/2];}function canvasToWorld(cx,cy){return[cx/W*2*range-range,-(cy/H*2*range-range)];}function buildHeatmap(){var fn=surfaces[currentSurf].f;var imgData=ctx.createImageData(W,H);var data=imgData.data;var vals=[];for(var py=0;py<H;py+=2){for(var px=0;px<W;px+=2){var w=canvasToWorld(px,py);vals.push(fn(w[0],w[1]));}}var mn=Math.min.apply(null,vals),mx=Math.max.apply(null,vals);var i=0;for(var py=0;py<H;py+=2){for(var px=0;px<W;px+=2){var w=canvasToWorld(px,py);var v=(fn(w[0],w[1])-mn)/(mx-mn);var r2=Math.round(30+v*180);var g2=Math.round(100+v*80);var b2=Math.round(180-v*120);for(var dy=0;dy<2&&py+dy<H;dy++){for(var dx=0;dx<2&&px+dx<W;dx++){var idx=((py+dy)*W+(px+dx))*4;data[idx]=r2;data[idx+1]=g2;data[idx+2]=b2;data[idx+3]=255;}}i++;}}return imgData;}var cachedHeatmap=null;function draw(){if(!cachedHeatmap){cachedHeatmap=buildHeatmap();}ctx.putImageData(cachedHeatmap,0,0);if(path.length>1){ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,0.7)';ctx.lineWidth=1.5*dpr;var p0=worldToCanvas(path[0][0],path[0][1]);ctx.moveTo(p0[0],p0[1]);for(var i=1;i<path.length;i++){var p=worldToCanvas(path[i][0],path[i][1]);ctx.lineTo(p[0],p[1]);}ctx.stroke();}var bc=worldToCanvas(ballW1,ballW2);ctx.beginPath();ctx.arc(bc[0],bc[1],7*dpr,0,2*Math.PI);ctx.fillStyle='white';ctx.fill();ctx.strokeStyle='rgba(0,0,0,0.4)';ctx.lineWidth=1.5*dpr;ctx.stroke();var fn=surfaces[currentSurf].f;document.getElementById('gdMsg').textContent=surfaces[currentSurf].label+' | loss = '+fn(ballW1,ballW2).toFixed(4);}function step(){var fn=surfaces[currentSurf].f;var g=grad(fn,ballW1,ballW2);ballW1-=lr*g.g1;ballW2-=lr*g.g2;ballW1=Math.max(-range,Math.min(range,ballW1));ballW2=Math.max(-range,Math.min(range,ballW2));path.push([ballW1,ballW2]);if(path.length>300)path.shift();draw();var loss=fn(ballW1,ballW2);if(loss<0.0001||path.length>=300){running=false;return;}animId=requestAnimationFrame(step);}function startFrom(w1,w2){if(animId){cancelAnimationFrame(animId);}ballW1=w1;ballW2=w2;path=[[w1,w2]];running=true;step();}canvas.addEventListener('click',function(e){var rect=canvas.getBoundingClientRect();var mx=(e.clientX-rect.left)*(cssW/rect.width);var my=(e.clientY-rect.top)*(cssH/rect.height);var w=canvasToWorld(mx*dpr,my*dpr);startFrom(w[0],w[1]);});var surfBtns={};Object.keys(surfaces).forEach(function(name){var b=document.createElement('button');b.textContent=name;b.style.cssText='padding:4px 10px;border-radius:6px;border:1.5px solid #888;background:transparent;color:#555;font-size:0.8rem;cursor:pointer;';b.onclick=function(){currentSurf=name;cachedHeatmap=null;Object.values(surfBtns).forEach(function(btn){btn.style.fontWeight='normal';btn.style.borderColor='#888';});b.style.fontWeight='bold';b.style.borderColor='#333';ballW1=0;ballW2=0;path=[];if(animId)cancelAnimationFrame(animId);draw();};surfBtns[name]=b;document.getElementById('surfBtns').appendChild(b);});surfBtns['Bowl'].style.fontWeight='bold';surfBtns['Bowl'].style.borderColor='#333';document.getElementById('lrSlider').oninput=function(){lr=parseFloat(this.value);document.getElementById('lrVal').textContent=lr.toFixed(3);};document.getElementById('gdReset').onclick=function(){if(animId)cancelAnimationFrame(animId);ballW1=0;ballW2=0;path=[];draw();};draw();document.getElementById('gdMsg').textContent=surfaces[currentSurf].label;}());</script></div>
+<p><strong>Click anywhere on the surface to drop a ball and watch gradient descent run.</strong> Try cranking the learning rate up — watch it overshoot and oscillate. Switch to Elongated and notice how much faster it moves in one direction than the other. That&rsquo;s why things like momentum and Adam optimiser exist.</p>
+<hr>
+<h2 class="heading" id="why-does-backprop-work-so-fast">
+  Why Does Backprop Work So Fast?
+  <a href="#why-does-backprop-work-so-fast">#</a>
+</h2>
+<p>Computing all gradients naively would mean one forward pass per weight (finite differences). A network with 1 million weights: 1 million forward passes per update. Useless.</p>
+<p>Backprop computes all gradients in <strong>one backward pass</strong> — roughly the same cost as one forward pass. That&rsquo;s the magic. It&rsquo;s not a heuristic or approximation. It&rsquo;s exact. Just the chain rule, applied cleverly so intermediate results are reused.</p>
+<p>This is why 1986&rsquo;s backprop paper changed everything. The algorithm was efficient enough to actually train networks. Without it: no deep learning.</p>
+<hr>
+<h2 class="heading" id="before-you-go--try-these">
+  Before You Go — Try These
+  <a href="#before-you-go--try-these">#</a>
+</h2>
+<ol>
+<li>
+<p>In the demo, switch to <strong>Elongated</strong> and try learning rate 0.05. Then try 0.3. What happens? Why do long thin valleys cause problems for vanilla gradient descent?</p>
+</li>
+<li>
+<p>Work through the backward pass for the hand example in Lesson 04. We computed $\hat{y} \approx 0.603$ with true label $y = 1$. Compute $\frac{\partial L}{\partial z^{(2)}}$ using MSE loss.</p>
+</li>
+<li>
+<p>What is the gradient of ReLU at $z = 0$? Why is this technically undefined, and why does it not matter in practice?</p>
+</li>
+<li>
+<p>A weight deep in layer 1 gets gradient $\approx 0.001$ while a weight in the output layer gets $0.3$. What causes this difference, and what problem does it hint at?</p>
+</li>
+<li>
+<p>In the Python code above, change the true label from <code>y = 1.0</code> to <code>y = 0.0</code> and re-trace the backward pass mentally. Does the sign of <code>dL_dW2</code> flip? Why?</p>
+</li>
+</ol>
+<hr>
+<p><strong>Next up → <a href="/lab/neural-nets/">Lesson 06: The Learning Loop</a></strong> — we put forward pass + backprop + gradient descent into a training loop and watch a network actually learn something.</p>
+
+    
+    
+    <script src="https://giscus.app/client.js"
+        data-repo="arunprakaash/arunprakaash.github.io"
+        data-repo-id="R_kgDOMQKpEw"
+        data-category=""
+        data-category-id="DIC_kwDOMQKpE84CjORF"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="noborder_light"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+    
+    
+  </div>
+
+  
+
+
+  
+
+  
+  
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flex">
+
+        <div class="single-pagination-prev">
+            
+            <div class="single-pagination-container-prev">
+                <div class="single-pagination-text">←</div>
+                <div class="single-pagination-text">
+                    <a href="/lab/neural-nets/lesson-01-math-foundations/">
+                        01 — The Numbers That Run Everything
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  <footer>
+    
+
+    
+    <p>Made with ❤️ by
+        <a href="https://github.com/arunprakaash">Arunprakaash</a>
+    </p>
+        
+    
+
+
+  </footer>
+
+  
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+  
+
+</body>
+
+<script defer src="/js/copy-code.js"></script>
+</html>

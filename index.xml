@@ -6,8 +6,15 @@
     <description>Recent content in Home on arun._space</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 02 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://arunprakaash.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>05 — Blame It on the Weights</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-05-backpropagation/</link>
+      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-05-backpropagation/</guid>
+      <description>Loss functions, gradient descent, and backpropagation — how a neural network looks at its mistakes and figures out exactly who to blame.</description>
+    </item>
     <item>
       <title>01 — The Numbers That Run Everything</title>
       <link>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</link>
