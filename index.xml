@@ -23,6 +23,13 @@
       <description>Forward pass, backprop, gradient descent — assembled into a training loop. Watch a network learn to separate XOR, circles, and spirals in real time.</description>
     </item>
     <item>
+      <title>07 — The Vanishing Act</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-07-depth-problem/</link>
+      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-07-depth-problem/</guid>
+      <description>Why deep networks went dark in the 90s — vanishing gradients, exploding gradients, and the tricks that finally made depth work: weight init, batch norm, and residual connections.</description>
+    </item>
+    <item>
       <title>01 — The Numbers That Run Everything</title>
       <link>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>

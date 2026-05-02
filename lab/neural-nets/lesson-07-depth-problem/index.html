@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/ico" href="https://arunprakaash.github.io//favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://arunprakaash.github.io//favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://arunprakaash.github.io//favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://arunprakaash.github.io//android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://arunprakaash.github.io//apple-touch-icon.png">
+
+<meta name="description" content=""/>
+
+
+
+<title>
+    
+    07 — The Vanishing Act | arun._space
+    
+</title>
+
+<link rel="canonical" href="https://arunprakaash.github.io/lab/neural-nets/lesson-07-depth-problem/"/>
+
+<meta property="og:url" content="https://arunprakaash.github.io/lab/neural-nets/lesson-07-depth-problem/">
+  <meta property="og:site_name" content="arun._space">
+  <meta property="og:title" content="07 — The Vanishing Act">
+  <meta property="og:description" content="Why deep networks went dark in the 90s — vanishing gradients, exploding gradients, and the tricks that finally made depth work: weight init, batch norm, and residual connections.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="lab">
+    <meta property="article:published_time" content="2026-05-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-02T00:00:00+00:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.405e542cd1848b8fe9e8f624499da2c820ff057ab70d0e9ad1d3f1bc702ae32b.css" media="all">
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-TCQ19GBNVQ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-TCQ19GBNVQ');
+        }
+      </script>
+
+
+
+
+</head>
+
+
+
+
+
+
+
+<body class="auto">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">
+        <a href="https://arunprakaash.github.io/">arun._space</a>
+    </h1>
+
+    <div class="flex">
+        
+        
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/" >
+                /home
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/log" >
+                /log
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/about" >
+                /about
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small  bold ">
+            <a href="/lab" >
+                /lab
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/">Lab</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/neural-nets/">Neural Nets</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/lab/neural-nets/lesson-07-depth-problem/">07 — The Vanishing Act</a>
+</div>
+
+
+
+<div >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">07 — The Vanishing Act</h1>
+    
+    <p class="single-summary">Why deep networks went dark in the 90s — vanishing gradients, exploding gradients, and the tricks that finally made depth work: weight init, batch norm, and residual connections.</p>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2026-05-02T00:00:00&#43;00:00">May 2, 2026</time>
+      
+
+      
+    </p>
+
+  </div>
+
+  
+
+  
+
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-vanishing-gradient-problem">The Vanishing Gradient Problem</a></li>
+    <li><a href="#the-exploding-gradient-problem">The Exploding Gradient Problem</a></li>
+    <li><a href="#fix-1-use-relu">Fix 1: Use ReLU</a></li>
+    <li><a href="#fix-2-weight-initialisation">Fix 2: Weight Initialisation</a></li>
+    <li><a href="#fix-3-batch-normalisation">Fix 3: Batch Normalisation</a></li>
+    <li><a href="#fix-4-residual-connections">Fix 4: Residual Connections</a></li>
+    <li><a href="#demo-watch-gradients-vanish">Demo: Watch Gradients Vanish</a></li>
+    <li><a href="#putting-it-together">Putting It Together</a></li>
+    <li><a href="#before-you-go--try-these">Before You Go — Try These</a></li>
+  </ul>
+</nav>
+  </aside>
+  
+
+  
+
+  <div class="single-content">
+    <p>In the late 1980s, people tried making neural networks deeper. More layers, more power, right?</p>
+<p>It didn&rsquo;t work. Adding layers made things <em>worse</em>. Training stalled. The networks learned nothing. Researchers gave up and called it the second AI winter.</p>
+<p>The culprit: gradients were disappearing before they reached the early layers.</p>
+<hr>
+<h2 class="heading" id="the-vanishing-gradient-problem">
+  The Vanishing Gradient Problem
+  <a href="#the-vanishing-gradient-problem">#</a>
+</h2>
+<p>Backprop multiplies derivatives together as it flows backward through each layer. With sigmoid activations, the maximum derivative is $\sigma&rsquo;(z) = 0.25$ (at $z = 0$). In practice it&rsquo;s often much smaller.</p>
+<p>Chain 10 layers together:</p>
+<p>$$\frac{\partial L}{\partial \mathbf{W}^{(1)}} = \frac{\partial L}{\partial z^{(10)}} \cdot \prod_{l=2}^{10} \sigma&rsquo;(z^{(l)}) \cdot \ldots$$</p>
+<p>If each sigmoid derivative is $0.2$:</p>
+<p>$$0.2^{10} = 0.0000001024$$</p>
+<p>That&rsquo;s the gradient magnitude reaching layer 1. Essentially zero. The first few layers get no useful signal and learn nothing. You can stack as many layers as you like — the early ones are frozen by mathematical coincidence.</p>
+<p>This isn&rsquo;t a bug. It&rsquo;s the inevitable result of multiplying many small numbers together. The deeper the network, the worse it gets.</p>
+<hr>
+<h2 class="heading" id="the-exploding-gradient-problem">
+  The Exploding Gradient Problem
+  <a href="#the-exploding-gradient-problem">#</a>
+</h2>
+<p>The opposite can also happen. If weights are large, derivatives multiply up instead of down:</p>
+<p>$$2.0^{10} = 1024$$</p>
+<p>Gradients explode, weights jump wildly, loss oscillates or goes to NaN. Common in RNNs processing long sequences.</p>
+<p>The fix for exploding gradients is simple and brutal: <strong>gradient clipping</strong> — cap the gradient norm at a threshold.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>torch<span style="color:#0550ae">.</span>nn<span style="color:#0550ae">.</span>utils<span style="color:#0550ae">.</span>clip_grad_norm_<span style="color:#1f2328">(</span>model<span style="color:#0550ae">.</span>parameters<span style="color:#1f2328">(),</span> max_norm<span style="color:#0550ae">=</span><span style="color:#0550ae">1.0</span><span style="color:#1f2328">)</span>
+</span></span></code></pre></div><p>Vanishing gradients are trickier. They need architectural solutions.</p>
+<hr>
+<h2 class="heading" id="fix-1-use-relu">
+  Fix 1: Use ReLU
+  <a href="#fix-1-use-relu">#</a>
+</h2>
+<p>The simplest fix. ReLU&rsquo;s gradient is exactly 1 for positive inputs — it doesn&rsquo;t shrink. Backprop passes through without attenuation.</p>
+<p>The product of 10 ReLU derivatives (all 1.0): still 1.0.</p>
+<p>This is the biggest reason ReLU replaced sigmoid in hidden layers. It&rsquo;s not just about speed — it&rsquo;s about keeping gradients alive through depth.</p>
+<hr>
+<h2 class="heading" id="fix-2-weight-initialisation">
+  Fix 2: Weight Initialisation
+  <a href="#fix-2-weight-initialisation">#</a>
+</h2>
+<p>How you initialise weights matters enormously. Random initialisation sounds fine — but if weights start too large, activations saturate immediately (sigmoid/tanh go flat). If they start too small, activations collapse to zero.</p>
+<p><strong>Xavier / Glorot initialisation</strong> (for tanh):</p>
+<p>$$W \sim \mathcal{U}\left[-\frac{\sqrt{6}}{\sqrt{n_{in} + n_{out}}},\ \frac{\sqrt{6}}{\sqrt{n_{in} + n_{out}}}\right]$$</p>
+<p>Scales weights by the number of inputs and outputs, keeping the variance of activations roughly constant across layers.</p>
+<p><strong>He initialisation</strong> (for ReLU):</p>
+<p>$$W \sim \mathcal{N}\left(0,\ \frac{2}{n_{in}}\right)$$</p>
+<p>Accounts for the fact that ReLU kills half the neurons (the negative side), so variance needs to be doubled to compensate.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#57606a"># PyTorch uses He init for ReLU by default</span>
+</span></span><span style="display:flex;"><span>nn<span style="color:#0550ae">.</span>Linear<span style="color:#1f2328">(</span><span style="color:#0550ae">in</span><span style="color:#1f2328">,</span> out<span style="color:#1f2328">)</span>  <span style="color:#57606a"># Kaiming uniform (He variant)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#57606a"># Xavier for tanh/sigmoid</span>
+</span></span><span style="display:flex;"><span>nn<span style="color:#0550ae">.</span>init<span style="color:#0550ae">.</span>xavier_uniform_<span style="color:#1f2328">(</span>layer<span style="color:#0550ae">.</span>weight<span style="color:#1f2328">)</span>
+</span></span></code></pre></div><p>The difference between bad and good initialisation can be the difference between a network that trains and one that doesn&rsquo;t — before a single gradient step.</p>
+<hr>
+<h2 class="heading" id="fix-3-batch-normalisation">
+  Fix 3: Batch Normalisation
+  <a href="#fix-3-batch-normalisation">#</a>
+</h2>
+<p>Introduced in 2015. The idea: normalise the inputs to each layer so they always have mean 0 and variance 1. Do this <em>during</em> training, for each mini-batch.</p>
+<p>For a batch of pre-activations ${z^{(i)}}$:</p>
+<p>$$\mu_B = \frac{1}{m}\sum_i z^{(i)}, \quad \sigma^2_B = \frac{1}{m}\sum_i (z^{(i)} - \mu_B)^2$$</p>
+<p>$$\hat{z}^{(i)} = \frac{z^{(i)} - \mu_B}{\sqrt{\sigma^2_B + \varepsilon}}$$</p>
+<p>Then scale and shift by learned parameters $\gamma$ and $\beta$:</p>
+<p>$$z^{(i)}_{out} = \gamma \hat{z}^{(i)} + \beta$$</p>
+<p>The network learns what mean and variance it wants. The normalisation keeps activations in the well-behaved region — preventing saturation, keeping gradients healthy.</p>
+<p>Side effect: acts as mild regularisation. Reduces need for dropout.</p>
+<p>At inference (no batch): use running statistics computed during training.</p>
+<hr>
+<h2 class="heading" id="fix-4-residual-connections">
+  Fix 4: Residual Connections
+  <a href="#fix-4-residual-connections">#</a>
+</h2>
+<p>The nuclear option. In 2015, ResNet introduced <strong>skip connections</strong> — a direct path that bypasses one or more layers:</p>
+<p>$$\mathbf{a}^{(l+2)} = f(\mathbf{W}^{(l+2)} \mathbf{a}^{(l+1)} + \mathbf{b}^{(l+2)}) + \mathbf{a}^{(l)}$$</p>
+<p>Instead of learning the full transformation, the layers learn the <em>residual</em> — what to add to the identity. If the best answer is &ldquo;do nothing&rdquo;, the layers can learn weights near zero, leaving the skip connection to carry the signal.</p>
+<p>The gradient implication: the skip connection gives gradients a <strong>highway to the early layers</strong>, bypassing potential vanishing. Derivative of the skip path: $1.0$, always. No matter how many layers are stacked.</p>
+<p>This is why ResNet-152 (152 layers!) trained successfully in 2015, while 20-layer networks had failed a decade earlier.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#57606a"># Residual block in PyTorch</span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">class</span> <span style="color:#1f2328">ResBlock</span><span style="color:#1f2328">(</span>nn<span style="color:#0550ae">.</span>Module<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">forward</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> x<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">return</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>layers<span style="color:#1f2328">(</span>x<span style="color:#1f2328">)</span> <span style="color:#0550ae">+</span> x  <span style="color:#57606a"># skip connection</span>
+</span></span></code></pre></div><hr>
+<h2 class="heading" id="demo-watch-gradients-vanish">
+  Demo: Watch Gradients Vanish
+  <a href="#demo-watch-gradients-vanish">#</a>
+</h2>
+<p>This plots the gradient magnitude at each layer during backprop. Drag the depth slider and switch activations to see the problem and the fix in real time.</p>
+<div class="nn-demo"><canvas id="vanCanvas" style="width:100%;display:block;"></canvas><div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;"><div style="display:flex;gap:6px;" id="vanActBtns"></div><div style="display:flex;align-items:center;gap:8px;margin-left:auto;"><label style="font-size:0.82rem;font-family:monospace;">depth: <span id="vanDepthVal">8</span></label><input type="range" id="vanDepth" min="2" max="20" step="1" value="8" style="width:100px;"></div><button id="vanRand" style="padding:5px 12px;border-radius:6px;border:1.5px solid #555;background:transparent;color:#555;font-size:0.82rem;cursor:pointer;font-weight:600;">🎲 Resample</button></div><p id="vanMsg" style="margin-top:10px;font-size:0.82rem;font-family:monospace;text-align:center;opacity:0.75;"></p><script>(function(){var dpr=window.devicePixelRatio||1;var canvas=document.getElementById('vanCanvas');var par=canvas.parentElement;var pst=getComputedStyle(par);var padX=parseFloat(pst.paddingLeft)+parseFloat(pst.paddingRight);var cssW=par.clientWidth-padX;var cssH=Math.round(cssW*0.45);canvas.width=cssW*dpr;canvas.height=cssH*dpr;canvas.style.width=cssW+'px';canvas.style.height=cssH+'px';var ctx=canvas.getContext('2d');var CW=cssW*dpr,CH=cssH*dpr;var currentAct='Sigmoid';function sigmoid(z){return 1/(1+Math.exp(-z));}function sigGrad(z){var s=sigmoid(z);return s*(1-s);}function relu(z){return Math.max(0,z);}function reluGrad(z){return z>0?1:0;}function tanh2(z){return Math.tanh(z);}function tanhGrad(z){return 1-Math.tanh(z)*Math.tanh(z);}var acts={Sigmoid:{f:sigmoid,d:sigGrad,color:'#2563eb',initScale:1},Tanh:{f:tanh2,d:tanhGrad,color:'#16a34a',initScale:1},ReLU:{f:relu,d:reluGrad,color:'#dc2626',initScale:Math.sqrt(2)}};function computeGradients(depth,actName){var act=acts[actName];var scale=act.initScale;var zVals=[];for(var l=0;l<depth;l++){zVals.push((Math.random()-0.5)*2);}var grad=1.0;var grads=[1.0];for(var l=depth-1;l>=0;l--){var d=act.d(zVals[l]);grad*=d*(Math.random()*0.5+0.75);grads.unshift(Math.abs(grad));}return grads;}var currentGrads=computeGradients(8,'Sigmoid');function draw(){var depth=parseInt(document.getElementById('vanDepth').value);var bg=getComputedStyle(document.documentElement).getPropertyValue('--background').trim()||'#f5f0ea';ctx.clearRect(0,0,CW,CH);ctx.fillStyle=bg;ctx.fillRect(0,0,CW,CH);var padL=40*dpr,padR=20*dpr,padT=20*dpr,padB=40*dpr;var plotW=CW-padL-padR,plotH=CH-padT-padB;var maxG=Math.max.apply(null,currentGrads);var minG=Math.min.apply(null,currentGrads);ctx.strokeStyle='rgba(0,0,0,0.1)';ctx.lineWidth=1;for(var g=0;g<=4;g++){var gy=padT+plotH-g/4*plotH;ctx.beginPath();ctx.moveTo(padL,gy);ctx.lineTo(padL+plotW,gy);ctx.stroke();}var barW=plotW/currentGrads.length*0.65;var gap=plotW/currentGrads.length;var color=acts[currentAct].color;for(var i=0;i<currentGrads.length;i++){var v=currentGrads[i];var normH=maxG>0?v/maxG:0;var bh=normH*plotH;var bx=padL+i*gap+gap*0.175;var by=padT+plotH-bh;var alpha=0.3+normH*0.7;ctx.fillStyle=color+(Math.round(alpha*255).toString(16).padStart(2,'0'));ctx.fillRect(bx,by,barW,bh);}ctx.fillStyle='rgba(0,0,0,0.5)';ctx.font=(9*dpr)+'px monospace';ctx.textAlign='center';for(var i=0;i<currentGrads.length;i++){var bx=padL+i*gap+gap*0.5;ctx.fillText('L'+(i+1),bx,CH-8*dpr);}ctx.textAlign='right';ctx.fillText('1.0',padL-4*dpr,padT+8*dpr);ctx.fillText('0',padL-4*dpr,CH-padB+4*dpr);var last=currentGrads[0];var ratio=currentGrads[0]/currentGrads[currentGrads.length-1];document.getElementById('vanMsg').textContent='Gradient at layer 1 is '+last.toExponential(3)+' ('+ratio.toFixed(0)+'× smaller than output layer)';}document.getElementById('vanDepth').oninput=function(){var d=parseInt(this.value);document.getElementById('vanDepthVal').textContent=d;currentGrads=computeGradients(d,currentAct);draw();};document.getElementById('vanRand').onclick=function(){var d=parseInt(document.getElementById('vanDepth').value);currentGrads=computeGradients(d,currentAct);draw();};var btns={};Object.keys(acts).forEach(function(name){var b=document.createElement('button');b.textContent=name;var col=acts[name].color;b.style.cssText='padding:5px 12px;border-radius:6px;border:1.5px solid '+col+';background:transparent;color:'+col+';font-size:0.82rem;cursor:pointer;font-weight:600;';b.onclick=function(){currentAct=name;Object.keys(btns).forEach(function(n){btns[n].style.background='transparent';});b.style.background=col+'22';currentGrads=computeGradients(parseInt(document.getElementById('vanDepth').value),name);draw();};btns[name]=b;document.getElementById('vanActBtns').appendChild(b);});btns['Sigmoid'].style.background=acts['Sigmoid'].color+'22';draw();}());</script></div>
+<p>Try this: set <strong>Sigmoid</strong>, depth <strong>16</strong>. The bars at the left (early layers) are nearly invisible — the gradient has vanished. Now switch to <strong>ReLU</strong>. The bars stay tall all the way through. That&rsquo;s what made deep learning possible.</p>
+<hr>
+<h2 class="heading" id="putting-it-together">
+  Putting It Together
+  <a href="#putting-it-together">#</a>
+</h2>
+<p>Modern deep networks use all of these fixes together:</p>
+<ul>
+<li><strong>ReLU</strong> (or GELU/SiLU) instead of sigmoid in hidden layers</li>
+<li><strong>He initialisation</strong> for ReLU networks</li>
+<li><strong>Batch normalisation</strong> after linear layers (before or after activation, still debated)</li>
+<li><strong>Residual connections</strong> for very deep architectures (ResNets, Transformers)</li>
+</ul>
+<p>With these, you can train networks with hundreds of layers. Without them, 10 layers was already a struggle.</p>
+<hr>
+<h2 class="heading" id="before-you-go--try-these">
+  Before You Go — Try These
+  <a href="#before-you-go--try-these">#</a>
+</h2>
+<ol>
+<li>
+<p>In the demo, with <strong>Sigmoid</strong> and depth 10, roughly what is the gradient magnitude at layer 1? Now compute it manually: if each sigmoid derivative is $0.2$ and each weight contribution is $0.9$, what&rsquo;s $\prod_{l=1}^{10} 0.2 \times 0.9$?</p>
+</li>
+<li>
+<p>Why does He initialisation use $\sqrt{2/n_{in}}$ while Xavier uses $\sqrt{2/(n_{in}+n_{out})}$? What assumption about ReLU drives the factor of 2?</p>
+</li>
+<li>
+<p>Batch norm has learnable parameters $\gamma$ and $\beta$. If the network learns $\gamma = 1$ and $\beta = 0$ everywhere, what has batch norm effectively done? Is this a problem?</p>
+</li>
+<li>
+<p>Draw a 4-layer residual network on paper. Trace the gradient flow backward. How many paths exist from the output to layer 1, and which ones bypass the weight matrices entirely?</p>
+</li>
+<li>
+<p>Exploding gradients are common in RNNs but rare in feedforward networks. Why might sequential models with shared weights be especially prone to exploding gradients?</p>
+</li>
+</ol>
+<hr>
+<p><strong>Next up → <a href="/lab/neural-nets/">Lesson 08: Build One From Scratch</a></strong> — pure Python and NumPy, no frameworks, building a full neural network that classifies handwritten digits.</p>
+
+    
+    
+    <script src="https://giscus.app/client.js"
+        data-repo="arunprakaash/arunprakaash.github.io"
+        data-repo-id="R_kgDOMQKpEw"
+        data-category=""
+        data-category-id="DIC_kwDOMQKpE84CjORF"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="noborder_light"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+    
+    
+  </div>
+
+  
+
+
+  
+
+  
+  
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flex">
+
+        <div class="single-pagination-prev">
+            
+            <div class="single-pagination-container-prev">
+                <div class="single-pagination-text">←</div>
+                <div class="single-pagination-text">
+                    <a href="/lab/neural-nets/lesson-01-math-foundations/">
+                        01 — The Numbers That Run Everything
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+            <div class="single-pagination-container-next">
+                <div class="single-pagination-text">
+                    <a href="/lab/neural-nets/lesson-06-training-loop/">
+                        06 — Watch It Learn
+                    </a>
+                </div>
+                <div class="single-pagination-text">→</div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  <footer>
+    
+
+    
+    <p>Made with ❤️ by
+        <a href="https://github.com/arunprakaash">Arunprakaash</a>
+    </p>
+        
+    
+
+
+  </footer>
+
+  
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+  
+
+</body>
+
+<script defer src="/js/copy-code.js"></script>
+</html>
