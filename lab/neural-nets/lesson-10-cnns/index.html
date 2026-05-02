@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/ico" href="https://arunprakaash.github.io//favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://arunprakaash.github.io//favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://arunprakaash.github.io//favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://arunprakaash.github.io//android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://arunprakaash.github.io//apple-touch-icon.png">
+
+<meta name="description" content=""/>
+
+
+
+<title>
+    
+    10 — Seeing with Filters | arun._space
+    
+</title>
+
+<link rel="canonical" href="https://arunprakaash.github.io/lab/neural-nets/lesson-10-cnns/"/>
+
+<meta property="og:url" content="https://arunprakaash.github.io/lab/neural-nets/lesson-10-cnns/">
+  <meta property="og:site_name" content="arun._space">
+  <meta property="og:title" content="10 — Seeing with Filters">
+  <meta property="og:description" content="How convolutional neural networks see images — kernels, feature maps, pooling, and why a sliding 3×3 window beats a million fully-connected weights.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="lab">
+    <meta property="article:published_time" content="2026-05-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-02T00:00:00+00:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.405e542cd1848b8fe9e8f624499da2c820ff057ab70d0e9ad1d3f1bc702ae32b.css" media="all">
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-TCQ19GBNVQ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-TCQ19GBNVQ');
+        }
+      </script>
+
+
+
+
+</head>
+
+
+
+
+
+
+
+<body class="auto">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">
+        <a href="https://arunprakaash.github.io/">arun._space</a>
+    </h1>
+
+    <div class="flex">
+        
+        
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/" >
+                /home
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/log" >
+                /log
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/about" >
+                /about
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small  bold ">
+            <a href="/lab" >
+                /lab
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/">Lab</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/neural-nets/">Neural Nets</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/lab/neural-nets/lesson-10-cnns/">10 — Seeing with Filters</a>
+</div>
+
+
+
+<div >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">10 — Seeing with Filters</h1>
+    
+    <p class="single-summary">How convolutional neural networks see images — kernels, feature maps, pooling, and why a sliding 3×3 window beats a million fully-connected weights.</p>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2026-05-02T00:00:00&#43;00:00">May 2, 2026</time>
+      
+
+      
+    </p>
+
+  </div>
+
+  
+
+  
+
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-convolution-operation">The Convolution Operation</a></li>
+    <li><a href="#multiple-filters-multiple-feature-maps">Multiple Filters, Multiple Feature Maps</a></li>
+    <li><a href="#padding-and-stride">Padding and Stride</a></li>
+    <li><a href="#pooling-shrinking-deliberately">Pooling: Shrinking Deliberately</a></li>
+    <li><a href="#the-cnn-architecture">The CNN Architecture</a></li>
+    <li><a href="#parameter-count-vs-fully-connected">Parameter Count vs Fully Connected</a></li>
+    <li><a href="#demo-filter-playground">Demo: Filter Playground</a></li>
+    <li><a href="#what-filters-actually-learn">What Filters Actually Learn</a></li>
+    <li><a href="#before-you-go--try-these">Before You Go — Try These</a></li>
+  </ul>
+</nav>
+  </aside>
+  
+
+  
+
+  <div class="single-content">
+    <p>A 256×256 colour image has 196,608 numbers in it. If you flatten that and feed it into a fully connected layer with 1000 neurons, the first layer alone needs 196 million weights.</p>
+<p>That&rsquo;s not just expensive — it&rsquo;s structurally dumb. A fully connected layer treats pixel (0,0) and pixel (255,255) as equally related. But they&rsquo;re not. Pixels that are <em>close to each other</em> share structure. Edges, curves, textures — they&rsquo;re local patterns, not global ones.</p>
+<p>Convolutional networks are built around that insight. A small filter slides across the image, looking for one local pattern everywhere. It&rsquo;s translation-invariant: a vertical edge in the top-left is detected by the same weights as a vertical edge in the bottom-right.</p>
+<hr>
+<h2 class="heading" id="the-convolution-operation">
+  The Convolution Operation
+  <a href="#the-convolution-operation">#</a>
+</h2>
+<p>Take a small matrix called a <strong>kernel</strong> (or filter) and slide it across the image. At each position, multiply element-wise and sum. That sum becomes one pixel in the <strong>feature map</strong>.</p>
+<p>A 3×3 kernel applied to a 5×5 image:</p>
+<p>$$\begin{bmatrix} 1&amp;0&amp;-1 \ 1&amp;0&amp;-1 \ 1&amp;0&amp;-1 \end{bmatrix} \circledast \begin{bmatrix} 2&amp;1&amp;3&amp;0&amp;1 \ 0&amp;2&amp;1&amp;3&amp;2 \ 1&amp;0&amp;2&amp;1&amp;0 \ 3&amp;1&amp;0&amp;2&amp;1 \ 2&amp;3&amp;1&amp;0&amp;2 \end{bmatrix}$$</p>
+<p>At position (1,1) — centre of the kernel placed at row 1, col 1:</p>
+<p>$$2(1)+1(0)+3(-1) + 0(1)+2(0)+1(-1) + 1(1)+0(0)+2(-1)$$
+$$= 2+0-3+0+0-1+1+0-2 = -3$$</p>
+<p>Slide to every valid position and you get the feature map. That 3×3 vertical edge detector produces high positive values at left edges, high negative at right edges, near zero on flat regions.</p>
+<p>The kernel has 9 weights. That&rsquo;s it. Whether the image is 28×28 or 1024×1024, still 9 weights. This is <strong>parameter sharing</strong> — the same filter applied everywhere.</p>
+<hr>
+<h2 class="heading" id="multiple-filters-multiple-feature-maps">
+  Multiple Filters, Multiple Feature Maps
+  <a href="#multiple-filters-multiple-feature-maps">#</a>
+</h2>
+<p>One filter detects one type of pattern. Real CNNs use many filters in parallel. A layer with 32 filters produces 32 feature maps from one input image — each looking for a different pattern.</p>
+<p>Layer 1 might learn: horizontal edges, vertical edges, diagonal edges, colour gradients.
+Layer 2 sees those feature maps and combines them: corners, circles, textures.
+Layer 3 combines those: eyes, wheels, doorknobs.</p>
+<p>Deeper = more abstract. This hierarchy emerges automatically from training — nobody told the network to look for eyes. It figured out that &ldquo;eye-detectors&rdquo; are useful intermediate features for classifying faces.</p>
+<hr>
+<h2 class="heading" id="padding-and-stride">
+  Padding and Stride
+  <a href="#padding-and-stride">#</a>
+</h2>
+<p><strong>Padding</strong> — add zeros around the image border so the output feature map is the same size as the input. &ldquo;Same&rdquo; padding with a 3×3 kernel adds 1 pixel of zeros on each side.</p>
+<p>Without padding: a 5×5 image with a 3×3 kernel gives a 3×3 output (shrinks each time). Stack enough layers and your image disappears.</p>
+<p><strong>Stride</strong> — how many pixels the kernel moves per step. Stride 1: move one pixel at a time (standard). Stride 2: skip every other position, halving the spatial dimensions. An alternative to pooling.</p>
+<p>$$\text{output size} = \left\lfloor \frac{\text{input size} - \text{kernel size} + 2 \times \text{padding}}{\text{stride}} \right\rfloor + 1$$</p>
+<p>For input 28, kernel 3, padding 1, stride 1: $\lfloor(28-3+2)/1\rfloor + 1 = 28$. Same size.</p>
+<hr>
+<h2 class="heading" id="pooling-shrinking-deliberately">
+  Pooling: Shrinking Deliberately
+  <a href="#pooling-shrinking-deliberately">#</a>
+</h2>
+<p>After a conv layer, you usually want to reduce the spatial size. <strong>Max pooling</strong> takes the maximum value in each window.</p>
+<p>A 2×2 max pool with stride 2 on a 4×4 feature map:</p>
+<p>$$\begin{bmatrix}1&amp;3&amp;2&amp;0\4&amp;2&amp;1&amp;3\0&amp;1&amp;4&amp;2\3&amp;2&amp;1&amp;0\end{bmatrix} \xrightarrow{\text{maxpool 2×2}} \begin{bmatrix}4&amp;3\3&amp;4\end{bmatrix}$$</p>
+<p>It halves the spatial size. It&rsquo;s also slightly translation-invariant: a feature shifted by one pixel still produces the same max.</p>
+<hr>
+<h2 class="heading" id="the-cnn-architecture">
+  The CNN Architecture
+  <a href="#the-cnn-architecture">#</a>
+</h2>
+<p>A typical CNN stacks:</p>
+<pre tabindex="0"><code>Input image
+→ Conv(32 filters, 3×3) + ReLU       # detect low-level features
+→ Conv(32 filters, 3×3) + ReLU
+→ MaxPool(2×2)                         # halve spatial size
+→ Conv(64 filters, 3×3) + ReLU       # more abstract features
+→ Conv(64 filters, 3×3) + ReLU
+→ MaxPool(2×2)
+→ Flatten                              # spatial → vector
+→ Linear(128) + ReLU                   # combine features
+→ Linear(10) + Softmax                 # classify
+</code></pre><p>The spatial size shrinks as you go deeper. The number of channels (feature maps) grows. By the time you flatten, the network has compressed the spatial structure into a rich feature vector that the final linear layers classify.</p>
+<p>In PyTorch:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#cf222e">import</span> <span style="color:#24292e">torch.nn</span> <span style="color:#cf222e">as</span> <span style="color:#24292e">nn</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model <span style="color:#0550ae">=</span> nn<span style="color:#0550ae">.</span>Sequential<span style="color:#1f2328">(</span>
+</span></span><span style="display:flex;"><span>    nn<span style="color:#0550ae">.</span>Conv2d<span style="color:#1f2328">(</span><span style="color:#0550ae">1</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">32</span><span style="color:#1f2328">,</span> kernel_size<span style="color:#0550ae">=</span><span style="color:#0550ae">3</span><span style="color:#1f2328">,</span> padding<span style="color:#0550ae">=</span><span style="color:#0550ae">1</span><span style="color:#1f2328">),</span>  nn<span style="color:#0550ae">.</span>ReLU<span style="color:#1f2328">(),</span>
+</span></span><span style="display:flex;"><span>    nn<span style="color:#0550ae">.</span>Conv2d<span style="color:#1f2328">(</span><span style="color:#0550ae">32</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">32</span><span style="color:#1f2328">,</span> kernel_size<span style="color:#0550ae">=</span><span style="color:#0550ae">3</span><span style="color:#1f2328">,</span> padding<span style="color:#0550ae">=</span><span style="color:#0550ae">1</span><span style="color:#1f2328">),</span> nn<span style="color:#0550ae">.</span>ReLU<span style="color:#1f2328">(),</span>
+</span></span><span style="display:flex;"><span>    nn<span style="color:#0550ae">.</span>MaxPool2d<span style="color:#1f2328">(</span><span style="color:#0550ae">2</span><span style="color:#1f2328">),</span>
+</span></span><span style="display:flex;"><span>    nn<span style="color:#0550ae">.</span>Conv2d<span style="color:#1f2328">(</span><span style="color:#0550ae">32</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">64</span><span style="color:#1f2328">,</span> kernel_size<span style="color:#0550ae">=</span><span style="color:#0550ae">3</span><span style="color:#1f2328">,</span> padding<span style="color:#0550ae">=</span><span style="color:#0550ae">1</span><span style="color:#1f2328">),</span> nn<span style="color:#0550ae">.</span>ReLU<span style="color:#1f2328">(),</span>
+</span></span><span style="display:flex;"><span>    nn<span style="color:#0550ae">.</span>MaxPool2d<span style="color:#1f2328">(</span><span style="color:#0550ae">2</span><span style="color:#1f2328">),</span>
+</span></span><span style="display:flex;"><span>    nn<span style="color:#0550ae">.</span>Flatten<span style="color:#1f2328">(),</span>
+</span></span><span style="display:flex;"><span>    nn<span style="color:#0550ae">.</span>Linear<span style="color:#1f2328">(</span><span style="color:#0550ae">64</span> <span style="color:#0550ae">*</span> <span style="color:#0550ae">7</span> <span style="color:#0550ae">*</span> <span style="color:#0550ae">7</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">128</span><span style="color:#1f2328">),</span> nn<span style="color:#0550ae">.</span>ReLU<span style="color:#1f2328">(),</span>
+</span></span><span style="display:flex;"><span>    nn<span style="color:#0550ae">.</span>Linear<span style="color:#1f2328">(</span><span style="color:#0550ae">128</span><span style="color:#1f2328">,</span> <span style="color:#0550ae">10</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">)</span>
+</span></span></code></pre></div><hr>
+<h2 class="heading" id="parameter-count-vs-fully-connected">
+  Parameter Count vs Fully Connected
+  <a href="#parameter-count-vs-fully-connected">#</a>
+</h2>
+<p>For a 28×28 image and a layer producing 32 feature maps:</p>
+<ul>
+<li><strong>Fully connected:</strong> $28 \times 28 \times 32 = 25{,}088$ weights</li>
+<li><strong>Conv (3×3):</strong> $3 \times 3 \times 32 = 288$ weights</li>
+</ul>
+<p>87× fewer parameters. And the conv layer is structurally smarter — it enforces locality and translation invariance.</p>
+<p>This efficiency is why CNNs can handle high-resolution images. ResNet-50 classifies 224×224 images with ~25M parameters. A fully connected equivalent would need billions.</p>
+<hr>
+<h2 class="heading" id="demo-filter-playground">
+  Demo: Filter Playground
+  <a href="#demo-filter-playground">#</a>
+</h2>
+<p>Draw anything on the grid. Watch the convolution filters react to it live — each output shows what a different kernel &ldquo;sees&rdquo;. Try drawing edges, diagonals, circles. The filters respond differently to each.</p>
+<div class="nn-demo"><div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;justify-content:center;"><div id="cnnLeft"><p style="font-size:0.8rem;font-family:monospace;margin:0 0 6px 0;opacity:0.6;">draw here (click + drag)</p><canvas id="cnnDraw" style="display:block;cursor:crosshair;border-radius:4px;"></canvas><div style="display:flex;gap:6px;margin-top:8px;"><button id="cnnClear" style="padding:4px 12px;border-radius:6px;border:1.5px solid #555;background:transparent;color:#555;font-size:0.8rem;cursor:pointer;font-weight:600;">Clear</button><button id="cnnFill" style="padding:4px 12px;border-radius:6px;border:1.5px solid #555;background:transparent;color:#555;font-size:0.8rem;cursor:pointer;">Fill</button></div></div><div id="cnnRight"><p style="font-size:0.8rem;font-family:monospace;margin:0 0 6px 0;opacity:0.6;">filter outputs</p><div id="cnnOutputs" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div></div></div><script>(function(){var N=18;var pixels=new Array(N*N).fill(0);var painting=false,paintVal=1;var dpr=window.devicePixelRatio||1;var drawCanvas=document.getElementById('cnnDraw');var par=document.getElementById('cnnLeft');var cssCell=Math.min(28,Math.floor((window.innerWidth*0.38)/N));var cssSize=cssCell*N;drawCanvas.width=cssSize*dpr;drawCanvas.height=cssSize*dpr;drawCanvas.style.width=cssSize+'px';drawCanvas.style.height=cssSize+'px';var dctx=drawCanvas.getContext('2d');dctx.scale(dpr,dpr);var filters=[{name:'Horizontal',k:[-1,-1,-1,0,0,0,1,1,1],color:'#2563eb'},{name:'Vertical',k:[-1,0,1,-1,0,1,-1,0,1],color:'#16a34a'},{name:'Edges',k:[0,-1,0,-1,4,-1,0,-1,0],color:'#dc2626'},{name:'Sharpen',k:[0,-1,0,-1,5,-1,0,-1,0],color:'#9333ea'}];var outCanvases=[];var outputs=document.getElementById('cnnOutputs');filters.forEach(function(f,fi){var wrap=document.createElement('div');wrap.style.cssText='text-align:center;';var label=document.createElement('div');label.style.cssText='font-size:0.72rem;font-family:monospace;margin-bottom:3px;color:'+f.color+';';label.textContent=f.name;var c=document.createElement('canvas');var oc=cssSize*dpr,os=cssSize;c.width=oc;c.height=oc;c.style.width=os+'px';c.style.height=os+'px';c.style.borderRadius='4px';c.style.display='block';wrap.appendChild(label);wrap.appendChild(c);outputs.appendChild(wrap);outCanvases.push(c.getContext('2d'));});function convolve(k){var out=new Float32Array(N*N);for(var y=0;y<N;y++){for(var x=0;x<N;x++){var s=0;for(var ky=0;ky<3;ky++){for(var kx=0;kx<3;kx++){var px=x+kx-1,py=y+ky-1;if(px>=0&&px<N&&py>=0&&py<N){s+=pixels[py*N+px]*k[ky*3+kx];}}}out[y*N+x]=s;}}return out;}function renderInput(){var bg=getComputedStyle(document.documentElement).getPropertyValue('--code-background').trim()||'#ede8e1';dctx.fillStyle=bg;dctx.fillRect(0,0,cssSize,cssSize);for(var i=0;i<N*N;i++){var r=Math.floor(i/N),c=i%N;if(pixels[i]){dctx.fillStyle='#2a2520';dctx.fillRect(c*cssCell+1,r*cssCell+1,cssCell-2,cssCell-2);}else{dctx.fillStyle='rgba(0,0,0,0.04)';dctx.fillRect(c*cssCell,r*cssCell,cssCell,cssCell);}}dctx.strokeStyle='rgba(0,0,0,0.07)';dctx.lineWidth=0.5;for(var i=0;i<=N;i++){dctx.beginPath();dctx.moveTo(i*cssCell,0);dctx.lineTo(i*cssCell,cssSize);dctx.stroke();dctx.beginPath();dctx.moveTo(0,i*cssCell);dctx.lineTo(cssSize,i*cssCell);dctx.stroke();}}function renderFilters(){filters.forEach(function(f,fi){var out=convolve(f.k);var mn=0,mx=0;for(var i=0;i<out.length;i++){if(out[i]<mn)mn=out[i];if(out[i]>mx)mx=out[i];}var range=Math.max(mx-mn,0.001);var ctx=outCanvases[fi];var imgData=ctx.createImageData(N*dpr,N*dpr);var data=imgData.data;for(var y=0;y<N;y++){for(var x=0;x<N;x++){var v=(out[y*N+x]-mn)/range;var r2,g2,b2;if(f.color==='#2563eb'){r2=Math.round(240*(1-v)+37*v);g2=Math.round(240*(1-v)+99*v);b2=Math.round(240*(1-v)+235*v);}else if(f.color==='#16a34a'){r2=Math.round(240*(1-v)+22*v);g2=Math.round(240*(1-v)+163*v);b2=Math.round(240*(1-v)+74*v);}else if(f.color==='#dc2626'){r2=Math.round(240*(1-v)+220*v);g2=Math.round(240*(1-v)+38*v);b2=Math.round(240*(1-v)+38*v);}else{r2=Math.round(240*(1-v)+147*v);g2=Math.round(240*(1-v)+51*v);b2=Math.round(240*(1-v)+234*v);}for(var dy=0;dy<dpr;dy++){for(var dx=0;dx<dpr;dx++){var idx=((y*dpr+dy)*N*dpr+(x*dpr+dx))*4;data[idx]=r2;data[idx+1]=g2;data[idx+2]=b2;data[idx+3]=255;}}}}ctx.putImageData(imgData,0,0);});}function getCell(e,rect){var scaleX=cssSize/rect.width,scaleY=cssSize/rect.height;var x=(e.clientX-rect.left)*scaleX,y=(e.clientY-rect.top)*scaleY;var c=Math.floor(x/cssCell),r=Math.floor(y/cssCell);if(c>=0&&c<N&&r>=0&&r<N)return r*N+c;return -1;}function update(){renderInput();renderFilters();}drawCanvas.addEventListener('mousedown',function(e){var idx=getCell(e,this.getBoundingClientRect());if(idx>=0){paintVal=1-pixels[idx];pixels[idx]=paintVal;update();}painting=true;});drawCanvas.addEventListener('mousemove',function(e){if(!painting)return;var idx=getCell(e,this.getBoundingClientRect());if(idx>=0&&pixels[idx]!==paintVal){pixels[idx]=paintVal;update();}});drawCanvas.addEventListener('mouseup',function(){painting=false;});drawCanvas.addEventListener('mouseleave',function(){painting=false;});drawCanvas.addEventListener('touchstart',function(e){e.preventDefault();var t=e.touches[0];var idx=getCell(t,this.getBoundingClientRect());if(idx>=0){paintVal=1-pixels[idx];pixels[idx]=paintVal;update();}painting=true;},{passive:false});drawCanvas.addEventListener('touchmove',function(e){e.preventDefault();if(!painting)return;var t=e.touches[0];var idx=getCell(t,this.getBoundingClientRect());if(idx>=0){pixels[idx]=paintVal;update();}},{passive:false});drawCanvas.addEventListener('touchend',function(){painting=false;});document.getElementById('cnnClear').onclick=function(){pixels=new Array(N*N).fill(0);update();};document.getElementById('cnnFill').onclick=function(){for(var i=0;i<N;i++){pixels[i*N+i]=1;pixels[i*N+(N-1-i)]=1;pixels[Math.floor(N/2)*N+i]=1;pixels[i*N+Math.floor(N/2)]=1;}update();};update();}());</script></div>
+<p>Notice:</p>
+<ul>
+<li><strong>Horizontal filter</strong> responds strongly to horizontal lines — bright where a dark-to-light transition happens top-to-bottom</li>
+<li><strong>Vertical filter</strong> does the same but for vertical lines</li>
+<li><strong>Edges (Laplacian)</strong> lights up wherever there&rsquo;s <em>any</em> edge — the boundary between your drawing and the background</li>
+<li><strong>Sharpen</strong> amplifies the edges and centres — makes the drawing &ldquo;pop&rdquo;</li>
+</ul>
+<p>Hit <strong>Fill</strong> to draw a cross + diagonals to see all four filters react to different edge directions at once.</p>
+<hr>
+<h2 class="heading" id="what-filters-actually-learn">
+  What Filters Actually Learn
+  <a href="#what-filters-actually-learn">#</a>
+</h2>
+<p>In an untrained CNN, filters are random noise. After training on images:</p>
+<ul>
+<li><strong>Layer 1 filters:</strong> oriented edges (Sobel-like), colour gradients, blobs</li>
+<li><strong>Layer 2 filters:</strong> combinations — corners, T-junctions, simple textures</li>
+<li><strong>Layer 3+ filters:</strong> complex textures, object parts</li>
+<li><strong>Deep layers:</strong> semantic concepts — eyes, wheels, text</li>
+</ul>
+<p>This was verified empirically by visualising what input images maximise each filter&rsquo;s activation. The hierarchy is real — and it emerged from gradient descent on labels, not from anyone designing it.</p>
+<hr>
+<h2 class="heading" id="before-you-go--try-these">
+  Before You Go — Try These
+  <a href="#before-you-go--try-these">#</a>
+</h2>
+<ol>
+<li>
+<p>In the demo, draw a single horizontal line in the middle. Which filter responds most strongly? Now draw a vertical line. Which filter responds now? Is there any response in the &ldquo;wrong&rdquo; filter?</p>
+</li>
+<li>
+<p>A conv layer takes input of shape $(H, W, C_{in})$ and has $C_{out}$ filters each of size $k \times k$. How many learnable parameters does this layer have (including biases)?</p>
+</li>
+<li>
+<p>Why does max pooling give some translation invariance? Draw a 2×2 example where a feature shifts one pixel but the max-pooled output stays the same.</p>
+</li>
+<li>
+<p>A fully connected layer with 1000 input neurons and 512 output neurons has how many parameters? A conv layer with 32 input channels, 64 output channels, and 3×3 kernels has how many? Which would you use for processing a 64×64 image, and why?</p>
+</li>
+<li>
+<p>CNNs are translation-invariant but not rotation-invariant by default. Why? What architectural change would give some rotation invariance?</p>
+</li>
+</ol>
+<hr>
+<p><strong>Next up → <a href="/lab/neural-nets/">Lesson 11: Memory in the Loop</a></strong> — recurrent neural networks, sequences, and why order matters.</p>
+
+    
+    
+    <script src="https://giscus.app/client.js"
+        data-repo="arunprakaash/arunprakaash.github.io"
+        data-repo-id="R_kgDOMQKpEw"
+        data-category=""
+        data-category-id="DIC_kwDOMQKpE84CjORF"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="noborder_light"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+    
+    
+  </div>
+
+  
+
+
+  
+
+  
+  
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flex">
+
+        <div class="single-pagination-prev">
+            
+            <div class="single-pagination-container-prev">
+                <div class="single-pagination-text">←</div>
+                <div class="single-pagination-text">
+                    <a href="/lab/neural-nets/lesson-01-math-foundations/">
+                        01 — The Numbers That Run Everything
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+            <div class="single-pagination-container-next">
+                <div class="single-pagination-text">
+                    <a href="/lab/neural-nets/lesson-09-overfitting/">
+                        09 — Too Good to Be True
+                    </a>
+                </div>
+                <div class="single-pagination-text">→</div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  <footer>
+    
+
+    
+    <p>Made with ❤️ by
+        <a href="https://github.com/arunprakaash">Arunprakaash</a>
+    </p>
+        
+    
+
+
+  </footer>
+
+  
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+  
+
+</body>
+
+<script defer src="/js/copy-code.js"></script>
+</html>

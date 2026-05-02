@@ -44,6 +44,13 @@
       <description>When your network aces the training data and fails at everything else — overfitting, regularisation, dropout, and how to actually tell if your model is learning.</description>
     </item>
     <item>
+      <title>10 — Seeing with Filters</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-10-cnns/</link>
+      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-10-cnns/</guid>
+      <description>How convolutional neural networks see images — kernels, feature maps, pooling, and why a sliding 3×3 window beats a million fully-connected weights.</description>
+    </item>
+    <item>
       <title>01 — The Numbers That Run Everything</title>
       <link>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
