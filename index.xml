@@ -30,6 +30,13 @@
       <description>Why deep networks went dark in the 90s — vanishing gradients, exploding gradients, and the tricks that finally made depth work: weight init, batch norm, and residual connections.</description>
     </item>
     <item>
+      <title>08 — Just NumPy, No Magic</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-08-from-scratch/</link>
+      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-08-from-scratch/</guid>
+      <description>Stop using the concepts, start writing the code. A full neural network in pure Python and NumPy — same thing PyTorch does internally, just slower.</description>
+    </item>
+    <item>
       <title>01 — The Numbers That Run Everything</title>
       <link>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
