@@ -217,7 +217,7 @@
     <li><a href="#cheat-sheet">Cheat Sheet</a></li>
     <li><a href="#demo-activation-explorer">Demo: Activation Explorer</a></li>
     <li><a href="#-build-this-activation-art-studio">🛠️ Build This: Activation Art Studio</a></li>
-    <li><a href="#whats-next">What&rsquo;s Next</a></li>
+    <li><a href="#before-you-go--try-these">Before You Go — Try These</a></li>
   </ul>
 </nav>
   </aside>
@@ -375,12 +375,29 @@ If $z \leq 0$: output 0. Neuron is silent.</p>
 <p>Each palette × function combination produces a completely different visual world. Try <strong>ReLU + Neon</strong> for sharp geometric cuts, <strong>Sigmoid + Sunset</strong> for dreamy gradients, <strong>Tanh + Ocean</strong> for symmetric waves.</p>
 <p>What you&rsquo;re really seeing: the geometry of nonlinearity. ReLU cuts space into half-planes. Sigmoid blends smoothly. Tanh creates symmetric folding. Neural networks use exactly these shapes to carve decision boundaries in high-dimensional space.</p>
 <hr>
-<h2 class="heading" id="whats-next">
-  What&rsquo;s Next
-  <a href="#whats-next">#</a>
+<h2 class="heading" id="before-you-go--try-these">
+  Before You Go — Try These
+  <a href="#before-you-go--try-these">#</a>
 </h2>
-<p>We have nonlinearity. Now let&rsquo;s actually build a full network and trace a number through it, layer by layer, all the way to a prediction.</p>
-<p>Next: <strong>04 — Signals Forward</strong> — the forward pass, from raw input to output, by hand.</p>
+<ol>
+<li>
+<p>Open the Activation Explorer, select <strong>Sigmoid</strong>, and drag $z$ to $\pm 5$. What&rsquo;s $f&rsquo;(z)$ at those extremes? Now try the same with <strong>ReLU</strong>. Why does ReLU not have this problem on the positive side?</p>
+</li>
+<li>
+<p>Compute $\sigma(0)$, $\sigma(1)$, $\sigma(-1)$ by hand using $\sigma(z) = \frac{1}{1+e^{-z}}$. Verify with the demo.</p>
+</li>
+<li>
+<p>Prove that $\tanh(z) = 2\sigma(2z) - 1$. Hint: write out $\sigma(2z)$ and simplify.</p>
+</li>
+<li>
+<p>A network has 3 hidden layers, all using sigmoid. The gradient of the loss w.r.t. the first layer involves multiplying three sigmoid derivatives together. If each is about $0.2$, what&rsquo;s the combined gradient? What does this tell you about training deep sigmoid networks?</p>
+</li>
+<li>
+<p>In the Art Studio, hit 🎲 Randomise a few times while on <strong>Step</strong>. Why does it always look like a hard-edged split rather than smooth blobs? What does that tell you about gradients?</p>
+</li>
+</ol>
+<hr>
+<p><strong>Next up → <a href="/lab/neural-nets/">Lesson 04: Dominos All the Way Down</a></strong> — we wire neurons into full layers and trace a number from input to output, step by step.</p>
 
     
     

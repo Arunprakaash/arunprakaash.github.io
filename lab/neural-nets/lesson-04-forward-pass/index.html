@@ -215,7 +215,7 @@
     <li><a href="#in-python-numpy">In Python (NumPy)</a></li>
     <li><a href="#demo-watch-the-signal-flow">Demo: Watch the Signal Flow</a></li>
     <li><a href="#-build-this-two-input-classifier">🛠️ Build This: Two-Input Classifier</a></li>
-    <li><a href="#whats-next">What&rsquo;s Next</a></li>
+    <li><a href="#before-you-go--try-these">Before You Go — Try These</a></li>
   </ul>
 </nav>
   </aside>
@@ -335,13 +335,29 @@ $$z^{(1)}_2 = -0.5(0.5) + 0.9(-1.0) + (-0.2) = -0.25 - 0.9 - 0.2 = -1.35$$</p>
 <p>This is the forward pass. The network takes your coordinates $(x_1, x_2)$, runs them through layers of dot products and nonlinearities, and returns a number between 0 and 1. The colour map is just painting that number across the whole plane.</p>
 <p>Training a network means <em>adjusting the weights</em> until this boundary carves space in a useful way — separating cats from dogs, spam from email, healthy from diseased. That&rsquo;s the next big idea.</p>
 <hr>
-<h2 class="heading" id="whats-next">
-  What&rsquo;s Next
-  <a href="#whats-next">#</a>
+<h2 class="heading" id="before-you-go--try-these">
+  Before You Go — Try These
+  <a href="#before-you-go--try-these">#</a>
 </h2>
-<p>We can push signals forward. But how does the network <em>learn</em>? It has to look at its mistakes and figure out which weights caused them — then nudge those weights in the right direction.</p>
-<p>That requires knowing how the output changes when you change any weight, deep inside the network. Which requires something called <strong>backpropagation</strong>.</p>
-<p>Next: <strong>05 — Blame It on the Weights</strong> — how gradients flow backwards and who gets the credit (or the blame).</p>
+<ol>
+<li>
+<p>In the Signal Flow demo, drag $x_1$ and $x_2$ until at least two hidden neurons go dark (output 0). What does that mean for the information reaching the output neuron?</p>
+</li>
+<li>
+<p>Work through the hand example again but change $x = [0.5, -1.0]$ to $x = [-0.5, 1.0]$. Recompute $\mathbf{z}^{(1)}$, $\mathbf{a}^{(1)}$, $z^{(2)}$, and $\hat{y}$. Does the output flip sides of 0.5?</p>
+</li>
+<li>
+<p>A network takes a $28 \times 28$ image (flattened to 784 inputs) and has layers of size 256, 128, 64, 10. Write out the shape of every weight matrix $\mathbf{W}^{(l)}$.</p>
+</li>
+<li>
+<p>In the Classifier demo, toggle between <strong>ReLU</strong> and <strong>Tanh</strong>. Which one produces straight-edged boundaries? Which one curves? Can you explain why from what you know about the two functions?</p>
+</li>
+<li>
+<p>Without changing the architecture, hit <strong>New network</strong> 5 times. Each time a completely different boundary appears. What&rsquo;s the only thing changing? What does that tell you about what training is actually doing?</p>
+</li>
+</ol>
+<hr>
+<p><strong>Next up → <a href="/lab/neural-nets/">Lesson 05: Blame It on the Weights</a></strong> — the forward pass tells you what the network predicts. Backprop tells you whose fault it is.</p>
 
     
     
