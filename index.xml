@@ -16,6 +16,13 @@
       <description>Loss functions, gradient descent, and backpropagation — how a neural network looks at its mistakes and figures out exactly who to blame.</description>
     </item>
     <item>
+      <title>06 — Watch It Learn</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-06-training-loop/</link>
+      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-06-training-loop/</guid>
+      <description>Forward pass, backprop, gradient descent — assembled into a training loop. Watch a network learn to separate XOR, circles, and spirals in real time.</description>
+    </item>
+    <item>
       <title>01 — The Numbers That Run Everything</title>
       <link>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
