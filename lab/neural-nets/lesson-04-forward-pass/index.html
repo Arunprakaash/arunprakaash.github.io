@@ -34,8 +34,8 @@
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="lab">
-    <meta property="article:published_time" content="2026-05-01T00:00:00+00:00">
-    <meta property="article:modified_time" content="2026-05-01T00:00:00+00:00">
+    <meta property="article:published_time" content="2026-05-01T12:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-01T12:00:00+00:00">
 
 
 
@@ -191,7 +191,7 @@
       
       
       
-      <time datetime="2026-05-01T00:00:00&#43;00:00">May 1, 2026</time>
+      <time datetime="2026-05-01T12:00:00&#43;00:00">May 1, 2026</time>
       
 
       
@@ -334,14 +334,14 @@ $$z^{(1)}_2 = -0.5(0.5) + 0.9(-1.0) + (-0.2) = -0.25 - 0.9 - 0.2 = -1.35$$</p>
 <p>A network takes a $28 \times 28$ image (flattened to 784 inputs) and has layers of size 256, 128, 64, 10. Write out the shape of every weight matrix $\mathbf{W}^{(l)}$.</p>
 </li>
 <li>
-<p>In the Classifier demo, toggle between <strong>ReLU</strong> and <strong>Tanh</strong>. Which one produces straight-edged boundaries? Which one curves? Can you explain why from what you know about the two functions?</p>
+<p>In the Signal Flow demo, drag both $x_1$ and $x_2$ to strongly negative values. Watch the hidden neurons go dark one by one. What does the output neuron compute when every hidden activation is exactly $0$? Why does the output bias prevent the network from being completely silent?</p>
 </li>
 <li>
-<p>Without changing the architecture, hit <strong>New network</strong> 5 times. Each time a completely different boundary appears. What&rsquo;s the only thing changing? What does that tell you about what training is actually doing?</p>
+<p>The demo uses fixed random weights. If you ran this same architecture through a training loop on labelled data, only the weights would change — not the number of neurons or layers. What&rsquo;s the minimum number of hidden neurons needed in a single hidden layer to correctly classify all four XOR input pairs? (Hint: think about how many linear regions the ReLU activations can create.)</p>
 </li>
 </ol>
 <hr>
-<p><strong>Next up → <a href="/lab/neural-nets/">Lesson 05: Blame It on the Weights</a></strong> — the forward pass tells you what the network predicts. Backprop tells you whose fault it is.</p>
+<p><strong>Next up → <a href="/lab/neural-nets/lesson-05-backpropagation/">Lesson 05: Blame It on the Weights</a></strong> — the forward pass tells you what the network predicts. Backprop tells you whose fault it is.</p>
 
     
     
@@ -381,14 +381,23 @@ $$z^{(1)}_2 = -0.5(0.5) + 0.9(-1.0) + (-0.2) = -0.25 - 0.9 - 0.2 = -1.35$$</p>
 
         <div class="single-pagination-prev">
             
+            <div class="single-pagination-container-prev">
+                <div class="single-pagination-text">←</div>
+                <div class="single-pagination-text">
+                    <a href="/lab/neural-nets/lesson-03-activation-functions/">
+                        03 — The Switch That Isn&#39;t Really a Switch
+                    </a>
+                </div>
+            </div>
+            
         </div>
 
         <div class="single-pagination-next">
             
             <div class="single-pagination-container-next">
                 <div class="single-pagination-text">
-                    <a href="/lab/neural-nets/lesson-03-activation-functions/">
-                        03 — The Switch That Isn&#39;t Really a Switch
+                    <a href="/lab/neural-nets/lesson-05-backpropagation/">
+                        05 — Blame It on the Weights
                     </a>
                 </div>
                 <div class="single-pagination-text">→</div>

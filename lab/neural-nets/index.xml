@@ -6,98 +6,98 @@
     <description>Recent content in Neural Nets on arun._space</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 02 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 02 May 2026 17:00:00 +0000</lastBuildDate>
     <atom:link href="https://arunprakaash.github.io/lab/neural-nets/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>05 — Blame It on the Weights</title>
-      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-05-backpropagation/</link>
-      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-05-backpropagation/</guid>
-      <description>Loss functions, gradient descent, and backpropagation — how a neural network looks at its mistakes and figures out exactly who to blame.</description>
-    </item>
-    <item>
-      <title>06 — Watch It Learn</title>
-      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-06-training-loop/</link>
-      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-06-training-loop/</guid>
-      <description>Forward pass, backprop, gradient descent — assembled into a training loop. Watch a network learn to separate XOR, circles, and spirals in real time.</description>
-    </item>
-    <item>
-      <title>07 — The Vanishing Act</title>
-      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-07-depth-problem/</link>
-      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-07-depth-problem/</guid>
-      <description>Why deep networks went dark in the 90s — vanishing gradients, exploding gradients, and the tricks that finally made depth work: weight init, batch norm, and residual connections.</description>
-    </item>
-    <item>
-      <title>08 — Just NumPy, No Magic</title>
-      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-08-from-scratch/</link>
-      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-08-from-scratch/</guid>
-      <description>Stop using the concepts, start writing the code. A full neural network in pure Python and NumPy — same thing PyTorch does internally, just slower.</description>
-    </item>
-    <item>
-      <title>09 — Too Good to Be True</title>
-      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-09-overfitting/</link>
-      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-09-overfitting/</guid>
-      <description>When your network aces the training data and fails at everything else — overfitting, regularisation, dropout, and how to actually tell if your model is learning.</description>
-    </item>
-    <item>
-      <title>10 — Seeing with Filters</title>
-      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-10-cnns/</link>
-      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-10-cnns/</guid>
-      <description>How convolutional neural networks see images — kernels, feature maps, pooling, and why a sliding 3×3 window beats a million fully-connected weights.</description>
-    </item>
-    <item>
-      <title>11 — The Machine That Remembers</title>
-      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-11-rnns/</link>
-      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-11-rnns/</guid>
-      <description>Recurrent neural networks, hidden states, backprop through time, and why LSTMs were the memory upgrade that made sequences learnable.</description>
-    </item>
-    <item>
-      <title>12 — Pay Attention</title>
-      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-12-attention/</link>
-      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-12-attention/</guid>
-      <description>Self-attention, Q/K/V, multi-head attention, positional encodings, and the transformer block — the mechanism behind every modern language model, explained from scratch.</description>
-    </item>
     <item>
       <title>13 — Build a Mini-GPT</title>
       <link>https://arunprakaash.github.io/lab/neural-nets/lesson-13-mini-gpt/</link>
-      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 02 May 2026 17:00:00 +0000</pubDate>
       <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-13-mini-gpt/</guid>
       <description>Every piece from lessons 1–12 assembled into a working character-level GPT in PyTorch — tokenisation, the full transformer stack, training loop, and text generation from scratch.</description>
     </item>
     <item>
-      <title>01 — The Numbers That Run Everything</title>
-      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</guid>
-      <description>Before we touch a single neuron, we need to speak its language. Vectors, matrices, derivatives, and the chain rule — the math that makes neural networks tick.</description>
+      <title>12 — Pay Attention</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-12-attention/</link>
+      <pubDate>Sat, 02 May 2026 16:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-12-attention/</guid>
+      <description>Self-attention, Q/K/V, multi-head attention, positional encodings, and the transformer block — the mechanism behind every modern language model, explained from scratch.</description>
     </item>
     <item>
-      <title>02 — Meet the World&#39;s Dumbest Brain Cell</title>
-      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-02-perceptron/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-02-perceptron/</guid>
-      <description>One neuron. A handful of weights. A rule so simple it fits in one line. And yet — it learns. This is the perceptron, and it&amp;rsquo;s where everything begins.</description>
+      <title>11 — The Machine That Remembers</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-11-rnns/</link>
+      <pubDate>Sat, 02 May 2026 15:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-11-rnns/</guid>
+      <description>Recurrent neural networks, hidden states, backprop through time, and why LSTMs were the memory upgrade that made sequences learnable.</description>
     </item>
     <item>
-      <title>03 — The Switch That Isn&#39;t Really a Switch</title>
-      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-03-activation-functions/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-03-activation-functions/</guid>
-      <description>Sigmoid, ReLU, tanh, softmax — the nonlinear magic that makes depth actually mean something.</description>
+      <title>10 — Seeing with Filters</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-10-cnns/</link>
+      <pubDate>Sat, 02 May 2026 14:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-10-cnns/</guid>
+      <description>How convolutional neural networks see images — kernels, feature maps, pooling, and why a sliding 3×3 window beats a million fully-connected weights.</description>
+    </item>
+    <item>
+      <title>09 — Too Good to Be True</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-09-overfitting/</link>
+      <pubDate>Sat, 02 May 2026 13:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-09-overfitting/</guid>
+      <description>When your network aces the training data and fails at everything else — overfitting, regularisation, dropout, and how to actually tell if your model is learning.</description>
+    </item>
+    <item>
+      <title>08 — Just NumPy, No Magic</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-08-from-scratch/</link>
+      <pubDate>Sat, 02 May 2026 12:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-08-from-scratch/</guid>
+      <description>Stop using the concepts, start writing the code. A full neural network in pure Python and NumPy — same thing PyTorch does internally, just slower.</description>
+    </item>
+    <item>
+      <title>07 — The Vanishing Act</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-07-depth-problem/</link>
+      <pubDate>Sat, 02 May 2026 11:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-07-depth-problem/</guid>
+      <description>Why deep networks went dark in the 90s — vanishing gradients, exploding gradients, and the tricks that finally made depth work: weight init, batch norm, and residual connections.</description>
+    </item>
+    <item>
+      <title>06 — Watch It Learn</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-06-training-loop/</link>
+      <pubDate>Sat, 02 May 2026 10:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-06-training-loop/</guid>
+      <description>Forward pass, backprop, gradient descent — assembled into a training loop. Watch a network learn to separate XOR, circles, and spirals in real time.</description>
+    </item>
+    <item>
+      <title>05 — Blame It on the Weights</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-05-backpropagation/</link>
+      <pubDate>Sat, 02 May 2026 09:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-05-backpropagation/</guid>
+      <description>Loss functions, gradient descent, and backpropagation — how a neural network looks at its mistakes and figures out exactly who to blame.</description>
     </item>
     <item>
       <title>04 — Dominos All the Way Down</title>
       <link>https://arunprakaash.github.io/lab/neural-nets/lesson-04-forward-pass/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 01 May 2026 12:00:00 +0000</pubDate>
       <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-04-forward-pass/</guid>
       <description>The forward pass: how a number enters one end of a neural network and a prediction falls out the other, layer by layer.</description>
+    </item>
+    <item>
+      <title>03 — The Switch That Isn&#39;t Really a Switch</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-03-activation-functions/</link>
+      <pubDate>Fri, 01 May 2026 11:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-03-activation-functions/</guid>
+      <description>Sigmoid, ReLU, tanh, softmax — the nonlinear magic that makes depth actually mean something.</description>
+    </item>
+    <item>
+      <title>02 — Meet the World&#39;s Dumbest Brain Cell</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-02-perceptron/</link>
+      <pubDate>Fri, 01 May 2026 10:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-02-perceptron/</guid>
+      <description>One neuron. A handful of weights. A rule so simple it fits in one line. And yet — it learns. This is the perceptron, and it&amp;rsquo;s where everything begins.</description>
+    </item>
+    <item>
+      <title>01 — The Numbers That Run Everything</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</link>
+      <pubDate>Fri, 01 May 2026 09:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</guid>
+      <description>Before we touch a single neuron, we need to speak its language. Vectors, matrices, derivatives, and the chain rule — the math that makes neural networks tick.</description>
     </item>
   </channel>
 </rss>

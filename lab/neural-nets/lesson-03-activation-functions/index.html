@@ -34,8 +34,8 @@
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="lab">
-    <meta property="article:published_time" content="2026-05-01T00:00:00+00:00">
-    <meta property="article:modified_time" content="2026-05-01T00:00:00+00:00">
+    <meta property="article:published_time" content="2026-05-01T11:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-01T11:00:00+00:00">
 
 
 
@@ -191,7 +191,7 @@
       
       
       
-      <time datetime="2026-05-01T00:00:00&#43;00:00">May 1, 2026</time>
+      <time datetime="2026-05-01T11:00:00&#43;00:00">May 1, 2026</time>
       
 
       
@@ -381,11 +381,11 @@ If $z \leq 0$: output 0. Neuron is silent.</p>
 <p>A network has 3 hidden layers, all using sigmoid. The gradient of the loss w.r.t. the first layer involves multiplying three sigmoid derivatives together. If each is about $0.2$, what&rsquo;s the combined gradient? What does this tell you about training deep sigmoid networks?</p>
 </li>
 <li>
-<p>In the Art Studio, hit 🎲 Randomise a few times while on <strong>Step</strong>. Why does it always look like a hard-edged split rather than smooth blobs? What does that tell you about gradients?</p>
+<p>In the Activation Explorer, drag $z$ to $-4$ with <strong>ReLU</strong> selected. The output is exactly $0$ and the derivative is also $0$. Now imagine a neuron in a deep network whose pre-activation is always negative — what happens to every gradient flowing through it during training? This is called the &ldquo;dying ReLU&rdquo; problem. Which activation function in the demo avoids this, and how?</p>
 </li>
 </ol>
 <hr>
-<p><strong>Next up → <a href="/lab/neural-nets/">Lesson 04: Dominos All the Way Down</a></strong> — we wire neurons into full layers and trace a number from input to output, step by step.</p>
+<p><strong>Next up → <a href="/lab/neural-nets/lesson-04-forward-pass/">Lesson 04: Dominos All the Way Down</a></strong> — we wire neurons into full layers and trace a number from input to output, step by step.</p>
 
     
     
@@ -428,8 +428,8 @@ If $z \leq 0$: output 0. Neuron is silent.</p>
             <div class="single-pagination-container-prev">
                 <div class="single-pagination-text">←</div>
                 <div class="single-pagination-text">
-                    <a href="/lab/neural-nets/lesson-04-forward-pass/">
-                        04 — Dominos All the Way Down
+                    <a href="/lab/neural-nets/lesson-02-perceptron/">
+                        02 — Meet the World&#39;s Dumbest Brain Cell
                     </a>
                 </div>
             </div>
@@ -440,8 +440,8 @@ If $z \leq 0$: output 0. Neuron is silent.</p>
             
             <div class="single-pagination-container-next">
                 <div class="single-pagination-text">
-                    <a href="/lab/neural-nets/lesson-02-perceptron/">
-                        02 — Meet the World&#39;s Dumbest Brain Cell
+                    <a href="/lab/neural-nets/lesson-04-forward-pass/">
+                        04 — Dominos All the Way Down
                     </a>
                 </div>
                 <div class="single-pagination-text">→</div>

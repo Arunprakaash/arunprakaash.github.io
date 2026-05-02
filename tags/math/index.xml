@@ -6,12 +6,12 @@
     <description>Recent content in Math on arun._space</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 01 May 2026 09:00:00 +0000</lastBuildDate>
     <atom:link href="https://arunprakaash.github.io/tags/math/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>01 — The Numbers That Run Everything</title>
       <link>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 01 May 2026 09:00:00 +0000</pubDate>
       <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</guid>
       <description>Before we touch a single neuron, we need to speak its language. Vectors, matrices, derivatives, and the chain rule — the math that makes neural networks tick.</description>
     </item>

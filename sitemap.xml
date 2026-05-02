@@ -2,74 +2,74 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-05-backpropagation/</loc>
-    <lastmod>2026-05-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-06-training-loop/</loc>
-    <lastmod>2026-05-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-07-depth-problem/</loc>
-    <lastmod>2026-05-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-08-from-scratch/</loc>
-    <lastmod>2026-05-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-09-overfitting/</loc>
-    <lastmod>2026-05-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-10-cnns/</loc>
-    <lastmod>2026-05-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-11-rnns/</loc>
-    <lastmod>2026-05-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-12-attention/</loc>
-    <lastmod>2026-05-02T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-13-mini-gpt/</loc>
-    <lastmod>2026-05-02T00:00:00+00:00</lastmod>
+    <lastmod>2026-05-02T17:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/</loc>
-    <lastmod>2026-05-02T00:00:00+00:00</lastmod>
+    <lastmod>2026-05-02T17:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/lab/</loc>
-    <lastmod>2026-05-02T00:00:00+00:00</lastmod>
+    <lastmod>2026-05-02T17:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</loc>
-    <lastmod>2026-05-01T00:00:00+00:00</lastmod>
+    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-12-attention/</loc>
+    <lastmod>2026-05-02T16:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-02-perceptron/</loc>
-    <lastmod>2026-05-01T00:00:00+00:00</lastmod>
+    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-11-rnns/</loc>
+    <lastmod>2026-05-02T15:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-03-activation-functions/</loc>
-    <lastmod>2026-05-01T00:00:00+00:00</lastmod>
+    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-10-cnns/</loc>
+    <lastmod>2026-05-02T14:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-09-overfitting/</loc>
+    <lastmod>2026-05-02T13:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-08-from-scratch/</loc>
+    <lastmod>2026-05-02T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-07-depth-problem/</loc>
+    <lastmod>2026-05-02T11:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-06-training-loop/</loc>
+    <lastmod>2026-05-02T10:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-05-backpropagation/</loc>
+    <lastmod>2026-05-02T09:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-04-forward-pass/</loc>
-    <lastmod>2026-05-01T00:00:00+00:00</lastmod>
+    <lastmod>2026-05-01T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arunprakaash.github.io/tags/calculus/</loc>
-    <lastmod>2026-05-01T00:00:00+00:00</lastmod>
+    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-03-activation-functions/</loc>
+    <lastmod>2026-05-01T11:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-02-perceptron/</loc>
+    <lastmod>2026-05-01T10:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/tags/learning-rule/</loc>
-    <lastmod>2026-05-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://arunprakaash.github.io/tags/linear-algebra/</loc>
-    <lastmod>2026-05-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://arunprakaash.github.io/tags/math/</loc>
-    <lastmod>2026-05-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://arunprakaash.github.io/lab/neural-nets/</loc>
-    <lastmod>2026-05-01T00:00:00+00:00</lastmod>
+    <lastmod>2026-05-01T10:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/tags/neural-nets/</loc>
-    <lastmod>2026-05-01T00:00:00+00:00</lastmod>
+    <lastmod>2026-05-01T10:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/tags/perceptron/</loc>
-    <lastmod>2026-05-01T00:00:00+00:00</lastmod>
+    <lastmod>2026-05-01T10:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/tags/</loc>
-    <lastmod>2026-05-01T00:00:00+00:00</lastmod>
+    <lastmod>2026-05-01T10:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</loc>
+    <lastmod>2026-05-01T09:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/tags/calculus/</loc>
+    <lastmod>2026-05-01T09:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/tags/linear-algebra/</loc>
+    <lastmod>2026-05-01T09:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/tags/math/</loc>
+    <lastmod>2026-05-01T09:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arunprakaash.github.io/lab/neural-nets/</loc>
+    <lastmod>2026-05-01T08:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arunprakaash.github.io/tags/ai-behavior/</loc>
     <lastmod>2025-08-03T00:00:00+00:00</lastmod>
