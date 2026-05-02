@@ -37,6 +37,13 @@
       <description>Stop using the concepts, start writing the code. A full neural network in pure Python and NumPy — same thing PyTorch does internally, just slower.</description>
     </item>
     <item>
+      <title>09 — Too Good to Be True</title>
+      <link>https://arunprakaash.github.io/lab/neural-nets/lesson-09-overfitting/</link>
+      <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://arunprakaash.github.io/lab/neural-nets/lesson-09-overfitting/</guid>
+      <description>When your network aces the training data and fails at everything else — overfitting, regularisation, dropout, and how to actually tell if your model is learning.</description>
+    </item>
+    <item>
       <title>01 — The Numbers That Run Everything</title>
       <link>https://arunprakaash.github.io/lab/neural-nets/lesson-01-math-foundations/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>

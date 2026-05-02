@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/ico" href="https://arunprakaash.github.io//favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://arunprakaash.github.io//favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://arunprakaash.github.io//favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://arunprakaash.github.io//android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://arunprakaash.github.io//apple-touch-icon.png">
+
+<meta name="description" content=""/>
+
+
+
+<title>
+    
+    09 — Too Good to Be True | arun._space
+    
+</title>
+
+<link rel="canonical" href="https://arunprakaash.github.io/lab/neural-nets/lesson-09-overfitting/"/>
+
+<meta property="og:url" content="https://arunprakaash.github.io/lab/neural-nets/lesson-09-overfitting/">
+  <meta property="og:site_name" content="arun._space">
+  <meta property="og:title" content="09 — Too Good to Be True">
+  <meta property="og:description" content="When your network aces the training data and fails at everything else — overfitting, regularisation, dropout, and how to actually tell if your model is learning.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="lab">
+    <meta property="article:published_time" content="2026-05-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-02T00:00:00+00:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.405e542cd1848b8fe9e8f624499da2c820ff057ab70d0e9ad1d3f1bc702ae32b.css" media="all">
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-TCQ19GBNVQ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-TCQ19GBNVQ');
+        }
+      </script>
+
+
+
+
+</head>
+
+
+
+
+
+
+
+<body class="auto">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">
+        <a href="https://arunprakaash.github.io/">arun._space</a>
+    </h1>
+
+    <div class="flex">
+        
+        
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/" >
+                /home
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/log" >
+                /log
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/about" >
+                /about
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small  bold ">
+            <a href="/lab" >
+                /lab
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/">Lab</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/lab/neural-nets/">Neural Nets</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/lab/neural-nets/lesson-09-overfitting/">09 — Too Good to Be True</a>
+</div>
+
+
+
+<div >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">09 — Too Good to Be True</h1>
+    
+    <p class="single-summary">When your network aces the training data and fails at everything else — overfitting, regularisation, dropout, and how to actually tell if your model is learning.</p>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2026-05-02T00:00:00&#43;00:00">May 2, 2026</time>
+      
+
+      
+    </p>
+
+  </div>
+
+  
+
+  
+
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#whats-actually-happening">What&rsquo;s Actually Happening</a></li>
+    <li><a href="#the-diagnostic-learning-curves">The Diagnostic: Learning Curves</a></li>
+    <li><a href="#fix-1-more-data">Fix 1: More Data</a></li>
+    <li><a href="#fix-2-l2-regularisation-weight-decay">Fix 2: L2 Regularisation (Weight Decay)</a></li>
+    <li><a href="#fix-3-dropout">Fix 3: Dropout</a></li>
+    <li><a href="#fix-4-early-stopping">Fix 4: Early Stopping</a></li>
+    <li><a href="#fix-5-data-augmentation">Fix 5: Data Augmentation</a></li>
+    <li><a href="#demo-the-overfitting-machine">Demo: The Overfitting Machine</a></li>
+    <li><a href="#the-bias-variance-tradeoff">The Bias-Variance Tradeoff</a></li>
+    <li><a href="#before-you-go--try-these">Before You Go — Try These</a></li>
+  </ul>
+</nav>
+  </aside>
+  
+
+  
+
+  <div class="single-content">
+    <p>Your network got 99% accuracy. Congratulations.</p>
+<p>On the training data.</p>
+<p>On new data it had never seen: 61%. You have a very expensive memorisation machine, not a learning machine.</p>
+<p>This is overfitting. It&rsquo;s the most common failure mode in machine learning, and understanding it is what separates people who can actually deploy models from people who just celebrate training accuracy.</p>
+<hr>
+<h2 class="heading" id="whats-actually-happening">
+  What&rsquo;s Actually Happening
+  <a href="#whats-actually-happening">#</a>
+</h2>
+<p>A neural network has enough capacity to memorise its training data. Given enough parameters, it can fit any finite set of points perfectly — including the noise in those points.</p>
+<p>The problem: real noise is random. It doesn&rsquo;t generalise. A model that memorises noise has learned the wrong thing.</p>
+<p>Think about fitting a curve through 8 noisy data points sampled from a sine wave. A straight line (underfitting) misses the pattern. A cubic captures the true shape. A degree-10 polynomial threads through every single point — including the noisy ones — and goes haywire everywhere else.</p>
+<p>Neural networks have this same problem, scaled to millions of parameters.</p>
+<hr>
+<h2 class="heading" id="the-diagnostic-learning-curves">
+  The Diagnostic: Learning Curves
+  <a href="#the-diagnostic-learning-curves">#</a>
+</h2>
+<p>Always track two numbers during training: <strong>training loss</strong> and <strong>validation loss</strong>.</p>
+<p>Split your data: 80% for training, 20% held out for validation. The model never trains on validation data — it&rsquo;s a clean test of generalisation.</p>
+<pre tabindex="0"><code>epoch 1:    train=0.85   val=0.87   ← both high, normal
+epoch 20:   train=0.42   val=0.44   ← both dropping, great
+epoch 50:   train=0.21   val=0.22   ← still good
+epoch 100:  train=0.09   val=0.18   ← gap opening, watch out
+epoch 200:  train=0.02   val=0.31   ← overfitting, stop here
+</code></pre><p>The moment validation loss stops improving while training loss keeps falling — that&rsquo;s overfitting. The model is learning the training set, not the underlying pattern.</p>
+<hr>
+<h2 class="heading" id="fix-1-more-data">
+  Fix 1: More Data
+  <a href="#fix-1-more-data">#</a>
+</h2>
+<p>The best fix. More training examples means less room for memorisation — the model is forced to find real patterns that generalise.</p>
+<p>If you&rsquo;re overfitting and can get more data, get more data. Everything else on this list is a workaround for when you can&rsquo;t.</p>
+<hr>
+<h2 class="heading" id="fix-2-l2-regularisation-weight-decay">
+  Fix 2: L2 Regularisation (Weight Decay)
+  <a href="#fix-2-l2-regularisation-weight-decay">#</a>
+</h2>
+<p>Add a penalty to the loss for having large weights:</p>
+<p>$$L_{total} = L_{data} + \lambda \sum_{i,j} W_{ij}^2$$</p>
+<p>The gradient becomes:</p>
+<p>$$\frac{\partial L_{total}}{\partial W} = \frac{\partial L_{data}}{\partial W} + 2\lambda W$$</p>
+<p>The update rule now pushes weights toward zero at every step:</p>
+<p>$$W \leftarrow W - \eta \left(\frac{\partial L_{data}}{\partial W} + 2\lambda W\right) = W(1 - 2\eta\lambda) - \eta\frac{\partial L_{data}}{\partial W}$$</p>
+<p>The factor $(1 - 2\eta\lambda)$ is why it&rsquo;s called &ldquo;weight decay&rdquo; — weights decay a little at every step unless the loss gradient pushes back.</p>
+<p>Small weights → smoother functions → less overfitting. $\lambda$ is a hyperparameter you tune. Too large and you underfit; too small and it does nothing.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#57606a"># PyTorch: just pass weight_decay to the optimiser</span>
+</span></span><span style="display:flex;"><span>optimizer <span style="color:#0550ae">=</span> torch<span style="color:#0550ae">.</span>optim<span style="color:#0550ae">.</span>Adam<span style="color:#1f2328">(</span>model<span style="color:#0550ae">.</span>parameters<span style="color:#1f2328">(),</span> lr<span style="color:#0550ae">=</span><span style="color:#0550ae">0.001</span><span style="color:#1f2328">,</span> weight_decay<span style="color:#0550ae">=</span><span style="color:#0550ae">1e-4</span><span style="color:#1f2328">)</span>
+</span></span></code></pre></div><hr>
+<h2 class="heading" id="fix-3-dropout">
+  Fix 3: Dropout
+  <a href="#fix-3-dropout">#</a>
+</h2>
+<p>Introduced in 2014. During training, randomly zero out each neuron with probability $p$ (typically 0.2–0.5). Scale the remaining ones by $\frac{1}{1-p}$ to keep the expected value the same.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#cf222e">def</span> <span style="color:#6639ba">dropout</span><span style="color:#1f2328">(</span>x<span style="color:#1f2328">,</span> p<span style="color:#1f2328">,</span> training<span style="color:#0550ae">=</span><span style="color:#cf222e">True</span><span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">if</span> <span style="color:#0550ae">not</span> training<span style="color:#1f2328">:</span> <span style="color:#cf222e">return</span> x          <span style="color:#57606a"># no dropout at inference</span>
+</span></span><span style="display:flex;"><span>    mask <span style="color:#0550ae">=</span> <span style="color:#1f2328">(</span>np<span style="color:#0550ae">.</span>random<span style="color:#0550ae">.</span>rand<span style="color:#1f2328">(</span><span style="color:#0550ae">*</span>x<span style="color:#0550ae">.</span>shape<span style="color:#1f2328">)</span> <span style="color:#0550ae">&gt;</span> p<span style="color:#1f2328">)</span> <span style="color:#0550ae">/</span> <span style="color:#1f2328">(</span><span style="color:#0550ae">1</span> <span style="color:#0550ae">-</span> p<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">return</span> x <span style="color:#0550ae">*</span> mask
+</span></span></code></pre></div><p>Why does randomly breaking your network help? A few reasons:</p>
+<p><strong>Ensemble effect.</strong> Each training step uses a different randomly-sampled sub-network. At inference you use the full network — effectively averaging many sub-networks. Ensembles generalise better.</p>
+<p><strong>Co-adaptation prevention.</strong> Without dropout, neurons can learn to depend on each other. Neuron A learns to fix neuron B&rsquo;s mistakes, which means they&rsquo;re not independently useful. Dropout forces each neuron to be robust on its own.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#cf222e">class</span> <span style="color:#1f2328">DropoutLayer</span><span style="color:#1f2328">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">__init__</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> p<span style="color:#0550ae">=</span><span style="color:#0550ae">0.5</span><span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>p <span style="color:#0550ae">=</span> p
+</span></span><span style="display:flex;"><span>        <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>mask <span style="color:#0550ae">=</span> <span style="color:#cf222e">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">forward</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> x<span style="color:#1f2328">,</span> training<span style="color:#0550ae">=</span><span style="color:#cf222e">True</span><span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">if</span> <span style="color:#0550ae">not</span> training<span style="color:#1f2328">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#cf222e">return</span> x
+</span></span><span style="display:flex;"><span>        <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>mask <span style="color:#0550ae">=</span> <span style="color:#1f2328">(</span>np<span style="color:#0550ae">.</span>random<span style="color:#0550ae">.</span>rand<span style="color:#1f2328">(</span><span style="color:#0550ae">*</span>x<span style="color:#0550ae">.</span>shape<span style="color:#1f2328">)</span> <span style="color:#0550ae">&gt;</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>p<span style="color:#1f2328">)</span> <span style="color:#0550ae">/</span> <span style="color:#1f2328">(</span><span style="color:#0550ae">1</span> <span style="color:#0550ae">-</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>p<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">return</span> x <span style="color:#0550ae">*</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>mask
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">backward</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> grad<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">return</span> grad <span style="color:#0550ae">*</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>mask  <span style="color:#57606a"># same mask, same neurons zeroed</span>
+</span></span></code></pre></div><hr>
+<h2 class="heading" id="fix-4-early-stopping">
+  Fix 4: Early Stopping
+  <a href="#fix-4-early-stopping">#</a>
+</h2>
+<p>The simplest technique. Monitor validation loss. When it hasn&rsquo;t improved for $k$ epochs (the &ldquo;patience&rdquo;), stop training and revert to the best checkpoint.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>best_val_loss <span style="color:#0550ae">=</span> <span style="color:#6639ba">float</span><span style="color:#1f2328">(</span><span style="color:#0a3069">&#39;inf&#39;</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>patience_counter <span style="color:#0550ae">=</span> <span style="color:#0550ae">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">for</span> epoch <span style="color:#0550ae">in</span> <span style="color:#6639ba">range</span><span style="color:#1f2328">(</span>max_epochs<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>    train_loss <span style="color:#0550ae">=</span> train_one_epoch<span style="color:#1f2328">(</span>model<span style="color:#1f2328">,</span> train_data<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    val_loss <span style="color:#0550ae">=</span> evaluate<span style="color:#1f2328">(</span>model<span style="color:#1f2328">,</span> val_data<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">if</span> val_loss <span style="color:#0550ae">&lt;</span> best_val_loss<span style="color:#1f2328">:</span>
+</span></span><span style="display:flex;"><span>        best_val_loss <span style="color:#0550ae">=</span> val_loss
+</span></span><span style="display:flex;"><span>        save_checkpoint<span style="color:#1f2328">(</span>model<span style="color:#1f2328">)</span>       <span style="color:#57606a"># save the best weights</span>
+</span></span><span style="display:flex;"><span>        patience_counter <span style="color:#0550ae">=</span> <span style="color:#0550ae">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">else</span><span style="color:#1f2328">:</span>
+</span></span><span style="display:flex;"><span>        patience_counter <span style="color:#0550ae">+=</span> <span style="color:#0550ae">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">if</span> patience_counter <span style="color:#0550ae">&gt;=</span> patience<span style="color:#1f2328">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#6639ba">print</span><span style="color:#1f2328">(</span><span style="color:#0a3069">f</span><span style="color:#0a3069">&#34;Early stopping at epoch </span><span style="color:#0a3069">{</span>epoch<span style="color:#0a3069">}</span><span style="color:#0a3069">&#34;</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>            load_checkpoint<span style="color:#1f2328">(</span>model<span style="color:#1f2328">)</span>   <span style="color:#57606a"># restore best weights</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#cf222e">break</span>
+</span></span></code></pre></div><hr>
+<h2 class="heading" id="fix-5-data-augmentation">
+  Fix 5: Data Augmentation
+  <a href="#fix-5-data-augmentation">#</a>
+</h2>
+<p>If you can&rsquo;t get more real data, make more from what you have. For images: flip, rotate, crop, change brightness. The model sees more variation, generalises better.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#57606a"># torchvision transforms</span>
+</span></span><span style="display:flex;"><span>transform <span style="color:#0550ae">=</span> transforms<span style="color:#0550ae">.</span>Compose<span style="color:#1f2328">([</span>
+</span></span><span style="display:flex;"><span>    transforms<span style="color:#0550ae">.</span>RandomHorizontalFlip<span style="color:#1f2328">(),</span>
+</span></span><span style="display:flex;"><span>    transforms<span style="color:#0550ae">.</span>RandomRotation<span style="color:#1f2328">(</span><span style="color:#0550ae">15</span><span style="color:#1f2328">),</span>
+</span></span><span style="display:flex;"><span>    transforms<span style="color:#0550ae">.</span>ColorJitter<span style="color:#1f2328">(</span>brightness<span style="color:#0550ae">=</span><span style="color:#0550ae">0.2</span><span style="color:#1f2328">),</span>
+</span></span><span style="display:flex;"><span>    transforms<span style="color:#0550ae">.</span>ToTensor<span style="color:#1f2328">(),</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">])</span>
+</span></span></code></pre></div><p>The label stays the same — a flipped cat is still a cat.</p>
+<hr>
+<h2 class="heading" id="demo-the-overfitting-machine">
+  Demo: The Overfitting Machine
+  <a href="#demo-the-overfitting-machine">#</a>
+</h2>
+<p>Fit a polynomial to noisy data. Drag the degree slider up and watch it start memorising noise instead of learning the pattern. Then turn on regularisation and see what happens.</p>
+<p>Train points are solid. The true underlying function is the faint curve. Test error tells you how well it actually generalises.</p>
+<div class="nn-demo"><canvas id="ofCanvas" style="width:100%;display:block;"></canvas><div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;"><div style="display:flex;flex-direction:column;gap:8px;"><label style="font-size:0.82rem;font-family:monospace;">degree: <b id="ofDeg">3</b><br><input type="range" id="ofDegSlider" min="1" max="12" step="1" value="3" style="width:130px;"></label><label style="font-size:0.82rem;font-family:monospace;">regularisation λ: <b id="ofLam">0.00</b><br><input type="range" id="ofLamSlider" min="0" max="2" step="0.05" value="0" style="width:130px;"></label></div><button id="ofResample" style="padding:5px 14px;border-radius:6px;border:1.5px solid #555;background:transparent;color:#555;font-size:0.82rem;cursor:pointer;font-weight:600;margin-left:auto;">🎲 New data</button></div><div id="ofStats" style="margin-top:10px;font-size:0.82rem;font-family:monospace;display:flex;gap:24px;flex-wrap:wrap;"></div><script>(function(){var dpr=window.devicePixelRatio||1;var canvas=document.getElementById('ofCanvas');var par=canvas.parentElement;var pst=getComputedStyle(par);var padX=parseFloat(pst.paddingLeft)+parseFloat(pst.paddingRight);var cssW=par.clientWidth-padX;var cssH=Math.round(cssW*0.5);canvas.width=cssW*dpr;canvas.height=cssH*dpr;canvas.style.width=cssW+'px';canvas.style.height=cssH+'px';var ctx=canvas.getContext('2d');var CW=cssW*dpr,CH=cssH*dpr;var xMin=-3.2,xMax=3.2,yMin=-2.2,yMax=2.2;function tx(x){return(x-xMin)/(xMax-xMin)*CW;}function ty(y){return CH-(y-yMin)/(yMax-yMin)*CH;}function trueFn(x){return Math.sin(x)*0.9+0.1*x;}var trainX,trainY,testX,testY;function genData(){trainX=[];trainY=[];testX=[];testY=[];for(var i=0;i<10;i++){var x=xMin+0.5+(i/9)*(xMax-xMin-1);var noise=(Math.random()-0.5)*0.5;trainX.push(x);trainY.push(trueFn(x)+noise);}for(var i=0;i<8;i++){var x=xMin+0.3+(i/7)*(xMax-xMin-0.6)+((Math.random()-0.5)*0.3);testX.push(x);testY.push(trueFn(x)+(Math.random()-0.5)*0.5);}}function gaussSolve(A,b){var n=b.length;var M=A.map(function(row,i){return row.slice().concat([b[i]]);});for(var col=0;col<n;col++){var mx=col;for(var row=col+1;row<n;row++){if(Math.abs(M[row][col])>Math.abs(M[mx][col]))mx=row;}var tmp=M[col];M[col]=M[mx];M[mx]=tmp;if(Math.abs(M[col][col])<1e-12)continue;for(var row=0;row<n;row++){if(row===col)continue;var f=M[row][col]/M[col][col];for(var j=col;j<=n;j++){M[row][j]-=f*M[col][j];}}}return M.map(function(row,i){return row[n]/(row[i]||1e-12);});}function ridgeFit(xs,ys,degree,lambda){var n=xs.length,d=degree+1;var X=xs.map(function(x){var row=[];for(var j=0;j<d;j++){row.push(Math.pow(x,j));}return row;});var A=[];for(var i=0;i<d;i++){var row=[];for(var j=0;j<d;j++){var s=(i===j)?lambda:0;for(var k=0;k<n;k++){s+=X[k][i]*X[k][j];}row.push(s);}A.push(row);}var b=[];for(var i=0;i<d;i++){var s=0;for(var k=0;k<n;k++){s+=X[k][i]*ys[k];}b.push(s);}return gaussSolve(A,b);}function polyEval(c,x){return c.reduce(function(s,ci,i){return s+ci*Math.pow(x,i);},0);}function mse(xs,ys,c){return xs.reduce(function(s,x,i){var e=polyEval(c,x)-ys[i];return s+e*e;},0)/xs.length;}function draw(){var degree=parseInt(document.getElementById('ofDegSlider').value);var lambda=parseFloat(document.getElementById('ofLamSlider').value);var bg=getComputedStyle(document.documentElement).getPropertyValue('--background').trim()||'#f5f0ea';ctx.clearRect(0,0,CW,CH);ctx.fillStyle=bg;ctx.fillRect(0,0,CW,CH);ctx.strokeStyle='rgba(0,0,0,0.08)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,ty(0));ctx.lineTo(CW,ty(0));ctx.stroke();ctx.beginPath();ctx.moveTo(tx(0),0);ctx.lineTo(tx(0),CH);ctx.stroke();ctx.strokeStyle='rgba(0,0,0,0.12)';ctx.lineWidth=1.5*dpr;ctx.setLineDash([4*dpr,4*dpr]);ctx.beginPath();var first=true;for(var px=0;px<CW;px+=2){var x=xMin+(px/CW)*(xMax-xMin);var y=trueFn(x);if(y<yMin||y>yMax){first=true;continue;}if(first){ctx.moveTo(px,ty(y));first=false;}else{ctx.lineTo(px,ty(y));}}ctx.stroke();ctx.setLineDash([]);var coeffs=ridgeFit(trainX,trainY,degree,lambda);ctx.strokeStyle='#2563eb';ctx.lineWidth=2.5*dpr;ctx.beginPath();first=true;for(var px=0;px<CW;px+=2){var x=xMin+(px/CW)*(xMax-xMin);var y=polyEval(coeffs,x);if(y<yMin-1||y>yMax+1){first=true;continue;}if(first){ctx.moveTo(px,ty(Math.max(yMin,Math.min(yMax,y))));first=false;}else{ctx.lineTo(px,ty(Math.max(yMin,Math.min(yMax,y))));}}ctx.stroke();trainX.forEach(function(x,i){ctx.beginPath();ctx.arc(tx(x),ty(trainY[i]),5*dpr,0,2*Math.PI);ctx.fillStyle='#2563eb';ctx.fill();ctx.strokeStyle='white';ctx.lineWidth=1.5*dpr;ctx.stroke();});testX.forEach(function(x,i){ctx.beginPath();ctx.arc(tx(x),ty(testY[i]),4*dpr,0,2*Math.PI);ctx.fillStyle='transparent';ctx.strokeStyle='#dc2626';ctx.lineWidth=2*dpr;ctx.stroke();});var trainErr=mse(trainX,trainY,coeffs);var testErr=mse(testX,testY,coeffs);var gap=testErr/trainErr;var status=gap<2?'good fit':'gap='+(gap.toFixed(1))+'× — overfitting';document.getElementById('ofDeg').textContent=degree;document.getElementById('ofLam').textContent=lambda.toFixed(2);document.getElementById('ofStats').innerHTML='<span>train MSE: <b>'+trainErr.toFixed(4)+'</b></span><span style="color:#dc2626">test MSE: <b>'+testErr.toFixed(4)+'</b></span><span style="opacity:0.6">'+status+'</span>';}document.getElementById('ofDegSlider').oninput=draw;document.getElementById('ofLamSlider').oninput=draw;document.getElementById('ofResample').onclick=function(){genData();draw();};genData();draw();}());</script></div>
+<p>Try: degree 1 (straight line, underfitting) → degree 4 (good fit) → degree 10 (memorising noise). Then crank degree to 12 and slowly increase λ — watch the curve smooth out as regularisation forces the weights smaller.</p>
+<p>The <strong>dashed line</strong> is the true underlying function. The <strong>filled dots</strong> are training data. The <strong>hollow circles</strong> are test data the model never saw. Test MSE tells you the truth.</p>
+<hr>
+<h2 class="heading" id="the-bias-variance-tradeoff">
+  The Bias-Variance Tradeoff
+  <a href="#the-bias-variance-tradeoff">#</a>
+</h2>
+<p>There&rsquo;s a fundamental tension:</p>
+<p><strong>High bias (underfitting):</strong> model is too simple, misses the pattern. Both train and test error are high.</p>
+<p><strong>High variance (overfitting):</strong> model is too complex, fits the noise. Train error is low, test error is high.</p>
+<p>You can&rsquo;t reduce both to zero simultaneously. The best model is somewhere in the middle — complex enough to capture the real pattern, but not so complex it captures the noise too.</p>
+<p>More data shifts this tradeoff in your favour. More data means you can afford a more complex model before overfitting kicks in.</p>
+<hr>
+<h2 class="heading" id="before-you-go--try-these">
+  Before You Go — Try These
+  <a href="#before-you-go--try-these">#</a>
+</h2>
+<ol>
+<li>
+<p>In the demo, fit degree 1 to the data. Now fit degree 2. The train MSE drops significantly. Is this overfitting or a genuine improvement? How do you tell the difference?</p>
+</li>
+<li>
+<p>In the dropout forward pass, why do we divide by $(1-p)$ during training? What would happen at inference if we didn&rsquo;t?</p>
+</li>
+<li>
+<p>L2 regularisation adds $\lambda |\mathbf{W}|^2$ to the loss. What does the regularisation gradient look like for a single weight $w_{ij} = 5.0$ with $\lambda = 0.01$? How does this compare to a weight $w_{ij} = 0.1$?</p>
+</li>
+<li>
+<p>If you apply dropout with $p=0.5$ to a hidden layer of 128 neurons, how many neurons are active on average per forward pass during training? What does the effective architecture look like?</p>
+</li>
+<li>
+<p>Early stopping monitors validation loss. What&rsquo;s the risk of checking validation loss too frequently (every batch instead of every epoch)? What&rsquo;s the risk of checking too infrequently?</p>
+</li>
+</ol>
+<hr>
+<p><strong>Next up → <a href="/lab/neural-nets/">Lesson 10: Seeing with Filters</a></strong> — convolutional neural networks, how they see images, and why your laptop can now recognise cats.</p>
+
+    
+    
+    <script src="https://giscus.app/client.js"
+        data-repo="arunprakaash/arunprakaash.github.io"
+        data-repo-id="R_kgDOMQKpEw"
+        data-category=""
+        data-category-id="DIC_kwDOMQKpE84CjORF"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="noborder_light"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+    
+    
+  </div>
+
+  
+
+
+  
+
+  
+  
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flex">
+
+        <div class="single-pagination-prev">
+            
+            <div class="single-pagination-container-prev">
+                <div class="single-pagination-text">←</div>
+                <div class="single-pagination-text">
+                    <a href="/lab/neural-nets/lesson-01-math-foundations/">
+                        01 — The Numbers That Run Everything
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+            <div class="single-pagination-container-next">
+                <div class="single-pagination-text">
+                    <a href="/lab/neural-nets/lesson-08-from-scratch/">
+                        08 — Just NumPy, No Magic
+                    </a>
+                </div>
+                <div class="single-pagination-text">→</div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  <footer>
+    
+
+    
+    <p>Made with ❤️ by
+        <a href="https://github.com/arunprakaash">Arunprakaash</a>
+    </p>
+        
+    
+
+
+  </footer>
+
+  
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+  
+
+</body>
+
+<script defer src="/js/copy-code.js"></script>
+</html>
