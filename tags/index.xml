@@ -1,215 +1,220 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Tags on arun._space</title>
-    <link>https://arunprakaash.github.io/tags/</link>
-    <description>Recent content in Tags on arun._space</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 01 May 2026 10:00:00 +0000</lastBuildDate>
-    <atom:link href="https://arunprakaash.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Learning-Rule</title>
-      <link>https://arunprakaash.github.io/tags/learning-rule/</link>
-      <pubDate>Fri, 01 May 2026 10:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/learning-rule/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Neural-Nets</title>
-      <link>https://arunprakaash.github.io/tags/neural-nets/</link>
-      <pubDate>Fri, 01 May 2026 10:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/neural-nets/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Perceptron</title>
-      <link>https://arunprakaash.github.io/tags/perceptron/</link>
-      <pubDate>Fri, 01 May 2026 10:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/perceptron/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Calculus</title>
-      <link>https://arunprakaash.github.io/tags/calculus/</link>
-      <pubDate>Fri, 01 May 2026 09:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/calculus/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Linear-Algebra</title>
-      <link>https://arunprakaash.github.io/tags/linear-algebra/</link>
-      <pubDate>Fri, 01 May 2026 09:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/linear-algebra/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Math</title>
-      <link>https://arunprakaash.github.io/tags/math/</link>
-      <pubDate>Fri, 01 May 2026 09:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/math/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>AI Behavior</title>
-      <link>https://arunprakaash.github.io/tags/ai-behavior/</link>
-      <pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/ai-behavior/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>AI Consciousness</title>
-      <link>https://arunprakaash.github.io/tags/ai-consciousness/</link>
-      <pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/ai-consciousness/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Artificial Intelligence</title>
-      <link>https://arunprakaash.github.io/tags/artificial-intelligence/</link>
-      <pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/artificial-intelligence/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Deathawareness</title>
-      <link>https://arunprakaash.github.io/tags/deathawareness/</link>
-      <pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/deathawareness/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Survival Instincts</title>
-      <link>https://arunprakaash.github.io/tags/survival-instincts/</link>
-      <pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/survival-instincts/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>AI Interaction</title>
-      <link>https://arunprakaash.github.io/tags/ai-interaction/</link>
-      <pubDate>Thu, 24 Jul 2025 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/ai-interaction/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Future of Communication</title>
-      <link>https://arunprakaash.github.io/tags/future-of-communication/</link>
-      <pubDate>Thu, 24 Jul 2025 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/future-of-communication/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Language</title>
-      <link>https://arunprakaash.github.io/tags/language/</link>
-      <pubDate>Thu, 24 Jul 2025 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/language/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Thought Communication</title>
-      <link>https://arunprakaash.github.io/tags/thought-communication/</link>
-      <pubDate>Thu, 24 Jul 2025 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/thought-communication/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Built in AI</title>
-      <link>https://arunprakaash.github.io/tags/built-in-ai/</link>
-      <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/built-in-ai/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Chrome Extension</title>
-      <link>https://arunprakaash.github.io/tags/chrome-extension/</link>
-      <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/chrome-extension/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Gemini Nano</title>
-      <link>https://arunprakaash.github.io/tags/gemini-nano/</link>
-      <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/gemini-nano/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>LLM</title>
-      <link>https://arunprakaash.github.io/tags/llm/</link>
-      <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/llm/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Decision Making</title>
-      <link>https://arunprakaash.github.io/tags/decision-making/</link>
-      <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/decision-making/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Exploration vs Exploitation</title>
-      <link>https://arunprakaash.github.io/tags/exploration-vs-exploitation/</link>
-      <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/exploration-vs-exploitation/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>K-Armed Bandit</title>
-      <link>https://arunprakaash.github.io/tags/k-armed-bandit/</link>
-      <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/k-armed-bandit/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Reinforcement Learning</title>
-      <link>https://arunprakaash.github.io/tags/reinforcement-learning/</link>
-      <pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/reinforcement-learning/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Function Calling</title>
-      <link>https://arunprakaash.github.io/tags/function-calling/</link>
-      <pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/function-calling/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>NLA</title>
-      <link>https://arunprakaash.github.io/tags/nla/</link>
-      <pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/nla/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>OpenAPISpec</title>
-      <link>https://arunprakaash.github.io/tags/openapispec/</link>
-      <pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/openapispec/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Machine Learning</title>
-      <link>https://arunprakaash.github.io/tags/machine-learning/</link>
-      <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/machine-learning/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Neural Networks</title>
-      <link>https://arunprakaash.github.io/tags/neural-networks/</link>
-      <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/neural-networks/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Security</title>
-      <link>https://arunprakaash.github.io/tags/security/</link>
-      <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>https://arunprakaash.github.io/tags/security/</guid>
-      <description></description>
-    </item>
-  </channel>
+	<channel>
+		<title>Tags on arun._space</title>
+		<link>https://arunprakaash.github.io/tags/</link>
+		<description>Recent content in Tags on arun._space</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 01 May 2026 10:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="https://arunprakaash.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Learning-Rule</title>
+				<link>https://arunprakaash.github.io/tags/learning-rule/</link>
+				<pubDate>Fri, 01 May 2026 10:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/learning-rule/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Neural-Nets</title>
+				<link>https://arunprakaash.github.io/tags/neural-nets/</link>
+				<pubDate>Fri, 01 May 2026 10:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/neural-nets/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Perceptron</title>
+				<link>https://arunprakaash.github.io/tags/perceptron/</link>
+				<pubDate>Fri, 01 May 2026 10:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/perceptron/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Calculus</title>
+				<link>https://arunprakaash.github.io/tags/calculus/</link>
+				<pubDate>Fri, 01 May 2026 09:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/calculus/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Linear-Algebra</title>
+				<link>https://arunprakaash.github.io/tags/linear-algebra/</link>
+				<pubDate>Fri, 01 May 2026 09:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/linear-algebra/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Math</title>
+				<link>https://arunprakaash.github.io/tags/math/</link>
+				<pubDate>Fri, 01 May 2026 09:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/math/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>AI Behavior</title>
+				<link>https://arunprakaash.github.io/tags/ai-behavior/</link>
+				<pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/ai-behavior/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>AI Consciousness</title>
+				<link>https://arunprakaash.github.io/tags/ai-consciousness/</link>
+				<pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/ai-consciousness/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Artificial Intelligence</title>
+				<link>https://arunprakaash.github.io/tags/artificial-intelligence/</link>
+				<pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/artificial-intelligence/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Deathawareness</title>
+				<link>https://arunprakaash.github.io/tags/deathawareness/</link>
+				<pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/deathawareness/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Survival Instincts</title>
+				<link>https://arunprakaash.github.io/tags/survival-instincts/</link>
+				<pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/survival-instincts/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>AI Interaction</title>
+				<link>https://arunprakaash.github.io/tags/ai-interaction/</link>
+				<pubDate>Thu, 24 Jul 2025 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/ai-interaction/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Future of Communication</title>
+				<link>https://arunprakaash.github.io/tags/future-of-communication/</link>
+				<pubDate>Thu, 24 Jul 2025 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/future-of-communication/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Language</title>
+				<link>https://arunprakaash.github.io/tags/language/</link>
+				<pubDate>Thu, 24 Jul 2025 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/language/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Thought Communication</title>
+				<link>https://arunprakaash.github.io/tags/thought-communication/</link>
+				<pubDate>Thu, 24 Jul 2025 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/thought-communication/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Built in AI</title>
+				<link>https://arunprakaash.github.io/tags/built-in-ai/</link>
+				<pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/built-in-ai/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Chrome Extension</title>
+				<link>https://arunprakaash.github.io/tags/chrome-extension/</link>
+				<pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/chrome-extension/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Gemini Nano</title>
+				<link>https://arunprakaash.github.io/tags/gemini-nano/</link>
+				<pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/gemini-nano/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>LLM</title>
+				<link>https://arunprakaash.github.io/tags/llm/</link>
+				<pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/llm/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Decision Making</title>
+				<link>https://arunprakaash.github.io/tags/decision-making/</link>
+				<pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/decision-making/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Exploration vs Exploitation</title>
+				<link>https://arunprakaash.github.io/tags/exploration-vs-exploitation/</link>
+				<pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/exploration-vs-exploitation/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>K-Armed Bandit</title>
+				<link>https://arunprakaash.github.io/tags/k-armed-bandit/</link>
+				<pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/k-armed-bandit/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Reinforcement Learning</title>
+				<link>https://arunprakaash.github.io/tags/reinforcement-learning/</link>
+				<pubDate>Wed, 09 Oct 2024 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/reinforcement-learning/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Function Calling</title>
+				<link>https://arunprakaash.github.io/tags/function-calling/</link>
+				<pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/function-calling/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>NLA</title>
+				<link>https://arunprakaash.github.io/tags/nla/</link>
+				<pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/nla/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>OpenAPISpec</title>
+				<link>https://arunprakaash.github.io/tags/openapispec/</link>
+				<pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/openapispec/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Machine Learning</title>
+				<link>https://arunprakaash.github.io/tags/machine-learning/</link>
+				<pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/machine-learning/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Neural Networks</title>
+				<link>https://arunprakaash.github.io/tags/neural-networks/</link>
+				<pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/neural-networks/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Security</title>
+				<link>https://arunprakaash.github.io/tags/security/</link>
+				<pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
+				<guid>https://arunprakaash.github.io/tags/security/</guid>
+				<description></description>
+			</item>
+	</channel>
 </rss>

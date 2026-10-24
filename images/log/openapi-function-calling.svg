@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#efe9ff"/>
+  <rect x="760" y="80" width="340" height="200" rx="18" fill="#d9ccff"/>
+  <text x="70" y="300" font-family="Arial, sans-serif" font-size="66" fill="#2d2352">OpenAPI Function Calling</text>
+  <text x="70" y="370" font-family="Arial, sans-serif" font-size="34" fill="#58488f">From API specs to tool-usable AI functions</text>
+</svg>

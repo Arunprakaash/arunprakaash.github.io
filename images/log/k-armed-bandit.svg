@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#fff3de"/>
+  <rect x="820" y="70" width="250" height="460" rx="24" fill="#ffd89a"/>
+  <text x="70" y="300" font-family="Arial, sans-serif" font-size="68" fill="#4a3412">K-Armed Bandit</text>
+  <text x="70" y="370" font-family="Arial, sans-serif" font-size="34" fill="#7c5a26">Exploration vs exploitation in decision systems</text>
+</svg>

@@ -28,14 +28,14 @@
 <link rel="canonical" href="https://arunprakaash.github.io/lab/neural-nets/lesson-03-activation-functions/"/>
 
 <meta property="og:url" content="https://arunprakaash.github.io/lab/neural-nets/lesson-03-activation-functions/">
-  <meta property="og:site_name" content="arun._space">
-  <meta property="og:title" content="03 — The Switch That Isn&#39;t Really a Switch">
-  <meta property="og:description" content="Sigmoid, ReLU, tanh, softmax — the nonlinear magic that makes depth actually mean something.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="lab">
-    <meta property="article:published_time" content="2026-05-01T11:00:00+00:00">
-    <meta property="article:modified_time" content="2026-05-01T11:00:00+00:00">
+	<meta property="og:site_name" content="arun._space">
+	<meta property="og:title" content="03 — The Switch That Isn&#39;t Really a Switch">
+	<meta property="og:description" content="Sigmoid, ReLU, tanh, softmax — the nonlinear magic that makes depth actually mean something.">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="lab">
+		<meta property="article:published_time" content="2026-05-01T11:00:00+00:00">
+		<meta property="article:modified_time" content="2026-05-01T11:00:00+00:00">
 
 
 
@@ -49,7 +49,7 @@
 
 
 
-<link rel="stylesheet" href="/assets/combined.min.405e542cd1848b8fe9e8f624499da2c820ff057ab70d0e9ad1d3f1bc702ae32b.css" media="all">
+<link rel="stylesheet" href="/assets/combined.min.276792706a3aa4c94998d1c0ea4461feaca4f614a5a578abf286a25c91592b0f.css" media="all">
 
 
 
@@ -106,6 +106,17 @@
         <p class="small ">
             <a href="/" >
                 /home
+            </a>
+        </p>
+        
+
+        
+        
+        
+
+        <p class="small ">
+            <a href="/side-quests" >
+                /side-quests
             </a>
         </p>
         
@@ -301,59 +312,59 @@ If $z \leq 0$: output 0. Neuron is silent.</p>
   <a href="#cheat-sheet">#</a>
 </h2>
 <table>
-  <thead>
-      <tr>
-          <th></th>
-          <th>Range</th>
-          <th>Zero-centred</th>
-          <th>Saturates</th>
-          <th>Use it for</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>Step</td>
-          <td>${0,1}$</td>
-          <td>No</td>
-          <td>Hard</td>
-          <td>Historical curiosity</td>
-      </tr>
-      <tr>
-          <td>Sigmoid</td>
-          <td>$(0,1)$</td>
-          <td>No</td>
-          <td>Yes</td>
-          <td>Binary output layer</td>
-      </tr>
-      <tr>
-          <td>Tanh</td>
-          <td>$(-1,1)$</td>
-          <td>✓</td>
-          <td>Yes</td>
-          <td>RNNs, hidden layers</td>
-      </tr>
-      <tr>
-          <td>ReLU</td>
-          <td>$[0,\infty)$</td>
-          <td>No</td>
-          <td>Positive side only</td>
-          <td>Hidden layers (default)</td>
-      </tr>
-      <tr>
-          <td>Leaky ReLU</td>
-          <td>$\mathbb{R}$</td>
-          <td>No</td>
-          <td>No</td>
-          <td>When neurons keep dying</td>
-      </tr>
-      <tr>
-          <td>Softmax</td>
-          <td>$(0,1)$, sums to 1</td>
-          <td>—</td>
-          <td>—</td>
-          <td>Multi-class output</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th></th>
+					<th>Range</th>
+					<th>Zero-centred</th>
+					<th>Saturates</th>
+					<th>Use it for</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Step</td>
+					<td>${0,1}$</td>
+					<td>No</td>
+					<td>Hard</td>
+					<td>Historical curiosity</td>
+			</tr>
+			<tr>
+					<td>Sigmoid</td>
+					<td>$(0,1)$</td>
+					<td>No</td>
+					<td>Yes</td>
+					<td>Binary output layer</td>
+			</tr>
+			<tr>
+					<td>Tanh</td>
+					<td>$(-1,1)$</td>
+					<td>✓</td>
+					<td>Yes</td>
+					<td>RNNs, hidden layers</td>
+			</tr>
+			<tr>
+					<td>ReLU</td>
+					<td>$[0,\infty)$</td>
+					<td>No</td>
+					<td>Positive side only</td>
+					<td>Hidden layers (default)</td>
+			</tr>
+			<tr>
+					<td>Leaky ReLU</td>
+					<td>$\mathbb{R}$</td>
+					<td>No</td>
+					<td>No</td>
+					<td>When neurons keep dying</td>
+			</tr>
+			<tr>
+					<td>Softmax</td>
+					<td>$(0,1)$, sums to 1</td>
+					<td>—</td>
+					<td>—</td>
+					<td>Multi-class output</td>
+			</tr>
+	</tbody>
 </table>
 <hr>
 <h2 class="heading" id="demo-activation-explorer">
